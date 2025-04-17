@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Desarrollo Empresarial</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(aliceblue, lightblue);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .results {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #3498db;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .section-title {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin: 30px 0 15px 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .navigation button {
+            margin: 0;
+        }
+        
+        #restart-btn {
+            background-color: #e74c3c;
+        }
+        
+        #restart-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+        
+        .timer {
+            text-align: right;
+            font-size: 16px;
+            color: #445253;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz de Desarrollo Empresarial</h1>
+    <div class="timer">Tiempo: <span id="time">10:00</span></div>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <div id="start-screen">
+        <div class="quiz-container">
+            <h2>Bienvenido al Quiz de Desarrollo Empresarial</h2>
+            <p>Este cuestionario cubre temas fundamentales sobre planes de empresa, marketing, producción y gestión financiera.</p>
+            <p>El quiz contiene 30 preguntas. Tendrás 10 minutos para completarlo.</p>
+            <button id="start-btn">Comenzar Quiz</button>
+        </div>
+    </div>
+    
+    <div id="quiz" class="hidden">
+        <div class="section-title" id="section-title">Sección 1: Plan de Empresa</div>
+        <div class="quiz-container" id="question-container"></div>
+        <div class="navigation">
+            <button id="prev-btn" disabled>Anterior</button>
+            <button id="next-btn">Siguiente</button>
+        </div>
+    </div>
+    
+    <div id="results" class="hidden">
+        <div class="quiz-container">
+            <h2>Resultados del Quiz</h2>
+            <div class="results" id="score-container"></div>
+            <div id="detailed-results"></div>
+            <button id="restart-btn">Reiniciar Quiz</button>
+            <a href="../index.html"><button id="restart-btn">Regresar al menú.</button></a>
+        </div>
+    </div>
+
+    <script>
+        // Preguntas del quiz organizadas por secciones
+        const questions = [
+            // Sección 1: Plan de Empresa (8 preguntas)
+            {
+                section: "Plan de Empresa",
+                question: "¿Cuál es el objetivo principal del Plan de Empresa?",
+                options: [
+                    "Concretar la viabilidad y rentabilidad del proyecto a medio y largo plazo",
+                    "Atraer inversores sin analizar costos",
+                    "Crear un documento extenso sin objetivos claros",
+                    "Cumplir con un requisito legal sin utilidad práctica"
+                ],
+                answer: "Concretar la viabilidad y rentabilidad del proyecto a medio y largo plazo",
+                explanation: "El Plan de Empresa ayuda a determinar si el proyecto es viable y rentable, respondiendo si merece la pena crear la empresa."
+            },
+            {
+                section: "Plan de Empresa",
+                question: "¿Cuál NO es una recomendación para redactar un Plan de Empresa?",
+                options: [
+                    "Ser vago e impreciso en las descripciones",
+                    "Cuidar la presentación y ser claro",
+                    "Mantener un orden coherente",
+                    "Ser riguroso en los análisis"
+                ],
+                answer: "Ser vago e impreciso en las descripciones",
+                explanation: "Un buen Plan de Empresa debe ser claro, conciso, detallado y riguroso, evitando vaguedades."
+            },
+            {
+                section: "Plan de Empresa",
+                question: "¿Qué debe incluir la presentación del proyecto en el Plan de Empresa?",
+                options: [
+                    "Solo los nombres de los socios",
+                    "Un resumen ejecutivo, descripción del equipo y del producto/servicio",
+                    "Detalles financieros sin contexto",
+                    "La historia personal de los fundadores"
+                ],
+                answer: "Un resumen ejecutivo, descripción del equipo y del producto/servicio",
+                explanation: "La presentación debe incluir un resumen ejecutivo que explique el proyecto, el equipo y el producto/servicio de forma general."
+            },
+            {
+                section: "Plan de Empresa",
+                question: "¿Qué debe incluir el Presupuesto de Marketing?",
+                options: [
+                    "Solo los costos de publicidad",
+                    "Asignación de recursos financieros a las diferentes acciones de marketing",
+                    "Lista de clientes potenciales",
+                    "Detalles de producción"
+                ],
+                answer: "Asignación de recursos financieros a las diferentes acciones de marketing",
+                explanation: "El presupuesto debe asignar recursos a todas las acciones planificadas, no solo a publicidad."
+            },
+            {
+                section: "Plan de Empresa",
+                question: "¿Qué es el Proceso de Transformación en una empresa?",
+                options: [
+                    "Cambio de dueño de la empresa",
+                    "Actividades que generan valor añadido produciendo bienes o servicios",
+                    "Renovación del mobiliario de oficina",
+                    "Cambio de imagen corporativa"
+                ],
+                answer: "Actividades que generan valor añadido produciendo bienes o servicios",
+                explanation: "Es el núcleo de la empresa donde se crea valor mediante la producción."
+            },
+            {
+                section: "Plan de Empresa",
+                question: "¿Qué debe incluir el Plan de Producción?",
+                options: [
+                    "Solo la lista de maquinaria",
+                    "Descripción de cómo se fabricarán los productos, con aspectos técnicos y organizativos",
+                    "Nómina de empleados",
+                    "Estrategias de venta"
+                ],
+                answer: "Descripción de cómo se fabricarán los productos, con aspectos técnicos y organizativos",
+                explanation: "Debe detallar todo el proceso productivo, incluyendo aspectos técnicos y organizativos."
+            },
+            {
+                section: "Plan de Empresa",
+                question: "¿Qué es un Flujograma de Servicios?",
+                options: [
+                    "Gráfico de flujo de caja",
+                    "Representación gráfica de los pasos para prestar un servicio",
+                    "Organigrama de la empresa",
+                    "Diagrama de relaciones públicas"
+                ],
+                answer: "Representación gráfica de los pasos para prestar un servicio",
+                explanation: "Muestra visualmente la secuencia de pasos para entregar un servicio al cliente."
+            },
+            {
+                section: "Plan de Empresa",
+                question: "¿Qué implican la I+D+I y la Calidad Total?",
+                options: [
+                    "Solo cumplir con estándares mínimos",
+                    "La búsqueda de la mejora continua en productos, servicios y procesos",
+                    "Reducir costos sin mejorar calidad",
+                    "Solo aplican a grandes empresas"
+                ],
+                answer: "La búsqueda de la mejora continua en productos, servicios y procesos",
+                explanation: "Ambos conceptos buscan la excelencia y mejora constante en todos los aspectos."
+            },
+
+            // Sección 2: Plan de Marketing (10 preguntas)
+            {
+                section: "Plan de Marketing",
+                question: "¿Qué es el análisis DAFO?",
+                options: [
+                    "Un estudio de mercado cuantitativo",
+                    "Análisis de Debilidades, Amenazas, Fortalezas y Oportunidades",
+                    "Una técnica de fijación de precios",
+                    "Un método de distribución de productos"
+                ],
+                answer: "Análisis de Debilidades, Amenazas, Fortalezas y Oportunidades",
+                explanation: "Herramienta estratégica que analiza factores internos y externos."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "¿Cuál es el objetivo principal del Plan de Marketing?",
+                options: [
+                    "Contratar personal",
+                    "Fijar objetivos comerciales detallados",
+                    "Comprar equipos",
+                    "Redactar manuales de procedimiento"
+                ],
+                answer: "Fijar objetivos comerciales detallados",
+                explanation: "Establece objetivos comerciales claros y estrategias para alcanzarlos."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "¿Qué componentes forman el Marketing Mix?",
+                options: [
+                    "Producto, Precio, Distribución y Comunicación",
+                    "Personal, Procesos, Evidencia física",
+                    "Finanzas, Producción, RRHH",
+                    "Estrategia, Táctica, Operación"
+                ],
+                answer: "Producto, Precio, Distribución y Comunicación",
+                explanation: "Las 4 P's del Marketing: Producto, Precio, Plaza (Distribución) y Promoción (Comunicación)."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "Al definir el Producto/Servicio, ¿qué aspecto NO es esencial considerar?",
+                options: [
+                    "Color del logo de la empresa",
+                    "Características principales",
+                    "Cómo satisface necesidades del cliente",
+                    "Diseño del producto"
+                ],
+                answer: "Color del logo de la empresa",
+                explanation: "Lo importante son sus características, valor para el cliente y diseño."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "¿Qué factores influyen en la fijación de precios?",
+                options: [
+                    "Coste del producto, competencia y sensibilidad de la demanda",
+                    "Preferencias personales del dueño",
+                    "Tendencias de moda en colores",
+                    "Ubicación geográfica de los proveedores"
+                ],
+                answer: "Coste del producto, competencia y sensibilidad de la demanda",
+                explanation: "El precio debe considerar costos, competencia y percepción del cliente."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "¿Qué implica la Distribución en el Marketing Mix?",
+                options: [
+                    "Solo el transporte de productos",
+                    "Canales de distribución, logística y ubicación de puntos de venta",
+                    "Diseño de folletos publicitarios",
+                    "Selección de modelos para publicidad"
+                ],
+                answer: "Canales de distribución, logística y ubicación de puntos de venta",
+                explanation: "Abarca todos los aspectos para llevar el producto al cliente."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "¿Qué incluye la Comunicación/Promoción?",
+                options: [
+                    "Publicidad, relaciones públicas, venta personal y promoción de ventas",
+                    "Contabilidad y finanzas",
+                    "Producción y control de calidad",
+                    "Selección de personal"
+                ],
+                answer: "Publicidad, relaciones públicas, venta personal y promoción de ventas",
+                explanation: "Incluye múltiples herramientas para dar a conocer el producto."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "¿Qué debe incluir el Presupuesto de Marketing?",
+                options: [
+                    "Solo costos de publicidad",
+                    "Asignación de recursos a todas las acciones de marketing",
+                    "Sueldos del personal administrativo",
+                    "Costos de producción"
+                ],
+                answer: "Asignación de recursos a todas las acciones de marketing",
+                explanation: "Debe cubrir todas las áreas: producto, precio, distribución y comunicación."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "¿Qué es el Marketing Directo?",
+                options: [
+                    "Publicidad en medios masivos",
+                    "Comunicación personalizada con clientes potenciales",
+                    "Venta al por mayor",
+                    "Distribución en tiendas"
+                ],
+                answer: "Comunicación personalizada con clientes potenciales",
+                explanation: "Busca establecer relación directa con clientes individuales."
+            },
+            {
+                section: "Plan de Marketing",
+                question: "¿Qué es el Marketing Digital?",
+                options: [
+                    "Solo tener una página web",
+                    "Uso de canales digitales para estrategias de marketing",
+                    "Vender productos electrónicos",
+                    "Publicidad en periódicos"
+                ],
+                answer: "Uso de canales digitales para estrategias de marketing",
+                explanation: "Incluye redes sociales, email marketing, SEO, y otras estrategias online."
+            },
+
+            // Sección 3: Gestión de Proyectos (6 preguntas)
+            {
+                section: "Gestión de Proyectos",
+                question: "¿Qué implica la Gestión de Proyectos?",
+                options: [
+                    "Solo asignar tareas al personal",
+                    "Planificar, organizar y controlar recursos para alcanzar objetivos",
+                    "Realizar actividades sin planificación",
+                    "Contratar y despedir empleados"
+                ],
+                answer: "Planificar, organizar y controlar recursos para alcanzar objetivos",
+                explanation: "Implica planificación, organización y control sistemático de recursos."
+            },
+            {
+                section: "Gestión de Proyectos",
+                question: "¿Cuál NO es una fase de la Gestión de Proyectos?",
+                options: [
+                    "Definición del proyecto",
+                    "Planificación",
+                    "Ejecución sin supervisión",
+                    "Seguimiento y control"
+                ],
+                answer: "Ejecución sin supervisión",
+                explanation: "Todas las fases requieren planificación y control."
+            },
+            {
+                section: "Gestión de Proyectos",
+                question: "¿Cuál es el rol principal del Jefe de Proyecto?",
+                options: [
+                    "Planificar, ejecutar y controlar el proyecto para alcanzar objetivos",
+                    "Realizar todas las tareas personalmente",
+                    "Solo aprobar el presupuesto",
+                    "Coordinar actividades sociales de la empresa"
+                ],
+                answer: "Planificar, ejecutar y controlar el proyecto para alcanzar objetivos",
+                explanation: "Lidera la planificación, ejecución y control para cumplir objetivos."
+            },
+            {
+                section: "Gestión de Proyectos",
+                question: "¿Qué es un Diagrama de Gantt?",
+                options: [
+                    "Gráfico de barras que muestra el cronograma del proyecto",
+                    "Organigrama de la empresa",
+                    "Diagrama de flujo de caja",
+                    "Mapa de procesos"
+                ],
+                answer: "Gráfico de barras que muestra el cronograma del proyecto",
+                explanation: "Herramienta visual para planificar y programar proyectos."
+            },
+            {
+                section: "Gestión de Proyectos",
+                question: "¿Qué es el Triángulo de Hierro en gestión de proyectos?",
+                options: [
+                    "Alcance, Tiempo y Costo",
+                    "Calidad, Cantidad y Precio",
+                    "Producción, Ventas y Marketing",
+                    "Personal, Maquinaria y Materiales"
+                ],
+                answer: "Alcance, Tiempo y Costo",
+                explanation: "Las tres restricciones principales que todo proyecto debe balancear."
+            },
+            {
+                section: "Gestión de Proyectos",
+                question: "¿Qué es un Riesgo en gestión de proyectos?",
+                options: [
+                    "Evento incierto que puede afectar objetivos del proyecto",
+                    "Garantía de éxito del proyecto",
+                    "Parte del presupuesto no utilizado",
+                    "Recurso humano adicional"
+                ],
+                answer: "Evento incierto que puede afectar objetivos del proyecto",
+                explanation: "Debe identificarse y gestionarse proactivamente."
+            },
+
+            // Sección 4: Planes Financieros (6 preguntas)
+            {
+                section: "Planes Financieros",
+                question: "¿Qué debe incluir el Plan de Recursos Humanos?",
+                options: [
+                    "Solo los salarios del equipo directivo",
+                    "Necesidades de personal, organización, políticas de contratación y formación",
+                    "Lista de proveedores",
+                    "Diseño del producto"
+                ],
+                answer: "Necesidades de personal, organización, políticas de contratación y formación",
+                explanation: "Abarca todos los aspectos relacionados con el personal necesario."
+            },
+            {
+                section: "Planes Financieros",
+                question: "¿Qué incluye el Plan de Inversiones?",
+                options: [
+                    "Solo el alquiler del local",
+                    "Inversiones en activo fijo (inmuebles, maquinaria) y circulante (materias primas)",
+                    "Gastos de publicidad",
+                    "Salarios del primer mes"
+                ],
+                answer: "Inversiones en activo fijo (inmuebles, maquinaria) y circulante (materias primas)",
+                explanation: "Detalla todos los recursos necesarios para poner en marcha la empresa."
+            },
+            {
+                section: "Planes Financieros",
+                question: "¿Qué documentos incluye el Plan Económico Financiero?",
+                options: [
+                    "Solo el presupuesto de tesorería",
+                    "Cuenta de Resultados previsional, Balance previsional y Presupuesto de Tesorería",
+                    "Manual de procedimientos",
+                    "Estudio de mercado"
+                ],
+                answer: "Cuenta de Resultados previsional, Balance previsional y Presupuesto de Tesorería",
+                explanation: "Estos tres documentos financieros son esenciales para la viabilidad económica."
+            },
+            {
+                section: "Planes Financieros",
+                question: "¿Por qué es importante la contabilidad para la empresa?",
+                options: [
+                    "Es solo un requisito legal sin mayor utilidad",
+                    "Proporciona información valiosa para la toma de decisiones",
+                    "Sirve principalmente para impresionar a los bancos",
+                    "Es necesaria solo para empresas grandes"
+                ],
+                answer: "Proporciona información valiosa para la toma de decisiones",
+                explanation: "Muestra la posición real de la empresa y es fundamental para la gestión."
+            },
+            {
+                section: "Planes Financieros",
+                question: "¿Qué es el Punto de Equilibrio?",
+                options: [
+                    "Momento en que ingresos igualan a costos",
+                    "Cuando se contrata al personal clave",
+                    "Balance general inicial",
+                    "Primera venta del producto"
+                ],
+                answer: "Momento en que ingresos igualan a costos",
+                explanation: "Indica el volumen de ventas necesario para cubrir costos fijos y variables."
+            },
+            {
+                section: "Planes Financieros",
+                question: "¿Qué es la Rentabilidad sobre Inversión (ROI)?",
+                options: [
+                    "Relación entre beneficio neto e inversión realizada",
+                    "Total de ventas anuales",
+                    "Número de empleados por departamento",
+                    "Valor de los activos fijos"
+                ],
+                answer: "Relación entre beneficio neto e inversión realizada",
+                explanation: "Mide el retorno obtenido en relación a la inversión efectuada."
+            }
+        ];
+
+        // Variables de estado
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let timeLeft = 600; // 30 minutos en segundos
+        let timerInterval;
+        let quizStarted = false;
+
+        // Elementos del DOM
+        const startScreen = document.getElementById('start-screen');
+        const quizContainer = document.getElementById('quiz');
+        const questionContainer = document.getElementById('question-container');
+        const resultsContainer = document.getElementById('results');
+        const scoreContainer = document.getElementById('score-container');
+        const detailedResults = document.getElementById('detailed-results');
+        const progressBar = document.getElementById('progress-bar');
+        const sectionTitle = document.getElementById('section-title');
+        const timeDisplay = document.getElementById('time');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Event listeners
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Función para iniciar el quiz
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            quizStarted = true;
+            startTimer();
+            showQuestion();
+        }
+
+        // Función para mostrar una pregunta
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            
+            // Actualizar título de sección si cambió
+            if (currentQuestion === 0 || questions[currentQuestion].section !== questions[currentQuestion-1].section) {
+                sectionTitle.textContent = `Sección ${getSectionNumber(question.section)}: ${question.section}`;
+            }
+            
+            // Actualizar barra de progreso
+            progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // Construir HTML de la pregunta
+            let html = `<div class="question">
+                <h3>${currentQuestion + 1}. ${question.question}</h3>
+                <div class="options">`;
+            
+            question.options.forEach((option, index) => {
+                const isChecked = userAnswers[currentQuestion] === option ? 'checked' : '';
+                html += `<div class="option">
+                    <input type="radio" name="answer" id="option${index}" value="${option}" ${isChecked}>
+                    <label for="option${index}">${option}</label>
+                </div>`;
+            });
+            
+            html += `</div>
+                <div class="explanation" id="explanation">${question.explanation}</div>
+            </div>`;
+            
+            questionContainer.innerHTML = html;
+            
+            // Añadir event listeners a los radios
+            document.querySelectorAll('input[name="answer"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    userAnswers[currentQuestion] = e.target.value;
+                    document.getElementById('explanation').style.display = 'block';
+                });
+            });
+            
+            // Actualizar estado de los botones de navegación
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.textContent = currentQuestion === questions.length - 1 ? 'Finalizar' : 'Siguiente';
+            
+            // Mostrar explicación si ya se respondió
+            if (userAnswers[currentQuestion] !== null) {
+                document.getElementById('explanation').style.display = 'block';
+            }
+        }
+
+        // Función para obtener número de sección
+        function getSectionNumber(sectionName) {
+            const sections = [...new Set(questions.map(q => q.section))];
+            return sections.indexOf(sectionName) + 1;
+        }
+
+        // Función para ir a la siguiente pregunta
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // Función para ir a la pregunta anterior
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // Función para finalizar el quiz
+        function finishQuiz() {
+            clearInterval(timerInterval);
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            // Calcular puntaje
+            score = 0;
+            questions.forEach((q, index) => {
+                if (userAnswers[index] === q.answer) {
+                    score++;
+                }
+            });
+            
+            // Mostrar resultados generales
+            const percentage = Math.round((score / questions.length) * 100);
+            let message = `Obtuviste ${score} de ${questions.length} respuestas correctas (${percentage}%) - `;
+            
+            if (percentage >= 90) {
+                message += "¡Excelente! Dominas estos conceptos empresariales.";
+            } else if (percentage >= 70) {
+                message += "¡Buen trabajo! Tienes buen conocimiento pero puedes mejorar.";
+            } else if (percentage >= 50) {
+                message += "Aprobado. Sería recomendable repasar algunos conceptos.";
+            } else {
+                message += "Necesitas estudiar más estos temas. Revisa las explicaciones detalladas.";
+            }
+            
+            scoreContainer.textContent = message;
+            scoreContainer.className = 'results ' + (percentage >= 70 ? 'correct' : 'incorrect');
+            
+            // Mostrar resultados detallados
+            detailedResults.innerHTML = '<h3>Detalle por pregunta:</h3>';
+            questions.forEach((q, index) => {
+                const isCorrect = userAnswers[index] === q.answer;
+                const userAnswer = userAnswers[index] !== null ? userAnswers[index] : 'Sin responder';
+                const correctAnswer = q.answer;
+                
+                detailedResults.innerHTML += `
+                    <div class="question-result ${isCorrect ? 'correct' : 'incorrect'}">
+                        <p><strong>Pregunta ${index + 1}:</strong> ${q.question}</p>
+                        <p><strong>Tu respuesta:</strong> ${userAnswer}</p>
+                        ${!isCorrect ? `<p><strong>Respuesta correcta:</strong> ${correctAnswer}</p>` : ''}
+                        <div class="explanation">${q.explanation}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // Función para reiniciar el quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            timeLeft = 600;
+            updateTimerDisplay();
+            
+            resultsContainer.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            
+            clearInterval(timerInterval);
+            quizStarted = false;
+        }
+
+        // Funciones para el temporizador
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 300) { // 5 minutos o menos
+                timeDisplay.style.color = '#e74c3c';
+            }
+        }
+    </script>
+</body>
+</html>
