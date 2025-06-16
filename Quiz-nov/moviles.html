@@ -1,1 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Desarrollo Móvil</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 20px auto;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .results {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #3498db;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .navigation button {
+            margin: 0;
+        }
+        
+        #restart-btn {
+            background-color: #e74c3c;
+        }
+        
+        #restart-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz de Desarrollo Móvil</h1>
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <div id="start-screen">
+        <div class="quiz-container">
+            <h2>Bienvenido al Quiz de Desarrollo Móvil</h2>
+            <p>Este cuestionario cubre conceptos fundamentales sobre sistemas operativos móviles, desarrollo de aplicaciones y tecnologías relacionadas.</p>
+            <button id="start-btn">Comenzar Quiz</button>
+        </div>
+    </div>
+    
+    <div id="quiz" class="hidden">
+        <div class="quiz-container" id="question-container"></div>
+        <div class="navigation">
+            <button id="prev-btn" disabled>Anterior</button>
+            <button id="next-btn">Siguiente</button>
+        </div>
+    </div>
+    
+    <div id="results" class="hidden">
+        <div class="quiz-container">
+            <h2>Resultados del Quiz</h2>
+            <div class="results" id="score-container"></div>
+            <div id="detailed-results"></div>
+            <button id="restart-btn">Reiniciar Quiz</button>
+        </div>
+    </div>
 
+    <script>
+        // Preguntas del quiz (selección de 20 preguntas de la guía)
+        const questions = [
+            {
+                question: "1. ¿Qué sistema operativo móvil utilizan actualmente los dispositivos Samsung?",
+                options: ["iOS", "Android", "HarmonyOS", "KaiOS"],
+                answer: "Android",
+                explanation: "Los dispositivos Samsung utilizan Android con su capa de personalización One UI."
+            },
+            {
+                question: "2. ¿Qué sistema operativo móvil utilizan los dispositivos de Apple?",
+                options: ["Android", "iOS", "HarmonyOS", "Tizen"],
+                answer: "iOS",
+                explanation: "iOS es el sistema operativo exclusivo para dispositivos Apple como iPhone y iPad."
+            },
+            {
+                question: "3. ¿Qué marca de smartphones utiliza el sistema operativo HarmonyOS?",
+                options: ["Samsung", "Apple", "Huawei", "Xiaomi"],
+                answer: "Huawei",
+                explanation: "Huawei desarrolló HarmonyOS como alternativa a Android después de las restricciones estadounidenses."
+            },
+            {
+                question: "4. ¿Cuál de estos NO es un sistema operativo móvil?",
+                options: ["KaiOS", "Ubuntu Touch", "Windows 10", "Tizen"],
+                answer: "Windows 10",
+                explanation: "Windows 10 es un sistema operativo para PCs, aunque existió Windows 10 Mobile que ya está discontinuado."
+            },
+            {
+                question: "5. ¿Qué versión de Android se llamó 'KitKat'?",
+                options: ["Android 4.4", "Android 5.0", "Android 6.0", "Android 7.0"],
+                answer: "Android 4.4",
+                explanation: "Android 4.4 llevó el nombre en código 'KitKat', continuando con la tradición de nombres de postres."
+            },
+            {
+                question: "6. ¿Qué significa WWW en el contexto de Internet?",
+                options: [
+                    "World Wide Web",
+                    "Wireless Web World",
+                    "World Wireless Web",
+                    "Web World Wide"
+                ],
+                answer: "World Wide Web",
+                explanation: "WWW significa World Wide Web (Red Global Mundial), el sistema de documentos hipervinculados accesibles a través de Internet."
+            },
+            {
+                question: "7. ¿Qué protocolo es parte del estándar WAP?",
+                options: ["WAE", "HTTP", "FTP", "TCP"],
+                answer: "WAE",
+                explanation: "WAE (Wireless Application Environment) es uno de los componentes del estándar WAP, junto con WSP, WTP, WTLS y WDP."
+            },
+            {
+                question: "8. ¿Qué tecnología NO forma parte de WAE?",
+                options: ["WML", "WMLScript", "WBMP", "GSM"],
+                answer: "GSM",
+                explanation: "GSM es un estándar de telefonía móvil, no forma parte de WAE (Wireless Application Environment)."
+            },
+            {
+                question: "9. ¿Qué es un 'bearer' en telecomunicaciones?",
+                options: [
+                    "Un tipo de antena",
+                    "Un canal de comunicación que transporta información",
+                    "Un protocolo de seguridad",
+                    "Un estándar de compresión de datos"
+                ],
+                answer: "Un canal de comunicación que transporta información",
+                explanation: "Un bearer es un canal de comunicación que proporciona un cierto ancho de banda y calidad de servicio para transportar información."
+            },
+            {
+                question: "10. ¿Qué caracteriza a una aplicación nativa?",
+                options: [
+                    "Se ejecuta en un navegador",
+                    "Está desarrollada específicamente para un sistema operativo",
+                    "No puede acceder a las funciones del dispositivo",
+                    "Utiliza solo tecnologías web"
+                ],
+                answer: "Está desarrollada específicamente para un sistema operativo",
+                explanation: "Las aplicaciones nativas están desarrolladas para un sistema operativo específico usando sus lenguajes y herramientas nativas."
+            },
+            {
+                question: "11. ¿Qué tipo de aplicación combina elementos nativos y web?",
+                options: [
+                    "Aplicación nativa",
+                    "Aplicación híbrida",
+                    "Web app",
+                    "Aplicación progresiva"
+                ],
+                answer: "Aplicación híbrida",
+                explanation: "Las aplicaciones híbridas combinan tecnologías web con un contenedor nativo que permite acceso a funciones del dispositivo."
+            },
+            {
+                question: "12. ¿Qué es una PWA (Aplicación Web Progresiva)?",
+                options: [
+                    "Aplicación solo para iOS",
+                    "Aplicación web que ofrece experiencia similar a nativa",
+                    "Aplicación que requiere instalación desde tiendas oficiales",
+                    "Aplicación desarrollada solo con Java"
+                ],
+                answer: "Aplicación web que ofrece experiencia similar a nativa",
+                explanation: "Las PWAs son aplicaciones web que usan tecnologías modernas para ofrecer funciones como trabajo offline y notificaciones push."
+            },
+            {
+                question: "13. ¿Qué lenguaje es ideal para desarrollo nativo en Android?",
+                options: ["Swift", "Kotlin", "Objective-C", "C#"],
+                answer: "Kotlin",
+                explanation: "Kotlin es el lenguaje recomendado por Google para desarrollo Android, aunque también se puede usar Java."
+            },
+            {
+                question: "14. ¿Qué lenguaje es ideal para desarrollo nativo en iOS?",
+                options: ["Kotlin", "Java", "Swift", "Dart"],
+                answer: "Swift",
+                explanation: "Swift es el lenguaje moderno creado por Apple para desarrollo en iOS, macOS y otros sistemas Apple."
+            },
+            {
+                question: "15. ¿Qué framework usa el lenguaje Dart?",
+                options: ["React Native", "Xamarin", "Flutter", "Ionic"],
+                answer: "Flutter",
+                explanation: "Flutter es el framework de Google que utiliza el lenguaje Dart para crear aplicaciones nativas para múltiples plataformas."
+            },
+            {
+                question: "16. ¿Qué IDE es oficial para desarrollo Android?",
+                options: [
+                    "Xcode",
+                    "Android Studio",
+                    "Visual Studio",
+                    "Eclipse"
+                ],
+                answer: "Android Studio",
+                explanation: "Android Studio es el IDE oficial recomendado por Google para desarrollo de aplicaciones Android."
+            },
+            {
+                question: "17. ¿Qué extensión tienen los archivos de aplicaciones iOS?",
+                options: [".apk", ".exe", ".ipa", ".app"],
+                answer: ".ipa",
+                explanation: "Los archivos .ipa (iOS App Store Package) contienen aplicaciones para dispositivos iOS."
+            },
+            {
+                question: "18. ¿Qué significa SMS?",
+                options: [
+                    "Simple Mail Service",
+                    "Short Message Service",
+                    "Secure Mobile Service",
+                    "System Message Service"
+                ],
+                answer: "Short Message Service",
+                explanation: "SMS significa Short Message Service, el servicio estándar para mensajes de texto en móviles."
+            },
+            {
+                question: "19. ¿Qué generación de telefonía móvil introdujo GSM?",
+                options: ["1G", "2G", "3G", "4G"],
+                answer: "2G",
+                explanation: "GSM (Global System for Mobile Communications) fue el estándar dominante de la segunda generación (2G) de telefonía móvil."
+            },
+            {
+                question: "20. ¿Qué servicio de Firebase es útil para almacenamiento de datos?",
+                options: [
+                    "Firebase Authentication",
+                    "Firebase Realtime Database",
+                    "Firebase Crashlytics",
+                    "Firebase Analytics"
+                ],
+                answer: "Firebase Realtime Database",
+                explanation: "Firebase Realtime Database es el servicio que permite almacenar y sincronizar datos en tiempo real entre los clientes."
+            }
+        ];
+
+        // Variables de estado
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+
+        // Elementos del DOM
+        const startScreen = document.getElementById('start-screen');
+        const quizContainer = document.getElementById('quiz');
+        const questionContainer = document.getElementById('question-container');
+        const resultsContainer = document.getElementById('results');
+        const scoreContainer = document.getElementById('score-container');
+        const detailedResults = document.getElementById('detailed-results');
+        const progressBar = document.getElementById('progress-bar');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Event listeners
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+
+        // Función para iniciar el quiz
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            showQuestion();
+        }
+
+        // Función para mostrar una pregunta
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            
+            // Actualizar barra de progreso
+            progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // Construir HTML de la pregunta
+            let html = `<div class="question">
+                <h3>${question.question}</h3>
+                <div class="options">`;
+            
+            question.options.forEach((option, index) => {
+                const isChecked = userAnswers[currentQuestion] === option ? 'checked' : '';
+                html += `<div class="option">
+                    <input type="radio" name="answer" id="option${index}" value="${option}" ${isChecked}>
+                    <label for="option${index}">${option}</label>
+                </div>`;
+            });
+            
+            html += `</div>
+                <div class="explanation" id="explanation">${question.explanation}</div>
+            </div>`;
+            
+            questionContainer.innerHTML = html;
+            
+            // Añadir event listeners a los radios
+            document.querySelectorAll('input[name="answer"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    userAnswers[currentQuestion] = e.target.value;
+                });
+            });
+            
+            // Actualizar estado de los botones de navegación
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.textContent = currentQuestion === questions.length - 1 ? 'Finalizar' : 'Siguiente';
+            
+            // Mostrar explicación si ya se respondió
+            if (userAnswers[currentQuestion] !== null) {
+                showExplanation();
+            }
+        }
+
+        // Función para mostrar explicación
+        function showExplanation() {
+            const explanation = document.getElementById('explanation');
+            if (explanation) {
+                explanation.style.display = 'block';
+            }
+        }
+
+        // Función para ir a la siguiente pregunta
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // Función para ir a la pregunta anterior
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // Función para finalizar el quiz
+        function finishQuiz() {
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            // Calcular puntaje
+            score = 0;
+            questions.forEach((q, index) => {
+                if (userAnswers[index] === q.answer) {
+                    score++;
+                }
+            });
+            
+            // Mostrar resultados generales
+            const percentage = Math.round((score / questions.length) * 100);
+            scoreContainer.textContent = `Obtuviste ${score} de ${questions.length} respuestas correctas (${percentage}%)`;
+            scoreContainer.className = 'results ' + (percentage >= 70 ? 'correct' : 'incorrect');
+            
+            // Mostrar resultados detallados
+            detailedResults.innerHTML = '<h3>Detalle por pregunta:</h3>';
+            questions.forEach((q, index) => {
+                const isCorrect = userAnswers[index] === q.answer;
+                const userAnswer = userAnswers[index] !== null ? userAnswers[index] : 'Sin responder';
+                const correctAnswer = q.answer;
+                
+                detailedResults.innerHTML += `
+                    <div class="question-result ${isCorrect ? 'correct' : 'incorrect'}">
+                        <p><strong>Pregunta ${index + 1}:</strong> ${q.question}</p>
+                        <p><strong>Tu respuesta:</strong> ${userAnswer}</p>
+                        ${!isCorrect ? `<p><strong>Respuesta correcta:</strong> ${correctAnswer}</p>` : ''}
+                        <p><strong>Explicación:</strong> ${q.explanation}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // Función para reiniciar el quiz
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            
+            resultsContainer.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
