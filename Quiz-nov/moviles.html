@@ -179,38 +179,76 @@
     <script>
         // Preguntas del quiz (selección de 20 preguntas de la guía)
         const questions = [
+            // Sistemas operativos (10 preguntas)
             {
-                question: "1. ¿Qué sistema operativo móvil utilizan actualmente los dispositivos Samsung?",
-                options: ["iOS", "Android", "HarmonyOS", "KaiOS"],
-                answer: "Android",
-                explanation: "Los dispositivos Samsung utilizan Android con su capa de personalización One UI."
+                question: "1. ¿Qué sistema operativo móvil utilizan los dispositivos Samsung Galaxy?",
+                options: ["iOS", "One UI", "HarmonyOS", "Tizen"],
+                answer: "One UI",
+                explanation: "Los dispositivos Samsung Galaxy utilizan Android con su capa de personalización One UI."
             },
             {
-                question: "2. ¿Qué sistema operativo móvil utilizan los dispositivos de Apple?",
-                options: ["Android", "iOS", "HarmonyOS", "Tizen"],
+                question: "2. ¿Qué sistema operativo es exclusivo de los dispositivos Apple?",
+                options: ["Android", "iOS", "HarmonyOS", "KaiOS"],
                 answer: "iOS",
-                explanation: "iOS es el sistema operativo exclusivo para dispositivos Apple como iPhone y iPad."
+                explanation: "iOS es el sistema operativo desarrollado por Apple exclusivamente para sus dispositivos móviles."
             },
             {
-                question: "3. ¿Qué marca de smartphones utiliza el sistema operativo HarmonyOS?",
+                question: "3. ¿Qué fabricante desarrolló el sistema operativo HarmonyOS?",
                 options: ["Samsung", "Apple", "Huawei", "Xiaomi"],
                 answer: "Huawei",
-                explanation: "Huawei desarrolló HarmonyOS como alternativa a Android después de las restricciones estadounidenses."
+                explanation: "HarmonyOS fue desarrollado por Huawei como alternativa a Android debido a las restricciones comerciales."
             },
             {
-                question: "4. ¿Cuál de estos NO es un sistema operativo móvil?",
-                options: ["KaiOS", "Ubuntu Touch", "Windows 10", "Tizen"],
-                answer: "Windows 10",
-                explanation: "Windows 10 es un sistema operativo para PCs, aunque existió Windows 10 Mobile que ya está discontinuado."
+                question: "4. ¿Qué sistema operativo móvil es conocido por su uso en dispositivos básicos (feature phones)?",
+                options: ["Android Go", "iOS", "KaiOS", "HarmonyOS"],
+                answer: "KaiOS",
+                explanation: "KaiOS es un sistema operativo diseñado para dispositivos móviles básicos con teclado físico."
             },
             {
-                question: "5. ¿Qué versión de Android se llamó 'KitKat'?",
-                options: ["Android 4.4", "Android 5.0", "Android 6.0", "Android 7.0"],
-                answer: "Android 4.4",
-                explanation: "Android 4.4 llevó el nombre en código 'KitKat', continuando con la tradición de nombres de postres."
+                question: "5. ¿Qué versión de Android se conoce como 'Oreo'?",
+                options: ["Android 7.0", "Android 8.0", "Android 9.0", "Android 10"],
+                answer: "Android 8.0",
+                explanation: "Android 8.0 llevó el nombre en código 'Oreo', continuando con la tradición de nombres de postres."
             },
             {
-                question: "6. ¿Qué significa WWW en el contexto de Internet?",
+                question: "6. ¿Qué sistema operativo utilizan los relojes inteligentes de Samsung?",
+                options: ["Wear OS", "Tizen", "HarmonyOS", "watchOS"],
+                answer: "Tizen",
+                explanation: "Los relojes inteligentes de Samsung utilizan Tizen, aunque sus nuevos modelos están migrando a Wear OS."
+            },
+            {
+                question: "7. ¿Qué característica principal diferencia a HarmonyOS de Android?",
+                options: [
+                    "Es solo para smartphones",
+                    "Está diseñado para ser un sistema multiplataforma",
+                    "No soporta aplicaciones de terceros",
+                    "Es exclusivo para tablets"
+                ],
+                answer: "Está diseñado para ser un sistema multiplataforma",
+                explanation: "HarmonyOS está diseñado para funcionar en múltiples dispositivos (smartphones, tablets, wearables, IoT) de forma integrada."
+            },
+            {
+                question: "8. ¿Qué versión de Android introdujo el modo oscuro a nivel del sistema?",
+                options: ["Android 7.0", "Android 8.0", "Android 9.0", "Android 10"],
+                answer: "Android 10",
+                explanation: "Android 10 (Q) introdujo el modo oscuro a nivel del sistema como una característica nativa."
+            },
+            {
+                question: "9. ¿Qué sistema operativo móvil fue desarrollado originalmente por Palm?",
+                options: ["webOS", "KaiOS", "Ubuntu Touch", "Tizen"],
+                answer: "webOS",
+                explanation: "webOS fue desarrollado originalmente por Palm, luego adquirido por HP y finalmente por LG para sus TVs."
+            },
+            {
+                question: "10. ¿Qué versión de iOS introdujo los widgets en la pantalla de inicio?",
+                options: ["iOS 10", "iOS 12", "iOS 14", "iOS 15"],
+                answer: "iOS 14",
+                explanation: "iOS 14 introdujo por primera vez widgets en la pantalla de inicio, una característica que Android ya tenía desde hace años."
+            },
+
+            // Tecnologías web y protocolos (10 preguntas)
+            {
+                question: "11. ¿Qué significa WWW en el contexto de Internet?",
                 options: [
                     "World Wide Web",
                     "Wireless Web World",
@@ -221,98 +259,195 @@
                 explanation: "WWW significa World Wide Web (Red Global Mundial), el sistema de documentos hipervinculados accesibles a través de Internet."
             },
             {
-                question: "7. ¿Qué protocolo es parte del estándar WAP?",
-                options: ["WAE", "HTTP", "FTP", "TCP"],
-                answer: "WAE",
-                explanation: "WAE (Wireless Application Environment) es uno de los componentes del estándar WAP, junto con WSP, WTP, WTLS y WDP."
+                question: "12. ¿Qué componente de WAP se encarga de la seguridad en las comunicaciones?",
+                options: ["WAE", "WSP", "WTLS", "WDP"],
+                answer: "WTLS",
+                explanation: "WTLS (Wireless Transport Layer Security) proporciona seguridad en las comunicaciones dentro del estándar WAP."
             },
             {
-                question: "8. ¿Qué tecnología NO forma parte de WAE?",
+                question: "13. ¿Qué lenguaje de marcado se utiliza en WAE?",
+                options: ["HTML", "WML", "XML", "JSON"],
+                answer: "WML",
+                explanation: "WML (Wireless Markup Language) es el lenguaje de marcado utilizado en WAE para dispositivos móviles."
+            },
+            {
+                question: "14. ¿Qué protocolo en WAP es equivalente a HTTP en la web tradicional?",
+                options: ["WSP", "WTP", "WTLS", "WDP"],
+                answer: "WSP",
+                explanation: "WSP (Wireless Session Protocol) proporciona funcionalidad similar a HTTP pero optimizado para redes inalámbricas."
+            },
+            {
+                question: "15. ¿Qué tecnología de WAE es similar a JavaScript?",
+                options: ["WMLScript", "WBMP", "WTA", "WSP"],
+                answer: "WMLScript",
+                explanation: "WMLScript es un lenguaje de script similar a JavaScript pero diseñado para dispositivos móviles con recursos limitados."
+            },
+            {
+                question: "16. ¿Qué capa del modelo WAP se encarga de adaptarse a diferentes redes portadoras?",
+                options: ["WAE", "WSP", "WDP", "WTLS"],
+                answer: "WDP",
+                explanation: "WDP (Wireless Datagram Protocol) adapta el protocolo a diferentes redes portadoras como GSM, CDMA, etc."
+            },
+            {
+                question: "17. ¿Qué significa WAP en telecomunicaciones?",
+                options: [
+                    "Wireless Access Protocol",
+                    "Wireless Application Protocol",
+                    "Web Access Protocol",
+                    "Wide Area Protocol"
+                ],
+                answer: "Wireless Application Protocol",
+                explanation: "WAP significa Wireless Application Protocol, un estándar para aplicaciones en dispositivos móviles."
+            },
+            {
+                question: "18. ¿Qué formato de imagen se utiliza en WAE?",
+                options: ["JPEG", "PNG", "WBMP", "GIF"],
+                answer: "WBMP",
+                explanation: "WBMP (Wireless Bitmap) es un formato de imagen optimizado para dispositivos móviles con pantallas pequeñas."
+            },
+            {
+                question: "19. ¿Qué componente de WAP maneja las transacciones entre cliente y servidor?",
+                options: ["WAE", "WTP", "WSP", "WTLS"],
+                answer: "WTP",
+                explanation: "WTP (Wireless Transaction Protocol) maneja las transacciones entre cliente y servidor en WAP."
+            },
+            {
+                question: "20. ¿Qué tecnología NO forma parte de WAE?",
                 options: ["WML", "WMLScript", "WBMP", "GSM"],
                 answer: "GSM",
                 explanation: "GSM es un estándar de telefonía móvil, no forma parte de WAE (Wireless Application Environment)."
             },
+
+            // Desarrollo de aplicaciones (15 preguntas)
             {
-                question: "9. ¿Qué es un 'bearer' en telecomunicaciones?",
-                options: [
-                    "Un tipo de antena",
-                    "Un canal de comunicación que transporta información",
-                    "Un protocolo de seguridad",
-                    "Un estándar de compresión de datos"
-                ],
-                answer: "Un canal de comunicación que transporta información",
-                explanation: "Un bearer es un canal de comunicación que proporciona un cierto ancho de banda y calidad de servicio para transportar información."
-            },
-            {
-                question: "10. ¿Qué caracteriza a una aplicación nativa?",
+                question: "21. ¿Qué caracteriza a una aplicación nativa?",
                 options: [
                     "Se ejecuta en un navegador",
-                    "Está desarrollada específicamente para un sistema operativo",
-                    "No puede acceder a las funciones del dispositivo",
+                    "Está desarrollada para un sistema operativo específico",
+                    "No puede acceder a hardware del dispositivo",
                     "Utiliza solo tecnologías web"
                 ],
-                answer: "Está desarrollada específicamente para un sistema operativo",
-                explanation: "Las aplicaciones nativas están desarrolladas para un sistema operativo específico usando sus lenguajes y herramientas nativas."
+                answer: "Está desarrollada para un sistema operativo específico",
+                explanation: "Las apps nativas están optimizadas para un SO específico, con acceso completo al hardware y mejor rendimiento."
             },
             {
-                question: "11. ¿Qué tipo de aplicación combina elementos nativos y web?",
+                question: "22. ¿Qué ventaja tiene una aplicación híbrida sobre una nativa?",
                 options: [
-                    "Aplicación nativa",
-                    "Aplicación híbrida",
-                    "Web app",
-                    "Aplicación progresiva"
+                    "Mejor rendimiento",
+                    "Mayor acceso al hardware",
+                    "Desarrollo multiplataforma",
+                    "No necesita conexión a internet"
                 ],
-                answer: "Aplicación híbrida",
-                explanation: "Las aplicaciones híbridas combinan tecnologías web con un contenedor nativo que permite acceso a funciones del dispositivo."
+                answer: "Desarrollo multiplataforma",
+                explanation: "Las apps híbridas permiten desarrollar una vez y desplegar en múltiples plataformas, reduciendo costos."
             },
             {
-                question: "12. ¿Qué es una PWA (Aplicación Web Progresiva)?",
+                question: "23. ¿Qué es una PWA (Progressive Web App)?",
                 options: [
                     "Aplicación solo para iOS",
-                    "Aplicación web que ofrece experiencia similar a nativa",
-                    "Aplicación que requiere instalación desde tiendas oficiales",
-                    "Aplicación desarrollada solo con Java"
+                    "Aplicación web con características de app nativa",
+                    "Aplicación que requiere tiendas de apps",
+                    "Tipo especial de app híbrida"
                 ],
-                answer: "Aplicación web que ofrece experiencia similar a nativa",
-                explanation: "Las PWAs son aplicaciones web que usan tecnologías modernas para ofrecer funciones como trabajo offline y notificaciones push."
+                answer: "Aplicación web con características de app nativa",
+                explanation: "Las PWAs son aplicaciones web que usan tecnologías modernas para ofrecer experiencia similar a apps nativas."
             },
             {
-                question: "13. ¿Qué lenguaje es ideal para desarrollo nativo en Android?",
+                question: "24. ¿Qué lenguaje es oficial para desarrollo Android?",
                 options: ["Swift", "Kotlin", "Objective-C", "C#"],
                 answer: "Kotlin",
-                explanation: "Kotlin es el lenguaje recomendado por Google para desarrollo Android, aunque también se puede usar Java."
+                explanation: "Google declaró Kotlin como lenguaje preferido para Android en 2019, aunque Java sigue siendo compatible."
             },
             {
-                question: "14. ¿Qué lenguaje es ideal para desarrollo nativo en iOS?",
+                question: "25. ¿Qué lenguaje se usa para desarrollo nativo en iOS?",
                 options: ["Kotlin", "Java", "Swift", "Dart"],
                 answer: "Swift",
-                explanation: "Swift es el lenguaje moderno creado por Apple para desarrollo en iOS, macOS y otros sistemas Apple."
+                explanation: "Swift es el lenguaje moderno de Apple para desarrollo iOS, reemplazando progresivamente a Objective-C."
             },
             {
-                question: "15. ¿Qué framework usa el lenguaje Dart?",
+                question: "26. ¿Qué framework usa Dart para desarrollo móvil?",
                 options: ["React Native", "Xamarin", "Flutter", "Ionic"],
                 answer: "Flutter",
-                explanation: "Flutter es el framework de Google que utiliza el lenguaje Dart para crear aplicaciones nativas para múltiples plataformas."
+                explanation: "Flutter es el framework de Google que utiliza Dart para crear apps nativas para múltiples plataformas."
             },
             {
-                question: "16. ¿Qué IDE es oficial para desarrollo Android?",
-                options: [
-                    "Xcode",
-                    "Android Studio",
-                    "Visual Studio",
-                    "Eclipse"
-                ],
+                question: "27. ¿Qué extensión tienen los archivos de apps Android?",
+                options: [".ipa", ".apk", ".appx", ".exe"],
+                answer: ".apk",
+                explanation: "APK (Android Package Kit) es el formato de archivo usado para distribuir e instalar apps en Android."
+            },
+            {
+                question: "28. ¿Qué IDE es oficial para desarrollo Android?",
+                options: ["Xcode", "Android Studio", "Visual Studio", "Eclipse"],
                 answer: "Android Studio",
-                explanation: "Android Studio es el IDE oficial recomendado por Google para desarrollo de aplicaciones Android."
+                explanation: "Android Studio es el IDE oficial de Google para desarrollo Android, basado en IntelliJ IDEA."
             },
             {
-                question: "17. ¿Qué extensión tienen los archivos de aplicaciones iOS?",
-                options: [".apk", ".exe", ".ipa", ".app"],
-                answer: ".ipa",
-                explanation: "Los archivos .ipa (iOS App Store Package) contienen aplicaciones para dispositivos iOS."
+                question: "29. ¿Qué framework permite desarrollar apps móviles con JavaScript?",
+                options: ["Flutter", "Xamarin", "React Native", "SwiftUI"],
+                answer: "React Native",
+                explanation: "React Native de Facebook permite desarrollar apps móviles usando JavaScript y React."
             },
             {
-                question: "18. ¿Qué significa SMS?",
+                question: "30. ¿Qué característica NO es típica de una PWA?",
+                options: [
+                    "Funcionamiento offline",
+                    "Instalación desde tiendas de apps",
+                    "Notificaciones push",
+                    "Icono en la pantalla de inicio"
+                ],
+                answer: "Instalación desde tiendas de apps",
+                explanation: "Las PWAs no requieren instalación desde tiendas, aunque algunas plataformas ahora lo permiten."
+            },
+            {
+                question: "31. ¿Qué tecnología usan las apps híbridas para acceder a funciones nativas?",
+                options: ["WebViews", "Plugins nativos", "Puentes JS-Nativo", "Todas las anteriores"],
+                answer: "Todas las anteriores",
+                explanation: "Las apps híbridas usan diversas técnicas como WebViews, plugins y puentes para acceder a funciones nativas."
+            },
+            {
+                question: "32. ¿Qué ventaja tiene Flutter sobre React Native?",
+                options: [
+                    "Mayor cantidad de plugins",
+                    "No necesita puente JS-Nativo",
+                    "Usa componentes nativos",
+                    "Más fácil de aprender"
+                ],
+                answer: "No necesita puente JS-Nativo",
+                explanation: "Flutter no necesita puente JS-Nativo porque compila directamente a código nativo, mejorando el rendimiento."
+            },
+            {
+                question: "33. ¿Qué es Xamarin?",
+                options: [
+                    "Framework para apps iOS con Swift",
+                    "Framework para apps Android con Kotlin",
+                    "Framework multiplataforma con C#",
+                    "Lenguaje para desarrollo híbrido"
+                ],
+                answer: "Framework multiplataforma con C#",
+                explanation: "Xamarin permite desarrollar apps multiplataforma usando C# y .NET, ahora parte de Microsoft MAUI."
+            },
+            {
+                question: "34. ¿Qué es Jetpack Compose?",
+                options: [
+                    "Lenguaje para desarrollo Android",
+                    "Framework para apps iOS",
+                    "Kit de herramientas de UI moderna para Android",
+                    "Entorno de desarrollo para Flutter"
+                ],
+                answer: "Kit de herramientas de UI moderna para Android",
+                explanation: "Jetpack Compose es el moderno toolkit de Google para construir interfaces nativas en Android con Kotlin."
+            },
+            {
+                question: "35. ¿Qué lenguaje se usa en el framework Ionic?",
+                options: ["Dart", "JavaScript/TypeScript", "C#", "Swift"],
+                answer: "JavaScript/TypeScript",
+                explanation: "Ionic utiliza tecnologías web (HTML, CSS, JavaScript/TypeScript) para desarrollar apps híbridas."
+            },
+
+            // Telecomunicaciones y conceptos generales (15 preguntas)
+            {
+                question: "36. ¿Qué significa SMS?",
                 options: [
                     "Simple Mail Service",
                     "Short Message Service",
@@ -320,24 +455,151 @@
                     "System Message Service"
                 ],
                 answer: "Short Message Service",
-                explanation: "SMS significa Short Message Service, el servicio estándar para mensajes de texto en móviles."
+                explanation: "SMS (Short Message Service) permite enviar mensajes de texto cortos entre dispositivos móviles."
             },
             {
-                question: "19. ¿Qué generación de telefonía móvil introdujo GSM?",
+                question: "37. ¿Qué generación móvil introdujo GSM?",
                 options: ["1G", "2G", "3G", "4G"],
                 answer: "2G",
-                explanation: "GSM (Global System for Mobile Communications) fue el estándar dominante de la segunda generación (2G) de telefonía móvil."
+                explanation: "GSM (Global System for Mobile Communications) fue el estándar dominante de la 2G, introduciendo comunicación digital."
             },
             {
-                question: "20. ¿Qué servicio de Firebase es útil para almacenamiento de datos?",
+                question: "38. ¿Qué servicio de Firebase es para autenticación?",
                 options: [
-                    "Firebase Authentication",
-                    "Firebase Realtime Database",
-                    "Firebase Crashlytics",
-                    "Firebase Analytics"
+                    "Firebase Auth",
+                    "Firestore",
+                    "Firebase Storage",
+                    "Firebase Functions"
                 ],
-                answer: "Firebase Realtime Database",
-                explanation: "Firebase Realtime Database es el servicio que permite almacenar y sincronizar datos en tiempo real entre los clientes."
+                answer: "Firebase Auth",
+                explanation: "Firebase Authentication proporciona servicios de autenticación listos para usar con múltiples proveedores."
+            },
+            {
+                question: "39. ¿Qué es un 'bearer' en telecomunicaciones?",
+                options: [
+                    "Tipo de antena",
+                    "Canal de comunicación que transporta datos",
+                    "Protocolo de seguridad",
+                    "Estándar de compresión"
+                ],
+                answer: "Canal de comunicación que transporta datos",
+                explanation: "Un bearer es un canal lógico que transporta información con cierto ancho de banda y calidad de servicio."
+            },
+            {
+                question: "40. ¿Qué base de datos ofrece Firebase en tiempo real?",
+                options: [
+                    "Firestore",
+                    "Realtime Database",
+                    "Cloud SQL",
+                    "Firebase Storage"
+                ],
+                answer: "Realtime Database",
+                explanation: "Firebase Realtime Database almacena y sincroniza datos en tiempo real entre todos los clientes."
+            },
+            {
+                question: "41. ¿Qué significa GSM?",
+                options: [
+                    "Global Service for Mobiles",
+                    "General System for Mobile communications",
+                    "Global System for Mobile communications",
+                    "General Service for Mobiles"
+                ],
+                answer: "Global System for Mobile communications",
+                explanation: "GSM es el estándar global para comunicación móvil digital que dominó la era 2G."
+            },
+            {
+                question: "42. ¿Qué tecnología móvil introdujo el acceso a Internet de alta velocidad?",
+                options: ["GSM", "3G", "LTE", "CDMA"],
+                answer: "3G",
+                explanation: "La tercera generación (3G) introdujo acceso a Internet a velocidades significativamente mayores que 2G."
+            },
+            {
+                question: "43. ¿Qué servicio de Firebase permite hosting de apps web?",
+                options: [
+                    "Firebase Hosting",
+                    "Firebase Storage",
+                    "Cloud Functions",
+                    "Firestore"
+                ],
+                answer: "Firebase Hosting",
+                explanation: "Firebase Hosting proporciona hosting rápido y seguro para aplicaciones web estáticas y dinámicas."
+            },
+            {
+                question: "44. ¿Qué significa LTE en telecomunicaciones?",
+                options: [
+                    "Long-Term Evolution",
+                    "Local Telephone Exchange",
+                    "Low-Tier Energy",
+                    "Long-Tier Evolution"
+                ],
+                answer: "Long-Term Evolution",
+                explanation: "LTE (Long-Term Evolution) es el estándar para comunicaciones inalámbricas de banda ancha, comúnmente llamado 4G."
+            },
+            {
+                question: "45. ¿Qué componente de Firebase es útil para análisis?",
+                options: [
+                    "Firebase Analytics",
+                    "Firebase Auth",
+                    "Cloud Firestore",
+                    "Firebase ML"
+                ],
+                answer: "Firebase Analytics",
+                explanation: "Firebase Analytics proporciona información detallada sobre el uso de la aplicación y el comportamiento del usuario."
+            },
+            {
+                question: "46. ¿Qué tecnología permite a las PWAs funcionar offline?",
+                options: [
+                    "Service Workers",
+                    "WebSockets",
+                    "IndexedDB",
+                    "Tanto a como c"
+                ],
+                answer: "Tanto a como c",
+                explanation: "Los Service Workers permiten el funcionamiento offline, junto con IndexedDB para almacenamiento local."
+            },
+            {
+                question: "47. ¿Qué significa CDMA en telecomunicaciones?",
+                options: [
+                    "Code Division Multiple Access",
+                    "Cellular Digital Mobile Access",
+                    "Coded Digital Mobile Access",
+                    "Cellular Division Multiple Access"
+                ],
+                answer: "Code Division Multiple Access",
+                explanation: "CDMA es una tecnología de acceso múltiple utilizada en algunas redes 2G y 3G como alternativa a GSM."
+            },
+            {
+                question: "48. ¿Qué servicio de Firebase es para almacenar archivos?",
+                options: [
+                    "Firestore",
+                    "Realtime Database",
+                    "Firebase Storage",
+                    "Cloud Functions"
+                ],
+                answer: "Firebase Storage",
+                explanation: "Firebase Storage proporciona almacenamiento de archivos (imágenes, videos, etc.) en la nube."
+            },
+            {
+                question: "49. ¿Qué tecnología es la base de 5G?",
+                options: [
+                    "OFDM (Orthogonal Frequency Division Multiplexing)",
+                    "CDMA (Code Division Multiple Access)",
+                    "TDMA (Time Division Multiple Access)",
+                    "GSM (Global System for Mobile Communications)"
+                ],
+                answer: "OFDM (Orthogonal Frequency Division Multiplexing)",
+                explanation: "5G se basa en OFDM, un método de modulación digital que divide una señal en múltiples canales."
+            },
+            {
+                question: "50. ¿Qué permite Cloud Firestore en Firebase?",
+                options: [
+                    "Almacenamiento de archivos",
+                    "Base de datos NoSQL escalable",
+                    "Autenticación de usuarios",
+                    "Funciones serverless"
+                ],
+                answer: "Base de datos NoSQL escalable",
+                explanation: "Cloud Firestore es una base de datos NoSQL flexible y escalable para desarrollo de aplicaciones móviles y web."
             }
         ];
 
