@@ -5,74 +5,154 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiz App - Menú Principal</title>
   <link rel="manifest" href="manifest.json" />
-</head> 
-<style>
-  
-  body{
-    background: linear-gradient(aliceblue, lightblue);
-    color: purple;
-    font-size: 25px;
-  }
-
-  h1{
-    color: purple;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
-
-  h2{
-    color: purple;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
-
-  ul{
-    list-style-type: none;
-    text-decoration: none;
-    color: aliceblue;
-  }
-
-  .boton{
-    border-color: purple;
-    border-radius: 15px;
-    padding: 10px;
-    font-size: 20px;
-    background: pink;
-    margin-top: 10px;
-    margin-right: 25px;
-  }
-
-  a{
-    text-decoration: none;
-    color: purple;
-  }
-
-  footer{
-    margin-top: 35px;
-  }
-
-</style>
-
-  <header>
-    <center>  
-      <h1>Prepárate para los problemas.</h1>
-      <h2>¡Y más vale que temas!</h2>
-    </center>
-  </header>
+  <style>
+    :root {
+      --primary-color: #800080; /* purple */
+      --secondary-color: #ffc0cb; /* pink */
+      --background-start: #f0f8ff; /* aliceblue */
+      --background-end: #add8e6; /* lightblue */
+      --text-light: #f0f8ff; /* aliceblue */
+      --font-main: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      min-height: 100vh;
+      background: linear-gradient(var(--background-start), var(--background-end));
+      color: var(--primary-color);
+      font-family: var(--font-main);
+      font-size: clamp(16px, 2.5vw, 25px);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    h1, h2 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+    
+    h2 {
+      font-size: clamp(1.2rem, 3vw, 2rem);
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 500px;
+      padding: 1rem;
+    }
+    
+    .boton {
+      border: 2px solid var(--primary-color);
+      border-radius: 15px;
+      padding: 0.8rem 1.5rem;
+      font-size: clamp(18px, 2vw, 20px);
+      background: var(--secondary-color);
+      color: var(--primary-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 250px;
+      text-align: center;
+    }
+    
+    .boton:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      padding: 1rem;
+    }
+    
+    footer img {
+      max-width: 100%;
+      height: auto;
+      max-height: 250px;
+    }
+    
+    /* Media Queries para ajustes específicos */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+      
+      .boton {
+        padding: 0.7rem 1.2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+      
+      h2 {
+        font-size: 1.1rem;
+      }
+      
+      .boton {
+        padding: 0.6rem 1rem;
+        font-size: 16px;
+      }
+      
+      footer img {
+        max-height: 200px;
+      }
+    }
+  </style>
+</head>
   
 <body>
-  <center>
-    <h2>Guias de Estudio.</h2>
+  <header>
+    <h1>Prepárate para los problemas.</h1>
+    <h2>¡Y más vale que temas!</h2>
+  </header>
+  
+  <main>
+    <h2>Guias de Estudio</h2>
     <ul>
       <li><button type="button" class="boton"><a href="menu-oct.html">Octavo Cuatri.</a></button></li>
       <li><button type="button" class="boton"><a href="menu-nov.html">Noveno Cuatri.</a></button></li>
     </ul>
-  </center>
-</body>
+  </main>
 
   <footer>
-    <center>
-      <img src="Estudiante.png" alt="Alegrate" width="250" height="250">  
-    </center>
-    
+    <img src="Estudiante.png" alt="Alégrate" loading="lazy">  
   </footer>
-  
 </html>
