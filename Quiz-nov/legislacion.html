@@ -5,53 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz de Legislación Informática</title>
     <style>
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #2c3e50;
+            --danger-color: #e74c3c;
+            --danger-dark: #c0392b;
+            --success-color: #d4edda;
+            --success-text: #155724;
+            --error-color: #f8d7da;
+            --error-text: #721c24;
+            --light-gray: #f5f7fa;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --text-color: #333;
+            --white: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f7fa;
+            width: 100%;
         }
         
         h1 {
-            color: #2c3e50;
+            color: var(--secondary-color);
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #3498db;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
             padding-bottom: 10px;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+        }
+        
+        h2 {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            margin-bottom: 15px;
+        }
+        
+        h3 {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
         }
         
         .quiz-container {
-            background-color: white;
+            background-color: var(--white);
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin-bottom: 30px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
         
         .question {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--medium-gray);
         }
         
         .question h3 {
-            color: #3498db;
+            color: var(--primary-color);
             margin-bottom: 15px;
         }
         
         .options {
-            margin-left: 20px;
+            margin-left: 0;
+            margin-top: 15px;
         }
         
         .option {
             margin-bottom: 10px;
-            padding: 8px 12px;
+            padding: 10px;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            border: 1px solid var(--medium-gray);
         }
         
         .option:hover {
@@ -63,8 +103,8 @@
         }
         
         button {
-            background-color: #3498db;
-            color: white;
+            background-color: var(--primary-color);
+            color: var(--white);
             border: none;
             padding: 12px 20px;
             border-radius: 4px;
@@ -73,15 +113,17 @@
             transition: background-color 0.3s;
             display: block;
             margin: 20px auto;
+            width: 100%;
+            max-width: 200px;
         }
         
         button:hover {
-            background-color: #2980b9;
+            background-color: var(--primary-dark);
         }
         
         .results {
             text-align: center;
-            font-size: 18px;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
             margin-top: 20px;
             padding: 15px;
             border-radius: 4px;
@@ -89,36 +131,36 @@
         }
         
         .correct {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: var(--success-color);
+            color: var(--success-text);
         }
         
         .incorrect {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: var(--error-color);
+            color: var(--error-text);
         }
         
         .progress-container {
             width: 100%;
-            background-color: #e0e0e0;
+            background-color: var(--medium-gray);
             border-radius: 4px;
             margin-bottom: 20px;
         }
         
         .progress-bar {
             height: 20px;
-            background-color: #3498db;
+            background-color: var(--primary-color);
             border-radius: 4px;
             width: 0%;
             transition: width 0.5s;
         }
         
         .section-title {
-            background-color: #2c3e50;
-            color: white;
+            background-color: var(--secondary-color);
+            color: var(--white);
             padding: 10px 15px;
             border-radius: 4px;
-            margin: 30px 0 15px 0;
+            margin: 20px 0 15px 0;
         }
         
         .hidden {
@@ -129,26 +171,29 @@
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
+            gap: 10px;
         }
         
         .navigation button {
             margin: 0;
+            flex: 1;
         }
         
         #restart-btn {
-            background-color: #e74c3c;
+            background-color: var(--danger-color);
         }
         
         #restart-btn:hover {
-            background-color: #c0392b;
+            background-color: var(--danger-dark);
         }
         
         .explanation {
-            margin-top: 10px;
+            margin-top: 15px;
             padding: 10px;
             background-color: #f8f9fa;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid var(--primary-color);
             display: none;
+            font-size: 0.9rem;
         }
         
         .timer {
@@ -157,39 +202,117 @@
             color: #7f8c8d;
             margin-bottom: 10px;
         }
+        
+        .question-result {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        
+        .question-result p {
+            margin-bottom: 8px;
+        }
+        
+        /* Media Queries para dispositivos pequeños */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .quiz-container {
+                padding: 15px;
+            }
+            
+            .option {
+                padding: 8px;
+            }
+            
+            button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+            }
+            
+            .navigation button {
+                width: 100%;
+                max-width: none;
+            }
+            
+            .timer {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.3rem;
+                padding-bottom: 8px;
+                margin-bottom: 15px;
+            }
+            
+            .quiz-container {
+                padding: 12px;
+            }
+            
+            .question h3 {
+                font-size: 1rem;
+            }
+            
+            .options {
+                margin-left: 0;
+            }
+            
+            .option {
+                font-size: 0.9rem;
+            }
+            
+            .explanation {
+                font-size: 0.8rem;
+            }
+            
+            .results {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Quiz de Legislación Informática</h1>
-    <div class="timer">Tiempo: <span id="time">00:00</span></div>
-    <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
-    </div>
-    
-    <div id="start-screen">
-        <div class="quiz-container">
-            <h2>Bienvenido al Quiz de Legislación Informática</h2>
-            <p>Este cuestionario cubre temas de legislación informática, derechos digitales y regulaciones tecnológicas.</p>
-            <p>El quiz contiene 36 preguntas. Tendrás 15 minutos para completarlo.</p>
-            <button id="start-btn">Comenzar Quiz</button>
+    <div class="container">
+        <h1>Quiz de Legislación Informática</h1>
+        <div class="timer">Tiempo: <span id="time">00:00</span></div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
         </div>
-    </div>
-    
-    <div id="quiz" class="hidden">
-        <div class="quiz-container" id="question-container"></div>
-        <div class="navigation">
-            <button id="prev-btn" disabled>Anterior</button>
-            <button id="next-btn">Siguiente</button>
+        
+        <div id="start-screen">
+            <div class="quiz-container">
+                <h2>Bienvenido al Quiz de Legislación Informática</h2>
+                <p>Este cuestionario cubre temas de legislación informática, derechos digitales y regulaciones tecnológicas.</p>
+                <p>El quiz contiene 36 preguntas. Tendrás 15 minutos para completarlo.</p>
+                <button id="start-btn">Comenzar Quiz</button>
+            </div>
         </div>
-    </div>
-    
-    <div id="results" class="hidden">
-        <div class="quiz-container">
-            <h2>Resultados del Quiz</h2>
-            <div class="results" id="score-container"></div>
-            <div id="detailed-results"></div>
-            <button id="restart-btn">Reiniciar Quiz</button>
-            <a href="../menu-nov.html"><button id="restart-btn">Regresar al menú.</button></a>
+        
+        <div id="quiz" class="hidden">
+            <div class="quiz-container" id="question-container"></div>
+            <div class="navigation">
+                <button id="prev-btn" disabled>Anterior</button>
+                <button id="next-btn">Siguiente</button>
+            </div>
+        </div>
+        
+        <div id="results" class="hidden">
+            <div class="quiz-container">
+                <h2>Resultados del Quiz</h2>
+                <div class="results" id="score-container"></div>
+                <div id="detailed-results"></div>
+                <button id="restart-btn">Reiniciar Quiz</button>
+                <a href="../menu-nov.html"><button id="restart-btn">Regresar al menú</button></a>
+            </div>
         </div>
     </div>
 
@@ -554,7 +677,7 @@
         let currentQuestion = 0;
         let score = 0;
         let userAnswers = new Array(questions.length).fill(null);
-        let timeLeft = 500; // 45 minutos en segundos
+        let timeLeft = 900; // 15 minutos en segundos
         let timerInterval;
         let quizStarted = false;
 
@@ -674,6 +797,7 @@
             const percentage = Math.round((score / questions.length) * 100);
             scoreContainer.textContent = `Obtuviste ${score} de ${questions.length} respuestas correctas (${percentage}%)`;
             scoreContainer.className = 'results ' + (percentage >= 70 ? 'correct' : 'incorrect');
+            scoreContainer.style.display = 'block';
             
             // Mostrar resultados detallados
             detailedResults.innerHTML = '<h3>Detalle por pregunta:</h3>';
@@ -698,7 +822,7 @@
             currentQuestion = 0;
             score = 0;
             userAnswers = new Array(questions.length).fill(null);
-            timeLeft = 2700;
+            timeLeft = 900;
             updateTimerDisplay();
             
             resultsContainer.classList.add('hidden');
