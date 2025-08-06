@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0" />
   <title>Quiz App - Menú Principal</title>
   <link rel="manifest" href="manifest.json" />
   <style>
@@ -13,6 +13,14 @@
       --background-end: #add8e6; /* lightblue */
       --text-light: #f0f8ff; /* aliceblue */
       --font-main: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      
+      /* Tamaños base responsivos */
+      --base-font-size: clamp(18px, 4vw, 22px);
+      --heading1-size: clamp(1.8rem, 6vw, 2.5rem);
+      --heading2-size: clamp(1.4rem, 5vw, 2rem);
+      --button-font-size: clamp(1rem, 4.5vw, 1.2rem);
+      --element-spacing: clamp(0.8rem, 3vw, 1.5rem);
+      --section-spacing: clamp(1.5rem, 5vw, 3rem);
     }
     
     * {
@@ -23,31 +31,35 @@
     
     body {
       min-height: 100vh;
+      min-height: 100dvh; /* Para navegadores modernos */
       background: linear-gradient(var(--background-start), var(--background-end));
       color: var(--primary-color);
       font-family: var(--font-main);
-      font-size: clamp(16px, 2.5vw, 25px);
+      font-size: var(--base-font-size);
       display: flex;
       flex-direction: column;
-      padding: 20px;
+      padding: var(--element-spacing);
+      line-height: 1.5;
     }
     
     header {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: var(--section-spacing);
+      padding-top: var(--element-spacing);
     }
     
     h1, h2 {
       color: var(--primary-color);
-      margin-bottom: 0.5rem;
+      margin-bottom: calc(var(--element-spacing) * 0.5);
+      line-height: 1.2;
     }
     
     h1 {
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-size: var(--heading1-size);
     }
     
     h2 {
-      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-size: var(--heading2-size);
     }
     
     main {
@@ -56,6 +68,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: var(--section-spacing);
+      width: 100%;
+    }
+    
+    .menu-container {
+      width: 100%;
+      max-width: min(90vw, 500px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
     ul {
@@ -63,29 +85,30 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: var(--element-spacing);
       width: 100%;
-      max-width: 500px;
-      padding: 1rem;
+      padding: var(--element-spacing);
     }
     
     .boton {
       border: 2px solid var(--primary-color);
       border-radius: 15px;
-      padding: 0.8rem 1.5rem;
-      font-size: clamp(18px, 2vw, 20px);
+      padding: calc(var(--element-spacing) * 0.7) calc(var(--element-spacing) * 1.5);
+      font-size: var(--button-font-size);
       background: var(--secondary-color);
       color: var(--primary-color);
       cursor: pointer;
       transition: all 0.3s ease;
       width: 100%;
-      max-width: 250px;
+      max-width: min(80vw, 300px);
       text-align: center;
+      font-weight: bold;
     }
     
-    .boton:hover {
+    .boton:hover, .boton:focus {
       transform: scale(1.05);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      outline: none;
     }
     
     a {
@@ -95,44 +118,80 @@
     }
     
     footer {
-      margin-top: 2rem;
+      margin-top: auto;
       text-align: center;
-      padding: 1rem;
+      padding: var(--element-spacing);
     }
     
     footer img {
-      max-width: 100%;
+      max-width: min(80vw, 250px);
       height: auto;
-      max-height: 250px;
+      max-height: 35vh;
     }
     
-    /* Media Queries para ajustes específicos */
-    @media (max-width: 768px) {
+    /* Ajustes específicos para orientación horizontal */
+    @media (orientation: landscape) and (max-height: 500px) {
       body {
-        padding: 15px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: var(--element-spacing);
       }
       
-      .boton {
-        padding: 0.7rem 1.2rem;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.3rem;
+      header {
+        width: 100%;
+        margin-bottom: 0;
+        padding-top: 0;
       }
       
-      h2 {
-        font-size: 1.1rem;
+      main {
+        flex: 0 0 60%;
+        justify-content: flex-start;
+        padding-top: var(--element-spacing);
       }
       
-      .boton {
-        padding: 0.6rem 1rem;
-        font-size: 16px;
+      footer {
+        flex: 0 0 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
       
       footer img {
-        max-height: 200px;
+        max-height: 50vh;
+      }
+    }
+    
+    /* Ajustes para tablets grandes y pequeñas */
+    @media (min-width: 600px) and (max-width: 900px) {
+      :root {
+        --base-font-size: 20px;
+        --element-spacing: 1.2rem;
+      }
+      
+      .boton {
+        padding: 1rem 2rem;
+      }
+    }
+    
+    /* Ajustes para móviles muy pequeños */
+    @media (max-width: 350px) {
+      :root {
+        --heading1-size: 1.6rem;
+        --heading2-size: 1.3rem;
+      }
+      
+      ul {
+        gap: calc(var(--element-spacing) * 0.7);
+      }
+    }
+    
+    /* Ajustes para pantallas muy grandes */
+    @media (min-width: 1200px) {
+      :root {
+        --base-font-size: 24px;
+        --section-spacing: 3.5rem;
       }
     }
   </style>
@@ -145,11 +204,13 @@
   </header>
   
   <main>
-    <h2>Guias de Estudio</h2>
-    <ul>
-      <li><button type="button" class="boton"><a href="menu-oct.html">Octavo Cuatri.</a></button></li>
-      <li><button type="button" class="boton"><a href="menu-nov.html">Noveno Cuatri.</a></button></li>
-    </ul>
+    <div class="menu-container">
+      <h2>Guias de Estudio</h2>
+      <ul>
+        <li><button type="button" class="boton"><a href="menu-oct.html">Octavo Cuatri.</a></button></li>
+        <li><button type="button" class="boton"><a href="menu-nov.html">Noveno Cuatri.</a></button></li>
+      </ul>
+    </div>
   </main>
 
   <footer>
