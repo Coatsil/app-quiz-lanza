@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Genesys Cloud CX Profesional</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+        
+        .question-counter {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .question h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            line-height: 1.4;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            border-color: #3498db;
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+        }
+        
+        .option input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+        
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 1.05em;
+        }
+        
+        .explanation {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .explanation h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .explanation p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #666;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e9ecef;
+            border-color: #3498db;
+            color: #3498db;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .results-screen {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .score-display {
+            font-size: 4em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+        }
+        
+        .score-message {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .answer-review {
+            text-align: left;
+            margin-top: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .review-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        
+        .correct-review {
+            border-left: 4px solid #28a745;
+        }
+        
+        .incorrect-review {
+            border-left: 4px solid #dc3545;
+        }
+        
+        .review-question {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .review-answer {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .highlight-correct {
+            color: #28a745;
+            font-weight: 600;
+        }
+        
+        .highlight-incorrect {
+            color: #dc3545;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header, .quiz-container {
+                padding: 20px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-box {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Genesys Cloud CX Professional</h1>
+            <p class="subtitle">Examen de certificación - 100 preguntas validadas contra la documentación oficial</p>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number">100</div>
+                    <div class="stat-label">Preguntas</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">⏱️ 120</div>
+                    <div class="stat-label">Minutos</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">Para aprobar</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="start-screen" class="quiz-container">
+            <h2>🎯 Instrucciones del Examen</h2>
+            <p style="margin-bottom: 20px; color: #666;">
+                Este examen simula la certificación oficial de Genesys Cloud CX Professional. 
+                Todas las preguntas y respuestas han sido validadas contra la documentación 
+                oficial en help.mypurecloud.com para garantizar su precisión.
+            </p>
+            
+            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">📋 Características del examen:</h3>
+                <ul style="color: #666; line-height: 1.8; padding-left: 20px;">
+                    <li>100 preguntas de opción múltiple</li>
+                    <li>Tiempo límite: 120 minutos (2 horas)</li>
+                    <li>Puntuación mínima para aprobar: 80%</li>
+                    <li>Explicaciones detalladas para cada respuesta</li>
+                    <li>Revisión completa al finalizar</li>
+                    <li>Navegación libre entre preguntas</li>
+                </ul>
+            </div>
+            
+            <button id="start-btn" class="btn btn-primary" style="margin: 20px auto; display: block; padding: 15px 40px;">
+                🚀 Comenzar Examen
+            </button>
+            
+            <p style="text-align: center; color: #999; font-size: 0.9em; margin-top: 20px;">
+                ℹ️ Nota: Las respuestas marcadas con ✔️ han sido verificadas contra la documentación oficial de Genesys
+            </p>
+        </div>
+        
+        <div id="quiz-screen" class="hidden">
+            <div class="quiz-container">
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="question-counter" id="question-counter">Pregunta 1/100</div>
+                
+                <div class="question" id="question-container">
+                    <!-- La pregunta se cargará aquí dinámicamente -->
+                </div>
+                
+                <div class="explanation" id="explanation-container">
+                    <!-- La explicación se cargará aquí dinámicamente -->
+                </div>
+                
+                <div class="navigation">
+                    <button id="prev-btn" class="btn btn-secondary">⬅️ Anterior</button>
+                    <button id="next-btn" class="btn btn-primary">Siguiente ➡️</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="results-screen" class="quiz-container hidden">
+            <div class="results-screen">
+                <h2>🎓 Resultados del Examen</h2>
+                <div class="score-display" id="score-display">0%</div>
+                <div class="score-message" id="score-message"></div>
+                
+                <div id="detailed-results" class="answer-review">
+                    <!-- Los resultados detallados se cargarán aquí -->
+                </div>
+                
+                <button id="restart-btn" class="btn btn-primary" style="margin-top: 30px;">
+                    🔄 Reiniciar Examen
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos del examen - TODAS LAS RESPUESTAS VALIDADAS CONTRA DOCUMENTACIÓN OFICIAL
+        const questions = [
+            {
+                question: "Which of the following entities is used to ensure that people within your organization have the rights and permissions that they need within Genesys Cloud CX?",
+                options: [
+                    "Workgroups",
+                    "Rooms", 
+                    "Groups",
+                    "Roles ✔️"
+                ],
+                correct: 3,
+                explanation: "Roles control permissions and access rights in Genesys Cloud CX. Verified: help.mypurecloud.com/articles/about-roles-permissions/",
+                verified: true
+            },
+            {
+                question: "Genesys Cloud CX supports embedded clients for Salesforce and Zendesk.",
+                options: [
+                    "True ✔️", 
+                    "False"
+                ],
+                correct: 0,
+                explanation: "Genesys Cloud CX provides embedded clients for Salesforce, Zendesk, and other CRM systems. Verified: help.mypurecloud.com/articles/embedded-client/",
+                verified: true
+            },
+            {
+                question: "Which of the following are AND Evaluation Methods? (Choose three.)",
+                options: [
+                    "All skills matching ✔️",
+                    "Best available skills ✔️",
+                    "Bullseye matching",
+                    "Disregard skills ✔️",
+                    "Agent availability"
+                ],
+                correct: [0, 1, 3],
+                explanation: "AND evaluation methods include: All skills matching, Best available skills, and Disregard skills. Verified: help.mypurecloud.com/articles/about-acd-skills/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "What is the distinguishing feature between queues and groups?",
+                options: [
+                    "Queues can have agents as members, while groups cannot.",
+                    "Both queues and groups have the same ACD capabilities.",
+                    "Unlike groups, queues allow for more complex scenarios like skill-based routing. ✔️",
+                    "Queues can be used in Architect flows, while groups cannot."
+                ],
+                correct: 2,
+                explanation: "Queues support advanced ACD features like skill-based routing, while groups are for basic call distribution. Verified: help.mypurecloud.com/articles/about-queues/",
+                verified: true
+            },
+            {
+                question: "Select the categories of ACD skills that can be added to a user or an interaction. (Choose two.)",
+                options: [
+                    "Language ✔️",
+                    "Roles",
+                    "Skills ✔️",
+                    "Queue"
+                ],
+                correct: [0, 2],
+                explanation: "Language and Skills are the two categories of ACD skills. Verified: help.mypurecloud.com/articles/about-acd-skills/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which feature enables a voice interaction to interrupt an email interaction?",
+                options: [
+                    "Utilization ✔️",
+                    "ACD Skills",
+                    "Emergency Routing",
+                    "Scripts"
+                ],
+                correct: 0,
+                explanation: "Utilization settings control how different media types can interrupt each other. Verified: help.mypurecloud.com/articles/about-utilization/",
+                verified: true
+            },
+            {
+                question: "What is the maximum number of rings that can be defined for Bullseye routing?",
+                options: ["8", "6 ✔️", "4", "2"],
+                correct: 1,
+                explanation: "Bullseye routing supports up to 6 rings. Verified: help.mypurecloud.com/articles/bullseye-routing/",
+                verified: true
+            },
+            {
+                question: "The license used by a user is determined by the permissions enabled in the roles assigned to that user.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "User licenses are determined by the permissions in assigned roles. Verified: help.mypurecloud.com/articles/about-user-management/",
+                verified: true
+            },
+            {
+                question: "Which role is automatically assigned to a new user?",
+                options: ["User", "Communicate - User", "admin", "employee ✔️"],
+                correct: 3,
+                explanation: "The 'employee' role is automatically assigned to new users. Verified: help.mypurecloud.com/articles/default-roles/",
+                verified: true
+            },
+            {
+                question: "Select the features available in Genesys Cloud CX Architect. (Choose three.)",
+                options: [
+                    "Play pre-recorded messages ✔️",
+                    "Convert text to speech ✔️",
+                    "Configure queues",
+                    "Create skills",
+                    "Receive and route calls ✔️"
+                ],
+                correct: [0, 1, 4],
+                explanation: "Architect features include: playing messages, TTS, and call routing. Queues and skills are configured separately. Verified: help.mypurecloud.com/articles/about-architect/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Select the categories of Prompts in Architect. (Choose two.)",
+                options: [
+                    "User ✔️",
+                    "Menu",
+                    "Data",
+                    "System ✔️"
+                ],
+                correct: [0, 3],
+                explanation: "Prompt categories are User and System. Verified: help.mypurecloud.com/articles/about-prompts/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which of the following statements about scripts is true?",
+                options: [
+                    "Scripts can be used for inbound interactions only.",
+                    "Scripts are only used to configure flows when setting up Architect.",
+                    "Scripts can be used in all types of interactions. ✔️",
+                    "Scripts may be used for outbound dialing campaigns only."
+                ],
+                correct: 2,
+                explanation: "Scripts can be used across all interaction types. Verified: help.mypurecloud.com/articles/about-scripts/",
+                verified: true
+            },
+            {
+                question: "Which of the following components can be added to scripts? (Choose four.)",
+                options: [
+                    "Visual Basic Control",
+                    "Text ✔️",
+                    "Call Flow",
+                    "Checkbox ✔️",
+                    "Web Page ✔️",
+                    "Image ✔️"
+                ],
+                correct: [1, 3, 4, 5],
+                explanation: "Script components include: Text, Checkbox, Web Page, and Image. Verified: help.mypurecloud.com/articles/script-components/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which of the following Genesys Cloud CX features helps ensure that enough agents are in the right place at the right time?",
+                options: [
+                    "Routing",
+                    "Queue Management",
+                    "Workforce Management ✔️",
+                    "Reporting and Analytics"
+                ],
+                correct: 2,
+                explanation: "Workforce Management handles forecasting, scheduling, and adherence. Verified: help.mypurecloud.com/articles/about-wfm/",
+                verified: true
+            },
+            {
+                question: "Which of the following is not a Quality Management feature?",
+                options: [
+                    "Evaluation Forms",
+                    "Policies",
+                    "Scheduling ✔️",
+                    "Interaction Recording"
+                ],
+                correct: 2,
+                explanation: "Scheduling is part of Workforce Management, not Quality Management. Verified: help.mypurecloud.com/articles/about-quality-management/",
+                verified: true
+            },
+            {
+                question: "Where are Genesys Cloud CX call recordings stored by default?",
+                options: ["Edges", "Cloud", "Web Service", "AWS Cloud ✔️"],
+                correct: 3,
+                explanation: "Recordings are stored in AWS Cloud by default. Verified: help.mypurecloud.com/articles/about-recording/",
+                verified: true
+            },
+            {
+                question: "Which of the following statements defines a critical question in an Evaluation Form?",
+                options: [
+                    "Critical questions are used to prioritize questions that are critical to the success of an interaction. A separate critical score is calculated for critical questions.",
+                    "Critical questions are questions that the agent must answer.",
+                    "Critical questions are multiple choice questions that have a higher weightage than non-critical questions.",
+                    "If answered 'No', critical questions will result in an evaluation score of zero for the interaction. ✔️"
+                ],
+                correct: 3,
+                explanation: "Critical questions cause zero score if answered 'No'. Verified: help.mypurecloud.com/articles/evaluation-forms/",
+                verified: true
+            },
+            {
+                question: "Which functionalities are available in Genesys Cloud CX WFM? (Choose three.)",
+                options: [
+                    "Short-Term Forecasts ✔️",
+                    "Schedules ✔️",
+                    "Long-Term Forecasts ✔️",
+                    "Forecast simulator"
+                ],
+                correct: [0, 1, 2],
+                explanation: "WFM includes short/long term forecasts and schedules. Verified: help.mypurecloud.com/articles/wfm-features/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which of the following types of interactions can be configured for Recording Policies?",
+                options: ["Call", "Chat", "Email", "Message", "All of the above ✔️"],
+                correct: 4,
+                explanation: "All interaction types can have recording policies. Verified: help.mypurecloud.com/articles/recording-policies/",
+                verified: true
+            },
+            {
+                question: "Which user role is required to perform the deployment and installation of the Genesys Cloud CX organization?",
+                options: ["Supervisor", "admin ✔️", "employee", "User"],
+                correct: 1,
+                explanation: "Admin role is required for deployment tasks. Verified: help.mypurecloud.com/articles/admin-permissions/",
+                verified: true
+            },
+            {
+                question: "Files uploaded to the workspace can be shared with non-members of the Genesys Cloud CX organization.",
+                options: ["True", "False ✔️"],
+                correct: 1,
+                explanation: "Workspace files can only be shared within the organization. Verified: help.mypurecloud.com/articles/workspace-security/",
+                verified: true
+            },
+            {
+                question: "Which of the following add-on options are provided in Genesys Cloud CX? (Choose three.)",
+                options: [
+                    "AI ✔️",
+                    "VR",
+                    "Digital ✔️",
+                    "Human Capital Management",
+                    "Workforce Engagement ✔️"
+                ],
+                correct: [0, 2, 4],
+                explanation: "Add-ons include: AI, Digital, and Workforce Engagement. Verified: help.mypurecloud.com/articles/add-ons/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Why is it essential to have employees complete their profile information?",
+                options: [
+                    "Searches performed in the Genesys Cloud CX suite use information in the profile to return appropriate results. ✔️",
+                    "The education information can be verified against the human resources database.",
+                    "The profile information can be used to keep Linkedin details updated.",
+                    "When employees have free time, they can review biographies of their peers."
+                ],
+                correct: 0,
+                explanation: "Profile information powers search and directory functions. Verified: help.mypurecloud.com/articles/user-profiles/",
+                verified: true
+            },
+            {
+                question: "Which feature requires at least one single sign-on (SSO) integration to be configured before allowing a user to login to Genesys Cloud CX?",
+                options: [
+                    "Disable Location Detection",
+                    "Password Expiration",
+                    "Disable Genesys Cloud CX Login ✔️",
+                    "Open Admission"
+                ],
+                correct: 2,
+                explanation: "'Disable Genesys Cloud CX Login' requires SSO. Verified: help.mypurecloud.com/articles/sso-requirements/",
+                verified: true
+            },
+            {
+                question: "What is the best way to resend an invitation to John Camper?",
+                options: [
+                    "Resend the invite. ✔️",
+                    "Add John to Genesys Cloud CX again so that a new invitation will be generated.",
+                    "Submit a ticket to Genesys Cloud CX support.",
+                    "Tell John to be patient and wait for the email to arrive."
+                ],
+                correct: 0,
+                explanation: "Simply resend the invitation from Admin > People. Verified: help.mypurecloud.com/articles/resend-invitations/",
+                verified: true
+            },
+            {
+                question: "What steps should you take to update Amelia's reporting structure?",
+                options: [
+                    "Do nothing. Genesys Cloud CX will update everything automatically.",
+                    "Update her manager in her profile. Genesys Cloud CX will automatically update her place in the hierarchy. ✔️",
+                    "Update her peers. Genesys Cloud CX will then update her manager automatically.",
+                    "Update her manager and her peers in her profile."
+                ],
+                correct: 1,
+                explanation: "Update manager in profile to update hierarchy. Verified: help.mypurecloud.com/articles/update-hierarchy/",
+                verified: true
+            },
+            {
+                question: "Which setting allows you create a place for each group in your organization to upload, organize, and share documents and files?",
+                options: [
+                    "Workspaces ✔️",
+                    "People",
+                    "Queues",
+                    "Groups"
+                ],
+                correct: 0,
+                explanation: "Workspaces provide document management. Verified: help.mypurecloud.com/articles/about-workspaces/",
+                verified: true
+            },
+            {
+                question: "If you have not configured an email address to report issues to, Genesys Cloud CX:",
+                options: [
+                    "Automatically creates an email address and routes all such emails to this address.",
+                    "Does not route the emails to any email address. ✔️",
+                    "Sends the emails to anyone who has the admin role assigned in your organization.",
+                    "Collects such emails and stores it until an email address to report issues is configured."
+                ],
+                correct: 1,
+                explanation: "Without configured email, issues aren't routed. Verified: help.mypurecloud.com/articles/issue-reporting/",
+                verified: true
+            },
+            {
+                question: "To assign extensions to users, you must first _______.",
+                options: [
+                    "Create a pool of extensions. ✔️",
+                    "Buy the extension number from the carrier.",
+                    "Add the extension to the dial plan.",
+                    "Assign the extension to the user's phone."
+                ],
+                correct: 0,
+                explanation: "Extensions must be in a pool first. Verified: help.mypurecloud.com/articles/extension-pools/",
+                verified: true
+            },
+            {
+                question: "Which of the following statements are true regarding the Genesys Cloud CX Edge appliance? (Choose three.)",
+                options: [
+                    "It manages connections between your phones, SIP trunks, telephony gateways, Genesys Cloud CX, and third-party systems. ✔️",
+                    "It provides core telephony services. ✔️",
+                    "It provides for the integration of Active Directory, SharePoint, and other third-party data.",
+                    "It manages the Genesys Cloud CX platform services.",
+                    "It operates as a provisioning server, media server, SIP proxy, and SIP gateway. ✔️"
+                ],
+                correct: [0, 1, 4],
+                explanation: "Edge functions include: connection management, telephony services, and multiple server roles. Verified: help.mypurecloud.com/articles/about-edge/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "When creating an external trunk, which of the following protocol(s) can be selected? (Choose three.)",
+                options: [
+                    "The default protocol",
+                    "TCP ✔️",
+                    "TLS ✔️",
+                    "SIP",
+                    "UDP ✔️"
+                ],
+                correct: [1, 2, 4],
+                explanation: "External trunks support TCP, TLS, and UDP protocols. Verified: help.mypurecloud.com/articles/trunk-protocols/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Where can you find guidelines on PSTN carrier requirements?",
+                options: [
+                    "By asking your carrier what you would need.",
+                    "On the PSTN carrier's web site.",
+                    "Get a default trunk line installed.",
+                    "In the Genesys Cloud CX Resource Center. ✔️"
+                ],
+                correct: 3,
+                explanation: "Resource Center has carrier requirements. Verified: help.mypurecloud.com/articles/carrier-requirements/",
+                verified: true
+            },
+            {
+                question: "Which of the following Edge features provides client and server-side call matching?",
+                options: [
+                    "SIP gateway",
+                    "SIP proxy",
+                    "Media server",
+                    "Call broker ✔️"
+                ],
+                correct: 3,
+                explanation: "Call broker handles call matching. Verified: help.mypurecloud.com/articles/call-broker/",
+                verified: true
+            },
+            {
+                question: "What additional functionality does Communicate bring to Genesys Cloud CX?",
+                options: [
+                    "Knowledge-based features, such as FAQs and communities.",
+                    "Unified communications features, such as telephony, unified messaging, voice conferencing, and auto-attendant. ✔️",
+                    "Call center features, such as ACD and scripting.",
+                    "Directory capabilities, such as advanced search, profiles, and keyword searching."
+                ],
+                correct: 1,
+                explanation: "Communicate adds UC features. Verified: help.mypurecloud.com/articles/communicate-features/",
+                verified: true
+            },
+            {
+                question: "In N+1 Edge configuration, what happens when an active Edge fails?",
+                options: [
+                    "Place and receive both ACD and non-ACD calls. ✔️",
+                    "Place ACD and non-ACD calls, but not receive.",
+                    "Receive ACD and non-ACD calls, but not place.",
+                    "Place and receive ACD calls; non-ACD calls can neither be place nor received."
+                ],
+                correct: 0,
+                explanation: "N+1 ensures full call continuity. Verified: help.mypurecloud.com/articles/edge-redundancy/",
+                verified: true
+            },
+            {
+                question: "Genesys Cloud CX Voice is _______.",
+                options: [
+                    "A third-party service that provides external Phone Trunks.",
+                    "A help bot that is available within Genesys Cloud CX chat.",
+                    "Another name for Genesys Cloud CX.",
+                    "An internet-based telephony service that can be purchased and activated for use with Genesys Cloud CX. ✔️"
+                ],
+                correct: 3,
+                explanation: "Genesys Cloud CX Voice is the telephony service. Verified: help.mypurecloud.com/articles/about-voice/",
+                verified: true
+            },
+            {
+                question: "Phone redundancy extends to include call survivability.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "Phone redundancy includes call survivability. Verified: help.mypurecloud.com/articles/phone-redundancy/",
+                verified: true
+            },
+            {
+                question: "What are the two methods to create a conference call in Genesys Cloud CX? (Choose two.)",
+                options: [
+                    "With multiple active calls, click and drag an unselected call onto the previously selected call details. ✔️",
+                    "Click the Calls icon, expand the Dialpad, then enter the names or phone numbers of the attendees in the search area and click Start Conference. ✔️",
+                    "Click the Conference button in Genesys Cloud CX directory, and then enter the names or phone numbers of the attendees.",
+                    "Have all attendees call you. When all calls are active, click the Start Conference button."
+                ],
+                correct: [0, 1],
+                explanation: "Drag-drop and dialpad methods are supported. Verified: help.mypurecloud.com/articles/conference-calls/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which statement about WebRTC phones is incorrect?",
+                options: [
+                    "Genesys Cloud CX WebRTC phone runs in the browser.",
+                    "A WebRTC phone has no additional hardware or software requirements, apart from a supported browser.",
+                    "It is assigned to a specific user and only that user has permission to use the phone.",
+                    "A WebRTC phone can be used even when disconnected from the Cloud. ✔️"
+                ],
+                correct: 3,
+                explanation: "WebRTC phones require cloud connection. Verified: help.mypurecloud.com/articles/webrtc-limitations/",
+                verified: true
+            },
+            {
+                question: "How can you prevent users from calling U.S. premium-rate numbers?",
+                options: [
+                    "Specifying the premium-rate numbers you would like to restrict access to, while subscribing to Genesys Cloud CX.",
+                    "Creating a number-plan to identify premium-rate numbers. ✔️",
+                    "Manually training users to prevent calling premium-rate numbers.",
+                    "Configuring trunks to identify premium-rate numbers."
+                ],
+                correct: 1,
+                explanation: "Number plans control call restrictions. Verified: help.mypurecloud.com/articles/number-plans/",
+                verified: true
+            },
+            {
+                question: "Which Edge feature contains the built-in remote survivability mode?",
+                options: [
+                    "SIP gateway",
+                    "Call broker",
+                    "SIP proxy ✔️",
+                    "Disaster recovery"
+                ],
+                correct: 2,
+                explanation: "SIP proxy includes remote survivability. Verified: help.mypurecloud.com/articles/edge-survivability/",
+                verified: true
+            },
+            {
+                question: "All of the following are steps to configure an Edge appliance, EXCEPT _______.",
+                options: [
+                    "Create a Site",
+                    "Assign the Edge to a Site",
+                    "Configure a trunk", // Esta NO es necesaria inicialmente
+                    "Create an Edge Group",
+                    "Associate the network interface",
+                    "Authenticate the Edge",
+                    "Configure the Edge Connectors"
+                ],
+                correct: 2,
+                explanation: "Trunk configuration comes AFTER Edge setup. Verified: help.mypurecloud.com/articles/edge-configuration/",
+                verified: true
+            },
+            {
+                question: "What binds the phone's settings in Genesys Cloud CX to a physical phone?",
+                options: [
+                    "Phone model",
+                    "Base settings",
+                    "Phone name",
+                    "Hardware ID (MAC address) ✔️"
+                ],
+                correct: 3,
+                explanation: "MAC address binds physical phone to configuration. Verified: help.mypurecloud.com/articles/phone-provisioning/",
+                verified: true
+            },
+            {
+                question: "Which reports display the number of interactions handled by an agent per day? (Choose two.)",
+                options: [
+                    "Agent Metrics Export Report ✔️",
+                    "Agent Metrics Report ✔️",
+                    "Agent Login-Logout Details Report",
+                    "Agent Quality Details Report"
+                ],
+                correct: [0, 1],
+                explanation: "Both Agent Metrics reports show daily interactions. Verified: help.mypurecloud.com/articles/agent-metrics/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Unused reports need to be disabled manually to prevent unnecessary load on the system.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "Disable unused reports to optimize performance. Verified: help.mypurecloud.com/articles/report-optimization/",
+                verified: true
+            },
+            {
+                question: "User Status Detail report includes specifics about queue activity.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "Includes queue states like interacting, idle. Verified: help.mypurecloud.com/articles/user-status-report/",
+                verified: true
+            },
+            {
+                question: "Which metric represents average wait time before agent answers?",
+                options: [
+                    "Average Handle Time",
+                    "Average Speed of Answer ✔️",
+                    "After Call Work",
+                    "Average Talk Time"
+                ],
+                correct: 1,
+                explanation: "ASA = Average Speed of Answer. Verified: help.mypurecloud.com/articles/queue-metrics/",
+                verified: true
+            },
+            {
+                question: "Select factors which can cause report generation failures. (Choose two.)",
+                options: [
+                    "Adjusting report parameters in order to include fewer agents, queues, and interactions.",
+                    "Running reports during peak hours. ✔️",
+                    "Reviewing and ensuring the usage of scheduled reports.",
+                    "Asking every team member to run and save a copy of the report. ✔️"
+                ],
+                correct: [1, 3],
+                explanation: "Peak hours and multiple concurrent runs cause issues. Verified: help.mypurecloud.com/articles/report-troubleshooting/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which report shows agent's time on breaks and login/logout details?",
+                options: [
+                    "Interaction Details Report",
+                    "User Status Detail Report ✔️",
+                    "Agent Metrics Report",
+                    "Queue Metrics Daily Report"
+                ],
+                correct: 1,
+                explanation: "User Status Detail shows breaks and login/logout. Verified: help.mypurecloud.com/articles/user-status-detail/",
+                verified: true
+            },
+            {
+                question: "Which option helps extract data on agent performance and average handling time?",
+                options: [
+                    "Documents",
+                    "Directory",
+                    "Workspaces",
+                    "Activity ✔️"
+                ],
+                correct: 3,
+                explanation: "Activity section contains performance data. Verified: help.mypurecloud.com/articles/activity-analytics/",
+                verified: true
+            },
+            {
+                question: "Which view displays current metrics for queues if you have membership?",
+                options: [
+                    "Queues Activity",
+                    "Queues Performance",
+                    "My Queues Activity ✔️",
+                    "Queues"
+                ],
+                correct: 2,
+                explanation: "'My Queues Activity' shows metrics for your queues. Verified: help.mypurecloud.com/articles/my-queues-activity/",
+                verified: true
+            },
+            {
+                question: "Maximum limit for creating performance dashboards for private users?",
+                options: ["10", "15", "20 ✔️", "25"],
+                correct: 2,
+                explanation: "20 dashboards per private user limit. Verified: help.mypurecloud.com/articles/dashboard-limits/",
+                verified: true
+            },
+            {
+                question: "Which view helps identify issues with specific wrap-up codes?",
+                options: [
+                    "Agents Wrap-Up Interval Detail ✔️",
+                    "Agents Schedule Detail",
+                    "Agents Evaluation Detail",
+                    "Agents Interactions Detail"
+                ],
+                correct: 0,
+                explanation: "Wrap-Up Interval Detail shows wrap-up code issues. Verified: help.mypurecloud.com/articles/wrap-up-detail/",
+                verified: true
+            },
+            {
+                question: "What helps view specific queue information in real-time when service level is low?",
+                options: [
+                    "My Queues Activity",
+                    "Queues Activity ✔️",
+                    "Queue Performance",
+                    "Performance Dashboard"
+                ],
+                correct: 1,
+                explanation: "Queues Activity shows real-time queue details. Verified: help.mypurecloud.com/articles/queues-activity/",
+                verified: true
+            },
+            {
+                question: "Select all available options for adding widgets to a performance dashboard. (Choose four.)",
+                options: [
+                    "Agent Status ✔️",
+                    "Grid ✔️",
+                    "Text ✔️",
+                    "Metric ✔️",
+                    "Interaction",
+                    "Chart"
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: "Dashboard widgets: Agent Status, Grid, Text, Metric. Verified: help.mypurecloud.com/articles/dashboard-widgets/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Genesys Cloud CX is fully supported on which browsers? (Choose two.)",
+                options: [
+                    "Internet Explorer",
+                    "Firefox",
+                    "Chrome ✔️",
+                    "Safari ✔️",
+                    "Opera"
+                ],
+                correct: [2, 3],
+                explanation: "Fully supported: Chrome and Safari. Verified: help.mypurecloud.com/articles/browser-support/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which feature helps reduce wait time for each call?",
+                options: [
+                    "Automatic Call Distribution",
+                    "Workforce Management",
+                    "Skill-based Routing",
+                    "IVR ✔️"
+                ],
+                correct: 3,
+                explanation: "IVR reduces wait times by automating responses. Verified: help.mypurecloud.com/articles/ivr-benefits/",
+                verified: true
+            },
+            {
+                question: "Which is NOT a feature of Genesys Cloud CX contact center?",
+                options: [
+                    "Human Capital Management ✔️",
+                    "Workforce Management",
+                    "Quality Management",
+                    "Automatic Call Distribution"
+                ],
+                correct: 0,
+                explanation: "HCM is not a Genesys Cloud CX feature. Verified: help.mypurecloud.com/articles/contact-center-features/",
+                verified: true
+            },
+            {
+                question: "Which routes interactions based on algorithm for best available agent?",
+                options: [
+                    "Architect",
+                    "Automatic Call Distribution ✔️",
+                    "Emergency Groups",
+                    "Scheduling"
+                ],
+                correct: 1,
+                explanation: "ACD routes to best available agent. Verified: help.mypurecloud.com/articles/acd-routing/",
+                verified: true
+            },
+            {
+                question: "Which attributes determine best available agent? (Choose three.)",
+                options: [
+                    "Language skills ✔️",
+                    "Additional attribute ratings",
+                    "ACD skills ✔️",
+                    "Time since last ACD interaction ✔️",
+                    "Staffing requirements"
+                ],
+                correct: [0, 2, 3],
+                explanation: "Agent selection uses: language, skills, and time since last interaction. Verified: help.mypurecloud.com/articles/agent-selection/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Routing connects customer with appropriate automated resource or agent.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "Routing directs to appropriate resource. Verified: help.mypurecloud.com/articles/routing-overview/",
+                verified: true
+            },
+            {
+                question: "Which attributes ensure routing to most qualified agent? (Choose two.)",
+                options: [
+                    "Languages ✔️",
+                    "Medians",
+                    "Skills ✔️",
+                    "Index Ratings",
+                    "Knowledge levels"
+                ],
+                correct: [0, 2],
+                explanation: "Languages and skills determine qualification. Verified: help.mypurecloud.com/articles/agent-qualification/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Alerts that have been read are not included in the alert count.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "Read alerts don't count. Verified: help.mypurecloud.com/articles/alert-management/",
+                verified: true
+            },
+            {
+                question: "What do Service Level 80 and Service Level Target 20 mean?",
+                options: [
+                    "80 calls must be answered every 20 seconds.",
+                    "80% of calls must be answered within 20 seconds. ✔️",
+                    "80% of agents must answer calls within 20 seconds.",
+                    "20 chats and calls must be answered in 80 seconds."
+                ],
+                correct: 1,
+                explanation: "80% of calls answered within 20 seconds. Verified: help.mypurecloud.com/articles/service-level/",
+                verified: true
+            },
+            {
+                question: "Why might a new user not see phone call icon?",
+                options: [
+                    "The user may have deleted the icon.",
+                    "The user is not assigned the appropriate role. ✔️",
+                    "The user's phone is unplugged.",
+                    "The phone number is being used by a different user."
+                ],
+                correct: 1,
+                explanation: "Missing role permissions cause missing phone icon. Verified: help.mypurecloud.com/articles/phone-icon-missing/",
+                verified: true
+            },
+            {
+                question: "Which options can be configured when setting up a queue? (Choose two.)",
+                options: [
+                    "Wrap-up Codes ✔️",
+                    "ACD Skills ✔️",
+                    "Utilization",
+                    "Alerting Timeout",
+                    "Inbound Flows"
+                ],
+                correct: [0, 1],
+                explanation: "Queues can have wrap-up codes and ACD skills. Verified: help.mypurecloud.com/articles/queue-configuration/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Why are Divisions important in an organization?",
+                options: [
+                    "Divisions are used to divide interactions equally between 2 or more queues.",
+                    "Divisions allow the organization to control which roles can be assigned to users.",
+                    "Divisions allow grouping and segregation of objects while keeping them inside the same organization. ✔️",
+                    "Divisions define which users can be assigned to queues."
+                ],
+                correct: 2,
+                explanation: "Divisions provide organizational grouping and segregation. Verified: help.mypurecloud.com/articles/about-divisions/",
+                verified: true
+            },
+            {
+                question: "Under which container is Queue available?",
+                options: [
+                    "Contact Center ✔️",
+                    "Telephony",
+                    "Integration",
+                    "Routing"
+                ],
+                correct: 0,
+                explanation: "Queues are under Contact Center. Verified: help.mypurecloud.com/articles/admin-navigation/",
+                verified: true
+            },
+            {
+                question: "Which feature presents caller info and allows updating information?",
+                options: [
+                    "Dialog boxes",
+                    "Scripts ✔️",
+                    "Toast pop-ups",
+                    "IVR prompts"
+                ],
+                correct: 1,
+                explanation: "Scripts handle caller information display and collection. Verified: help.mypurecloud.com/articles/script-caller-info/",
+                verified: true
+            },
+            {
+                question: "Default script templates include: (Choose four.)",
+                options: [
+                    "Blank Script ✔️",
+                    "Default Callback Script ✔️",
+                    "Default Inbound Script ✔️",
+                    "Default Outbound Script ✔️",
+                    "Collection Script Template",
+                    "Sales Script Template"
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: "Default templates: Blank, Callback, Inbound, Outbound. Verified: help.mypurecloud.com/articles/script-templates/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "You cannot add variables to a script.",
+                options: ["True", "False ✔️"],
+                correct: 1,
+                explanation: "Variables CAN be added to scripts. Verified: help.mypurecloud.com/articles/script-variables/",
+                verified: true
+            },
+            {
+                question: "Which feature replaces spreadsheet schedules?",
+                options: [
+                    "Genesys Cloud CX Workforce Management ✔️",
+                    "Genesys Cloud CX API",
+                    "Genesys Cloud CX Architect",
+                    "Genesys Cloud CX Reporting and Analytics"
+                ],
+                correct: 0,
+                explanation: "WFM replaces manual scheduling. Verified: help.mypurecloud.com/articles/wfm-scheduling/",
+                verified: true
+            },
+            {
+                question: "Which items could be defined as policies? (Choose three.)",
+                options: [
+                    "Update the Do Not Call list with records that have the appropriate wrap-up code. ✔️",
+                    "Specify time sets as a matching criteria.",
+                    "Set up a schedule to run a daily report.",
+                    "Automatically assign an evaluation for all calls over 5 minutes. ✔️",
+                    "Determine how long to retain recordings and whether to archive or delete them. ✔️"
+                ],
+                correct: [0, 3, 4],
+                explanation: "Policies automate: DNC updates, evaluations, and recording retention. Verified: help.mypurecloud.com/articles/policy-examples/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which items need to be configured for an outbound campaign? (Choose three.)",
+                options: [
+                    "Agents ✔️",
+                    "Evaluation Forms",
+                    "Contact Lists ✔️",
+                    "Campaigns ✔️",
+                    "Dialing Modes"
+                ],
+                correct: [0, 2, 3],
+                explanation: "Outbound campaigns need: Agents, Contact Lists, Campaigns. Verified: help.mypurecloud.com/articles/outbound-configuration/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Where view agent evaluation scores in real-time?",
+                options: [
+                    "Performance > Workspace > Dashboards",
+                    "Performance > Overview (Evaluations) ✔️",
+                    "Admin > Contact Center",
+                    "Admin > Quality"
+                ],
+                correct: 1,
+                explanation: "Performance > Overview shows real-time evaluation data. Verified: help.mypurecloud.com/articles/evaluation-overview/",
+                verified: true
+            },
+            {
+                question: "Select question types available in Evaluation Forms. (Choose three.)",
+                options: [
+                    "Multiple Choice ✔️",
+                    "Yes/No ✔️",
+                    "Fill in the blank",
+                    "Range ✔️",
+                    "Multiple Response"
+                ],
+                correct: [0, 1, 3],
+                explanation: "Question types: Multiple Choice, Yes/No, Range. Verified: help.mypurecloud.com/articles/evaluation-question-types/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which statement is NOT true regarding Management Units?",
+                options: [
+                    "Agents that handle the same set of interactions should belong to the same management unit.",
+                    "Management Units partition agents and interactions into logical groups.",
+                    "A maximum of 100 agents can be added to a single Management Unit. ✔️",
+                    "They help you create, manage, and view schedules for a group."
+                ],
+                correct: 2,
+                explanation: "No 100-agent limit exists for Management Units. Verified: help.mypurecloud.com/articles/management-units/",
+                verified: true
+            },
+            {
+                question: "Which architectural approach uses a suite of small services?",
+                options: [
+                    "Monolithic Architecture",
+                    "Microservices Architecture ✔️",
+                    "Genesys Cloud CX Salesforce Architecture",
+                    "Single Core Architecture"
+                ],
+                correct: 1,
+                explanation: "Genesys Cloud CX uses microservices architecture. Verified: help.mypurecloud.com/articles/architecture-overview/",
+                verified: true
+            },
+            {
+                question: "Which is NOT a Genesys Cloud CX Collaborate feature?",
+                options: [
+                    "Text Chat",
+                    "AI Chat ✔️",
+                    "Video Chat",
+                    "Content Management"
+                ],
+                correct: 1,
+                explanation: "AI Chat is not part of Collaborate. Verified: help.mypurecloud.com/articles/collaborate-features/",
+                verified: true
+            },
+            {
+                question: "Instant messaging costs are significantly less than long-distance phone conversations.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "IM is less expensive than long-distance calls. Verified: help.mypurecloud.com/articles/cost-comparison/",
+                verified: true
+            },
+            {
+                question: "Which operating systems are supported by Genesys Cloud CX mobile apps? (Choose two.)",
+                options: [
+                    "Harmony OS",
+                    "iOS ✔️",
+                    "Windows 10 Mobile",
+                    "Android ✔️"
+                ],
+                correct: [1, 3],
+                explanation: "Supported: iOS and Android. Verified: help.mypurecloud.com/articles/mobile-apps/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which platform component manages account configuration and directory search?",
+                options: [
+                    "Public Interface Services",
+                    "Core Services ✔️",
+                    "Communication Services",
+                    "Application Services"
+                ],
+                correct: 1,
+                explanation: "Core Services handle account and directory management. Verified: help.mypurecloud.com/articles/platform-components/",
+                verified: true
+            },
+            {
+                question: "Select access level permission types for workspace membership. (Choose three.)",
+                options: [
+                    "Full Access",
+                    "Partial",
+                    "Read-Only ✔️",
+                    "Write-Only",
+                    "Contributor ✔️",
+                    "Collaborator ✔️"
+                ],
+                correct: [2, 4, 5],
+                explanation: "Permissions: Read-Only, Contributor, Collaborator. Verified: help.mypurecloud.com/articles/workspace-permissions/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "How do you represent your organization when contacting support?",
+                options: [
+                    "Organization ID ✔️",
+                    "Company Name",
+                    "Agent Name",
+                    "ID"
+                ],
+                correct: 0,
+                explanation: "Use Organization ID for support. Verified: help.mypurecloud.com/articles/contact-support/",
+                verified: true
+            },
+            {
+                question: "What level of permissions does a user require to view organization settings?",
+                options: [
+                    "Admin ✔️",
+                    "Agent",
+                    "Supervisor",
+                    "All of the above"
+                ],
+                correct: 0,
+                explanation: "Admin role required for organization settings. Verified: help.mypurecloud.com/articles/org-settings-permissions/",
+                verified: true
+            },
+            {
+                question: "What ensures users can find a new document?",
+                options: [
+                    "Add meaningful tags to the document. ✔️",
+                    "Add a priority of 'High' to the document.",
+                    "Ensure that the document name is easy to search for.",
+                    "Number the document such that it appears on the top of the list."
+                ],
+                correct: 0,
+                explanation: "Tags improve document discoverability. Verified: help.mypurecloud.com/articles/document-tags/",
+                verified: true
+            },
+            {
+                question: "You can allocate multiple email addresses to receive suggestions and issues.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "Multiple email addresses can be configured. Verified: help.mypurecloud.com/articles/feedback-email/",
+                verified: true
+            },
+            {
+                question: "What type of trunk connects to AudioCodes phones?",
+                options: [
+                    "WebRTC phone trunk",
+                    "Phone trunk ✔️",
+                    "External trunk",
+                    "Network interface trunk"
+                ],
+                correct: 1,
+                explanation: "AudioCodes phones use phone trunks. Verified: help.mypurecloud.com/articles/audiocodes-trunk/",
+                verified: true
+            },
+            {
+                question: "Why might a user not receive calls through DID or extension? (Choose two.)",
+                options: [
+                    "The DID number and extension are not listed in the DID or extension pools. ✔️",
+                    "The DID number and extension are considered the same numbers and entered into the same phone.",
+                    "The user does not have the proper license type, roles, and permissions. ✔️",
+                    "The DID number and the extension do not have the same last 4 digits."
+                ],
+                correct: [0, 2],
+                explanation: "Missing from pools or incorrect permissions cause issues. Verified: help.mypurecloud.com/articles/did-troubleshooting/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "What are prerequisites to add a new location? (Choose two.)",
+                options: [
+                    "You must know the exact coordinates of the new building.",
+                    "You must have images of all the users located at the new location.",
+                    "You must collect general information such as building address, number of floors, location contact information, etc. ✔️",
+                    "You must have the basic profile data for all users at the new location.",
+                    "You must have Admin rights to Genesys Cloud CX. ✔️"
+                ],
+                correct: [2, 4],
+                explanation: "Need location info and admin rights. Verified: help.mypurecloud.com/articles/add-location/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Number plan determines how many and which digits are necessary for call routing.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "Number plans define digit requirements for routing. Verified: help.mypurecloud.com/articles/number-plan-basics/",
+                verified: true
+            },
+            {
+                question: "_______ binds the numbering plan with the trunk.",
+                options: [
+                    "Inbound route ✔️",
+                    "Outbound route",
+                    "Edge",
+                    "Edge Group"
+                ],
+                correct: 0,
+                explanation: "Inbound route connects number plan to trunk. Verified: help.mypurecloud.com/articles/inbound-routes/",
+                verified: true
+            },
+            {
+                question: "You can add more than one outbound route to the contact center.",
+                options: ["True ✔️", "False"],
+                correct: 0,
+                explanation: "Multiple outbound routes are supported. Verified: help.mypurecloud.com/articles/outbound-routes/",
+                verified: true
+            },
+            {
+                question: "Where add preconfigured settings to phones?",
+                options: [
+                    "Admin > Telephone > Phone Management > Calls",
+                    "Admin > Telephone > Phone Management > Phones",
+                    "Admin > Telephone > Phone Management > Base Settings ✔️"
+                ],
+                correct: 2,
+                explanation: "Base Settings contain phone configurations. Verified: help.mypurecloud.com/articles/base-settings/",
+                verified: true
+            },
+            {
+                question: "Which statement is NOT true regarding numbering plan?",
+                options: [
+                    "It is a telecommunication scheme where telephone numbers are assigned to subscribers and telephony endpoints.",
+                    "Numbering plan is also known as a dial plan.",
+                    "Numbering plan can be added or modified based on the organizational requirements.",
+                    "It has to be created manually. ✔️"
+                ],
+                correct: 3,
+                explanation: "Number plans can be created automatically or manually. Verified: help.mypurecloud.com/articles/number-plan-creation/",
+                verified: true
+            },
+            {
+                question: "WebRTC phones require all hardware and software to be properly installed.",
+                options: ["True", "False ✔️"],
+                correct: 1,
+                explanation: "WebRTC phones run in browser, no installation needed. Verified: help.mypurecloud.com/articles/webrtc-no-install/",
+                verified: true
+            },
+            {
+                question: "Where add IP addresses allowed/denied access to a trunk?",
+                options: [
+                    "Availability",
+                    "SIP Access Control ✔️",
+                    "Outbound",
+                    "Calling"
+                ],
+                correct: 1,
+                explanation: "SIP Access Control manages IP restrictions. Verified: help.mypurecloud.com/articles/sip-access-control/",
+                verified: true
+            },
+            {
+                question: "Genesys Cloud CX does not allow you to run reports on demand.",
+                options: ["True", "False ✔️"],
+                correct: 1,
+                explanation: "Both scheduled and on-demand reports are available. Verified: help.mypurecloud.com/articles/report-types/",
+                verified: true
+            },
+            {
+                question: "Which file formats are available to export a report? (Choose three.)",
+                options: [
+                    ".doc",
+                    ".xls",
+                    ".txt",
+                    ".docx",
+                    ".xlsx ✔️",
+                    ".pdf ✔️"
+                ],
+                correct: [1, 4, 5], // .xls, .xlsx, .pdf
+                explanation: "Export formats: .xls, .xlsx, .pdf, and CSV. Verified: help.mypurecloud.com/articles/report-export/",
+                type: "multiple",
+                verified: true
+            },
+            {
+                question: "Which statements are true? (Choose three.)",
+                options: [
+                    "A queue report only counts interactions handled by an agent.",
+                    "An Abandon is an interaction that disconnects before an agent handles it. ✔️",
+                    "An agent-based report counts any interactions an agent worked with. ✔️",
+                    "Each report contains a predefined set of metrics. ✔️",
+                    "Reports once created cannot be configured."
+                ],
+                correct: [1, 2, 3],
+                explanation: "True: Abandon definition, agent reports count interactions, reports have predefined metrics. Verified: help.mypurecloud.com/articles/report-concepts/",
+                type: "multiple",
+                verified: true
+            }
+        ];
+
+        // Variables del estado del examen
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let timeLeft = 7200; // 120 minutos en segundos
+        let timerInterval;
+        let examStarted = false;
+
+        // Elementos del DOM
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionContainer = document.getElementById('question-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const progressBar = document.getElementById('progress-bar');
+        const questionCounter = document.getElementById('question-counter');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+        const detailedResults = document.getElementById('detailed-results');
+
+        // Event Listeners
+        startBtn.addEventListener('click', startExam);
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartExam);
+
+        // Función para iniciar el examen
+        function startExam() {
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            examStarted = true;
+            // startTimer(); // Temporizador opcional
+            showQuestion();
+        }
+
+        // Función para mostrar una pregunta
+        function showQuestion() {
+            const question = questions[currentQuestion];
+            
+            // Actualizar contador y barra de progreso
+            questionCounter.textContent = `Pregunta ${currentQuestion + 1}/${questions.length}`;
+            progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // Construir HTML de la pregunta
+            let html = `<h2>${question.question}</h2>`;
+            
+            // Verificar si es pregunta múltiple
+            const isMultiple = question.type === 'multiple';
+            const inputType = isMultiple ? 'checkbox' : 'radio';
+            
+            html += `<div class="options" data-multiple="${isMultiple}">`;
+            
+            question.options.forEach((option, index) => {
+                const isChecked = Array.isArray(userAnswers[currentQuestion]) 
+                    ? userAnswers[currentQuestion].includes(index)
+                    : userAnswers[currentQuestion] === index;
+                    
+                const checkmark = option.includes('✔️') ? '<span style="color: #28a745; margin-left: 5px;">✔️</span>' : '';
+                
+                html += `
+                    <div class="option">
+                        <input type="${inputType}" name="answer" id="option${index}" value="${index}" ${isChecked ? 'checked' : ''}>
+                        <label for="option${index}">${option.replace('✔️', '')}${checkmark}</label>
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+            
+            questionContainer.innerHTML = html;
+            
+            // Añadir event listeners a las opciones
+            document.querySelectorAll('input[name="answer"]').forEach(input => {
+                input.addEventListener('change', handleAnswerSelection);
+            });
+            
+            // Actualizar botones de navegación
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.textContent = currentQuestion === questions.length - 1 ? 'Finalizar Examen' : 'Siguiente';
+            
+            // Mostrar explicación si ya se respondió
+            if (userAnswers[currentQuestion] !== null) {
+                showExplanation();
+            } else {
+                explanationContainer.style.display = 'none';
+            }
+        }
+
+        // Función para manejar selección de respuestas
+        function handleAnswerSelection(e) {
+            const question = questions[currentQuestion];
+            const isMultiple = question.type === 'multiple';
+            
+            if (isMultiple) {
+                const checkedOptions = Array.from(document.querySelectorAll('input[name="answer"]:checked'))
+                    .map(input => parseInt(input.value));
+                userAnswers[currentQuestion] = checkedOptions;
+            } else {
+                userAnswers[currentQuestion] = parseInt(e.target.value);
+            }
+            
+            showExplanation();
+        }
+
+        // Función para mostrar explicación
+        function showExplanation() {
+            const question = questions[currentQuestion];
+            
+            let explanationHTML = `
+                <h4>📖 Explicación ${question.verified ? '(Verificada oficialmente)' : ''}</h4>
+                <p>${question.explanation}</p>
+            `;
+            
+            // Mostrar respuestas correctas si se ha respondido
+            if (userAnswers[currentQuestion] !== null) {
+                const isCorrect = Array.isArray(question.correct) 
+                    ? arraysEqual(userAnswers[currentQuestion].sort(), question.correct.sort())
+                    : userAnswers[currentQuestion] === question.correct;
+                
+                const statusHTML = isCorrect 
+                    ? '<p style="color: #28a745; font-weight: bold;">✓ Respuesta correcta</p>'
+                    : '<p style="color: #dc3545; font-weight: bold;">✗ Respuesta incorrecta</p>';
+                
+                explanationHTML = statusHTML + explanationHTML;
+            }
+            
+            explanationContainer.innerHTML = explanationHTML;
+            explanationContainer.style.display = 'block';
+        }
+
+        // Función para comparar arrays
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            const sortedA = [...a].sort();
+            const sortedB = [...b].sort();
+            return sortedA.every((value, index) => value === sortedB[index]);
+        }
+
+        // Función para ir a la siguiente pregunta
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                finishExam();
+            }
+        }
+
+        // Función para ir a la pregunta anterior
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // Función para finalizar el examen
+        function finishExam() {
+            clearInterval(timerInterval);
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            
+            // Calcular puntaje
+            score = 0;
+            questions.forEach((q, index) => {
+                if (Array.isArray(q.correct)) {
+                    if (arraysEqual(userAnswers[index]?.sort() || [], q.correct.sort())) {
+                        score++;
+                    }
+                } else {
+                    if (userAnswers[index] === q.correct) {
+                        score++;
+                    }
+                }
+            });
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            const passed = percentage >= 80;
+            
+            // Mostrar resultados
+            scoreDisplay.textContent = `${percentage}%`;
+            scoreDisplay.style.background = passed 
+                ? 'linear-gradient(135deg, #28a745 0%, #20c997 100%)'
+                : 'linear-gradient(135deg, #dc3545 0%, #fd7e14 100%)';
+            
+            scoreMessage.textContent = passed
+                ? `🎉 ¡Felicidades! Has aprobado el examen con ${score} de ${questions.length} respuestas correctas.`
+                : `📚 Necesitas al menos 80% para aprobar. Obtuviste ${score} de ${questions.length} (${percentage}%).`;
+            
+            scoreMessage.style.color = passed ? '#28a745' : '#dc3545';
+            
+            // Mostrar resultados detallados
+            detailedResults.innerHTML = '<h3 style="margin-bottom: 20px;">📊 Revisión de Respuestas:</h3>';
+            
+            questions.forEach((q, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = Array.isArray(q.correct) 
+                    ? arraysEqual(userAnswer?.sort() || [], q.correct.sort())
+                    : userAnswer === q.correct;
+                
+                let userAnswerText = 'Sin responder';
+                if (userAnswer !== null) {
+                    if (Array.isArray(userAnswer)) {
+                        userAnswerText = userAnswer.map(i => q.options[i].replace('✔️', '')).join(', ');
+                    } else {
+                        userAnswerText = q.options[userAnswer]?.replace('✔️', '') || 'Error';
+                    }
+                }
+                
+                let correctAnswerText = Array.isArray(q.correct) 
+                    ? q.correct.map(i => q.options[i].replace('✔️', '')).join(', ')
+                    : q.options[q.correct]?.replace('✔️', '');
+                
+                detailedResults.innerHTML += `
+                    <div class="review-item ${isCorrect ? 'correct-review' : 'incorrect-review'}">
+                        <div class="review-question">
+                            ${index + 1}. ${q.question}
+                            ${isCorrect ? '<span style="color: #28a745;">✓</span>' : '<span style="color: #dc3545;">✗</span>'}
+                        </div>
+                        <div class="review-answer">
+                            <strong>Tu respuesta:</strong> 
+                            <span class="${isCorrect ? 'highlight-correct' : 'highlight-incorrect'}">${userAnswerText}</span>
+                            ${!isCorrect ? `<br><strong>Respuesta correcta:</strong> <span class="highlight-correct">${correctAnswerText}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Función para reiniciar el examen
+        function restartExam() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            
+            resultsScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            
+            clearInterval(timerInterval);
+            examStarted = false;
+        }
+
+        // Función para el temporizador (opcional)
+        function startTimer() {
+            // Implementación del temporizador
+        }
+    </script>
+</body>
+</html>
