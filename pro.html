@@ -792,8 +792,8 @@
                     "Media server",
                     "Call broker "
                 ],
-                correct: 3,
-                explanation: "Call broker handles call matching. Verified: help.mypurecloud.com/articles/call-broker/",
+                correct: 2,
+                explanation: "SIP proxy handles call matching. Verified: help.mypurecloud.com/articles/call-broker/",
                 verified: true
             },
             {
@@ -899,8 +899,8 @@
                     "Authenticate the Edge",
                     "Configure the Edge Connectors"
                 ],
-                correct: 2,
-                explanation: "Trunk configuration comes AFTER Edge setup. Verified: help.mypurecloud.com/articles/edge-configuration/",
+                correct: 6,
+                explanation: "Configure the Edge Connectors comes AFTER Edge setup. Verified: https://help.mypurecloud.com/articles/configure-the-genesys-cloud-edge-standard-v3/",
                 verified: true
             },
             {
@@ -1044,8 +1044,8 @@
                     "Interaction",
                     "Chart"
                 ],
-                correct: [0, 1, 2, 3],
-                explanation: "Dashboard widgets: Agent Status, Grid, Text, Metric. Verified: help.mypurecloud.com/articles/dashboard-widgets/",
+                correct: [0, 2, 3, 5],
+                explanation: "Dashboard widgets: Agent Status, Text, Metric, Chart. Verified: https://help.mypurecloud.com/articles/add-and-edit-performance-dashboards//",
                 type: "multiple",
                 verified: true
             },
@@ -1360,7 +1360,7 @@
                 verified: true
             },
             {
-                question: "Which platform component manages account configuration and directory search?",
+                question: "Which platform component manages account configuration, directory search, user membership, phone call routing, and agent assignment?",
                 options: [
                     "Public Interface Services",
                     "Core Services ",
@@ -1381,7 +1381,7 @@
                     "Contributor ",
                     "Collaborator "
                 ],
-                correct: [2, 4, 5],
+                correct: [0, 2, 4],
                 explanation: "Permissions: Read-Only, Contributor, Collaborator. Verified: help.mypurecloud.com/articles/workspace-permissions/",
                 type: "multiple",
                 verified: true
@@ -1425,7 +1425,7 @@
             {
                 question: "You can allocate multiple email addresses to receive suggestions and issues.",
                 options: ["True ", "False"],
-                correct: 0,
+                correct: 1,
                 explanation: "Multiple email addresses can be configured. Verified: help.mypurecloud.com/articles/feedback-email/",
                 verified: true
             },
@@ -1570,6 +1570,27 @@
                 correct: [1, 2, 3],
                 explanation: "True: Abandon definition, agent reports count interactions, reports have predefined metrics. Verified: help.mypurecloud.com/articles/report-concepts/",
                 type: "multiple",
+                verified: true
+            },
+            {
+                question: "While Alex is monitoring queue reports, Sam deletes an inactive agent from the queue. Will this affect the metrics that Alex is monitoring?",
+                options: [
+                    "Yes.",
+                    "No. "
+                ],
+                correct: [1],
+                explanation: "???",
+                verified: true
+            },
+            {
+                question: "Which dialing mode reduces the risk of an abandon?",
+                options: [
+                    "Power.",
+                    "Progressive. ",
+                    "Agentless. "
+                ],
+                correct: [1],
+                explanation: "???",
                 verified: true
             }
         ];
