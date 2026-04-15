@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Genesys Cloud CX Profesional</title>
+    <title>⚡ GENESYS PUNK EXAM ⚡</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Orbitron:wght@400;700;900&family=Black+Ops+One&display=swap');
+        
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,12 +14,15 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Special Elite', 'Courier New', monospace;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0a0a0a;
+            background-image: 
+                repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 2px, transparent 2px, transparent 8px),
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 100, 0.15) 0%, transparent 50%);
             min-height: 100vh;
             padding: 20px;
+            color: #d0d0d0;
         }
         
         .container {
@@ -25,69 +30,111 @@
             margin: 0 auto;
         }
         
+        /* Estilo punk - bordes rotos y ángulos */
+        .header, .quiz-container, .resource-link, .review-item {
+            border: 2px solid #ff0066;
+            border-radius: 0;
+            position: relative;
+            box-shadow: 8px 8px 0 rgba(255, 0, 102, 0.3);
+        }
+        
+        .header::before, .quiz-container::before {
+            content: "⚡";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            font-size: 30px;
+            color: #ffcc00;
+            text-shadow: 0 0 5px #ff0066;
+        }
+        
+        .header::after, .quiz-container::after {
+            content: "⚡";
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            font-size: 30px;
+            color: #ffcc00;
+            text-shadow: 0 0 5px #ff0066;
+            transform: rotate(15deg);
+        }
+        
         .header {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0033 100%);
             padding: 30px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
         
         h1 {
-            color: #2c3e50;
+            font-family: 'Black Ops One', 'Orbitron', monospace;
+            color: #ff0066;
             margin-bottom: 10px;
-            font-size: 2.2em;
+            font-size: 2.5em;
+            text-shadow: 3px 3px 0 #ffcc00, 0 0 10px #ff0066;
+            letter-spacing: 3px;
+            word-break: break-word;
         }
         
         .subtitle {
-            color: #666;
-            font-size: 1.1em;
+            font-family: 'Orbitron', monospace;
+            color: #ffcc00;
+            font-size: 0.9em;
             margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
         
         .quiz-container {
-            background-color: white;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a0a2e 100%);
             padding: 30px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: relative;
+            border-color: #ff0066;
         }
         
         .progress-container {
             width: 100%;
-            height: 8px;
-            background-color: #e0e0e0;
-            border-radius: 4px;
+            height: 12px;
+            background-color: #1a1a1a;
             margin-bottom: 30px;
             overflow: hidden;
+            border: 1px solid #ff0066;
         }
         
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            background: repeating-linear-gradient(90deg, #ff0066, #ff0066 10px, #ffcc00 10px, #ffcc00 20px);
             width: 0%;
             transition: width 0.5s ease;
-            border-radius: 4px;
+            box-shadow: 0 0 10px #ff0066;
         }
         
         .question-counter {
             position: absolute;
             top: 30px;
             right: 30px;
-            background-color: #3498db;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            background-color: #ff0066;
+            color: #0a0a0a;
+            padding: 8px 18px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
             font-size: 0.9em;
+            border: 1px solid #ffcc00;
+            letter-spacing: 1px;
+            box-shadow: 3px 3px 0 #ffcc00;
         }
         
         .question h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.4em;
-            line-height: 1.4;
+            font-family: 'Orbitron', monospace;
+            color: #ffcc00;
+            margin-bottom: 25px;
+            font-size: 1.3em;
+            line-height: 1.5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-left: 5px solid #ff0066;
+            padding-left: 15px;
         }
         
         .options {
@@ -99,30 +146,33 @@
         
         .option {
             padding: 15px 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border: 2px solid #333;
+            background: #111;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
+            font-family: 'Special Elite', monospace;
         }
         
         .option:hover {
-            border-color: #3498db;
-            background-color: #f8f9fa;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+            border-color: #ffcc00;
+            background-color: #1a1a2e;
+            transform: translateX(5px);
+            box-shadow: -3px 3px 0 #ff0066;
         }
         
         .option input {
             margin-right: 15px;
-            transform: scale(1.2);
+            transform: scale(1.3);
+            accent-color: #ff0066;
         }
         
         .option label {
             cursor: pointer;
             flex: 1;
             font-size: 1.05em;
+            color: #ccc;
         }
         
         .navigation {
@@ -135,44 +185,52 @@
         .btn {
             padding: 12px 30px;
             border: none;
-            border-radius: 6px;
             cursor: pointer;
             font-size: 1em;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: #ff0066;
+            color: #0a0a0a;
+            border: 1px solid #ffcc00;
+            box-shadow: 3px 3px 0 #ffcc00;
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            background: #ffcc00;
+            color: #0a0a0a;
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0 #ff0066;
         }
         
         .btn-secondary {
-            background-color: #f8f9fa;
-            color: #666;
-            border: 2px solid #e0e0e0;
+            background-color: #1a1a1a;
+            color: #ffcc00;
+            border: 1px solid #ff0066;
+            box-shadow: 3px 3px 0 #ff0066;
         }
         
         .btn-secondary:hover {
-            background-color: #e9ecef;
-            border-color: #3498db;
-            color: #3498db;
+            background-color: #2a2a2a;
+            color: #ff0066;
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0 #ffcc00;
         }
         
         .btn:disabled {
-            opacity: 0.5;
+            opacity: 0.3;
             cursor: not-allowed;
             transform: none !important;
-            box-shadow: none !important;
+            box-shadow: 3px 3px 0 #666 !important;
         }
         
         .hidden {
@@ -181,23 +239,28 @@
         
         .results-screen {
             text-align: center;
-            padding: 40px;
+            padding: 20px;
         }
         
         .score-display {
-            font-size: 4em;
+            font-size: 5em;
             font-weight: bold;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Black Ops One', monospace;
+            background: linear-gradient(135deg, #ff0066, #ffcc00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin: 20px 0;
+            text-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
         }
         
         .score-message {
             font-size: 1.2em;
-            color: #666;
+            font-family: 'Orbitron', monospace;
             margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ff0066;
+            background: #111;
         }
         
         .answer-review {
@@ -211,61 +274,108 @@
         .review-item {
             padding: 15px;
             margin-bottom: 15px;
-            border-radius: 8px;
-            background-color: #f8f9fa;
+            background: #0d0d0d;
+            border-left-width: 8px;
         }
         
         .correct-review {
-            border-left: 4px solid #28a745;
+            border-left-color: #00ff88;
+            border-left-style: solid;
         }
         
         .incorrect-review {
-            border-left: 4px solid #dc3545;
+            border-left-color: #ff0066;
+            border-left-style: solid;
         }
         
         .review-question {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #2c3e50;
-        }
-        
-        .review-answer {
-            color: #666;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffcc00;
             font-size: 0.95em;
         }
         
+        .review-answer {
+            color: #aaa;
+            font-size: 0.9em;
+            font-family: 'Special Elite', monospace;
+        }
+        
         .highlight-correct {
-            color: #28a745;
-            font-weight: 600;
+            color: #00ff88;
+            font-weight: bold;
         }
         
         .highlight-incorrect {
-            color: #dc3545;
-            font-weight: 600;
+            color: #ff0066;
+            font-weight: bold;
         }
 
         .resource-link {
             margin-top: 20px;
             padding: 12px;
-            background-color: #e8f4fd;
-            border-radius: 5px;
-            font-size: 0.9em;
-            border-left: 4px solid #0066cc;
+            background: #0a0a0a;
+            font-size: 0.85em;
+            border: 1px solid #ffcc00;
+            text-align: center;
         }
 
         .resource-link a {
-            color: #0066cc;
+            color: #ffcc00;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
         }
 
         .resource-link a:hover {
+            color: #ff0066;
             text-decoration: underline;
         }
 
         .resource-link span {
-            font-size: 0.85em;
-            color: #555;
+            font-size: 0.8em;
+            color: #888;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        /* Scrollbar estilo punk */
+        .answer-review::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .answer-review::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border: 1px solid #ff0066;
+        }
+        
+        .answer-review::-webkit-scrollbar-thumb {
+            background: #ff0066;
+            border-radius: 0;
+        }
+        
+        .answer-review::-webkit-scrollbar-thumb:hover {
+            background: #ffcc00;
+        }
+        
+        /* Listas en instrucciones */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        ul li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        ul li::before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+            color: #ff0066;
         }
         
         @media (max-width: 768px) {
@@ -284,27 +394,30 @@
             .btn {
                 width: 100%;
             }
+            
+            h1 {
+                font-size: 1.6em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📚 Genesys Cloud CX Professional</h1>
-            <p class="subtitle">Examen de certificación - Preguntas validadas contra la documentación oficial</p>
+            <h1>⚡ GENESYS PUNK EXAM ⚡</h1>
+            <p class="subtitle">CERTIFICACIÓN UNDERGROUND - DOCUMENTACIÓN OFICIAL</p>
         </div>
         
         <div id="start-screen" class="quiz-container">
-            <h2>🎯 Instrucciones del Examen</h2>
-            <p style="margin-bottom: 20px; color: #666;">
-                Este examen simula la certificación oficial de Genesys Cloud CX Professional. 
-                Todas las preguntas y respuestas han sido validadas contra la documentación 
-                oficial en help.mypurecloud.com para garantizar su precisión.
+            <h2>🎸 INSTRUCCIONES PUNK</h2>
+            <p style="margin-bottom: 20px; color: #aaa; font-family: 'Special Elite', monospace;">
+                Este examen simula la certificación oficial de Genesys Cloud CX Professional.<br>
+                Todas las preguntas han sido validadas contra la documentación oficial.
             </p>
             
-            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 25px 0;">
-                <h3 style="color: #2c3e50; margin-bottom: 15px;">📋 Características del examen:</h3>
-                <ul style="color: #666; line-height: 1.8; padding-left: 20px;">
+            <div style="background: #0a0a0a; padding: 20px; border: 1px solid #ff0066; margin: 25px 0;">
+                <h3 style="color: #ffcc00; margin-bottom: 15px; font-family: 'Orbitron', monospace;">📋 REGLAS DEL CAOS:</h3>
+                <ul style="color: #aaa; line-height: 1.8;">
                     <li>Preguntas de opción múltiple</li>
                     <li>Puntuación mínima para aprobar: 80%</li>
                     <li>Enlace a la documentación oficial en cada pregunta</li>
@@ -314,11 +427,11 @@
             </div>
             
             <button id="start-btn" class="btn btn-primary" style="margin: 20px auto; display: block; padding: 15px 40px;">
-                🚀 Comenzar Examen
+                💥 COMENZAR EXAMEN 💥
             </button>
             
-            <p style="text-align: center; color: #999; font-size: 0.9em; margin-top: 20px;">
-                ℹ️ Nota: Cada pregunta incluye un enlace a la documentación oficial de Genesys Cloud Resource Center
+            <p style="text-align: center; color: #666; font-size: 0.8em; margin-top: 20px; font-family: monospace;">
+                ⚡ Cada pregunta incluye un enlace a la documentación oficial de Genesys Cloud ⚡
             </p>
         </div>
         
@@ -329,29 +442,25 @@
                 </div>
                 <div class="question-counter" id="question-counter">Pregunta 1/102</div>
                 
-                <div class="question" id="question-container">
-                    <!-- La pregunta se cargará aquí dinámicamente -->
-                </div>
+                <div class="question" id="question-container"></div>
                 
                 <div class="navigation">
-                    <button id="prev-btn" class="btn btn-secondary">⬅️ Anterior</button>
-                    <button id="next-btn" class="btn btn-primary">Siguiente ➡️</button>
+                    <button id="prev-btn" class="btn btn-secondary">⬅️ ANTERIOR</button>
+                    <button id="next-btn" class="btn btn-primary">SIGUIENTE ➡️</button>
                 </div>
             </div>
         </div>
         
         <div id="results-screen" class="quiz-container hidden">
             <div class="results-screen">
-                <h2>🎓 Resultados del Examen</h2>
+                <h2 style="color: #ffcc00; font-family: 'Black Ops One', monospace;">🎸 RESULTADOS 🎸</h2>
                 <div class="score-display" id="score-display">0%</div>
                 <div class="score-message" id="score-message"></div>
                 
-                <div id="detailed-results" class="answer-review">
-                    <!-- Los resultados detallados se cargarán aquí -->
-                </div>
+                <div id="detailed-results" class="answer-review"></div>
                 
                 <button id="restart-btn" class="btn btn-primary" style="margin-top: 30px;">
-                    🔄 Reiniciar Examen
+                    🔄 REINICIAR EXAMEN
                 </button>
             </div>
         </div>
@@ -1130,7 +1239,6 @@
         prevBtn.addEventListener('click', prevQuestion);
         restartBtn.addEventListener('click', restartExam);
 
-        // Función para iniciar el examen
         function startExam() {
             startScreen.classList.add('hidden');
             quizScreen.classList.remove('hidden');
@@ -1138,18 +1246,14 @@
             showQuestion();
         }
 
-        // Función para mostrar una pregunta
         function showQuestion() {
             const question = questions[currentQuestion];
             
-            // Actualizar contador y barra de progreso
             questionCounter.textContent = `Pregunta ${currentQuestion + 1}/${questions.length}`;
             progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
             
-            // Construir HTML de la pregunta
-            let html = `<h2>${question.question}</h2>`;
+            let html = `<h2>⚡ ${question.question}</h2>`;
             
-            // Verificar si es pregunta múltiple
             const isMultiple = question.type === 'multiple';
             const inputType = isMultiple ? 'checkbox' : 'radio';
             
@@ -1170,32 +1274,28 @@
             
             html += `</div>`;
             
-            // Agregar enlace al Resource Center
             if (question.resourceLink) {
                 html += `
                     <div class="resource-link">
-                        📖 <strong>Verificar en documentación oficial:</strong> 
+                        📖 <strong>VERIFICAR EN DOCUMENTACIÓN OFICIAL:</strong> 
                         <a href="${question.resourceLink}" target="_blank" rel="noopener noreferrer">
-                            Genesys Cloud Resource Center
+                            ${question.resourceLink}
                         </a>
-                        <span>🔗 Haz clic para validar la respuesta correcta en la documentación oficial</span>
+                        <span>⚡ Haz clic para validar la respuesta correcta ⚡</span>
                     </div>
                 `;
             }
             
             questionContainer.innerHTML = html;
             
-            // Añadir event listeners a las opciones
             document.querySelectorAll('input[name="answer"]').forEach(input => {
                 input.addEventListener('change', handleAnswerSelection);
             });
             
-            // Actualizar botones de navegación
             prevBtn.disabled = currentQuestion === 0;
-            nextBtn.textContent = currentQuestion === questions.length - 1 ? 'Finalizar Examen' : 'Siguiente';
+            nextBtn.textContent = currentQuestion === questions.length - 1 ? 'FINALIZAR 💀' : 'SIGUIENTE ➡️';
         }
 
-        // Función para manejar selección de respuestas
         function handleAnswerSelection(e) {
             const question = questions[currentQuestion];
             const isMultiple = question.type === 'multiple';
@@ -1209,7 +1309,6 @@
             }
         }
 
-        // Función para verificar si una respuesta es correcta
         function isAnswerCorrect(questionIndex) {
             const question = questions[questionIndex];
             const userAnswer = userAnswers[questionIndex];
@@ -1227,7 +1326,6 @@
             }
         }
 
-        // Función para ir a la siguiente pregunta
         function nextQuestion() {
             if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
@@ -1237,7 +1335,6 @@
             }
         }
 
-        // Función para ir a la pregunta anterior
         function prevQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
@@ -1245,12 +1342,10 @@
             }
         }
 
-        // Función para finalizar el examen
         function finishExam() {
             quizScreen.classList.add('hidden');
             resultsScreen.classList.remove('hidden');
             
-            // Calcular puntaje
             score = 0;
             questions.forEach((_, index) => {
                 if (isAnswerCorrect(index)) {
@@ -1261,16 +1356,14 @@
             const percentage = Math.round((score / questions.length) * 100);
             const passed = percentage >= 80;
             
-            // Mostrar resultados
             scoreDisplay.textContent = `${percentage}%`;
             scoreMessage.textContent = passed
-                ? `🎉 ¡Felicidades! Has aprobado el examen con ${score} de ${questions.length} respuestas correctas.`
-                : `📚 Necesitas al menos 80% para aprobar. Obtuviste ${score} de ${questions.length} (${percentage}%).`;
+                ? `💀 APROBASTE 💀 - ${score} de ${questions.length} respuestas correctas`
+                : `💥 REPROBASTE 💥 - ${score} de ${questions.length} (${percentage}%) - Necesitas al menos 80%`;
             
-            scoreMessage.style.color = passed ? '#28a745' : '#dc3545';
+            scoreMessage.style.color = passed ? '#00ff88' : '#ff0066';
             
-            // Mostrar resultados detallados
-            detailedResults.innerHTML = '<h3 style="margin-bottom: 20px;">📊 Revisión de Respuestas:</h3>';
+            detailedResults.innerHTML = '<h3 style="margin-bottom: 20px; color: #ffcc00; font-family: \'Orbitron\', monospace;">📊 REVISIÓN DE RESPUESTAS:</h3>';
             
             questions.forEach((q, index) => {
                 const userAnswer = userAnswers[index];
@@ -1293,26 +1386,25 @@
                     <div class="review-item ${isCorrect ? 'correct-review' : 'incorrect-review'}">
                         <div class="review-question">
                             ${index + 1}. ${q.question}
-                            ${isCorrect ? '<span style="color: #28a745;">✓</span>' : '<span style="color: #dc3545;">✗</span>'}
+                            ${isCorrect ? '✓' : '✗'}
                         </div>
                         <div class="review-answer">
-                            <strong>Tu respuesta:</strong> 
+                            <strong>TU RESPUESTA:</strong> 
                             <span class="${isCorrect ? 'highlight-correct' : 'highlight-incorrect'}">${userAnswerText}</span>
-                            ${!isCorrect ? `<br><strong>Respuesta correcta:</strong> <span class="highlight-correct">${correctAnswerText}</span>` : ''}
+                            ${!isCorrect ? `<br><strong>RESPUESTA CORRECTA:</strong> <span class="highlight-correct">${correctAnswerText}</span>` : ''}
                         </div>
-                        <div class="review-answer" style="margin-top: 8px; font-size: 0.9em;">
-                            <strong>Documentación oficial:</strong> 
-                            <a href="${q.resourceLink}" target="_blank" rel="noopener noreferrer" style="color: #0066cc;">${q.resourceLink}</a>
+                        <div class="review-answer" style="margin-top: 8px;">
+                            <strong>📖 DOCUMENTACIÓN:</strong> 
+                            <a href="${q.resourceLink}" target="_blank" style="color: #ffcc00;">${q.resourceLink}</a>
                         </div>
-                        <div class="review-answer" style="margin-top: 8px; font-size: 0.9em; color: #555;">
-                            <strong>Explicación:</strong> ${q.explanation}
+                        <div class="review-answer" style="margin-top: 8px; color: #888;">
+                            <strong>EXPLICACIÓN:</strong> ${q.explanation}
                         </div>
                     </div>
                 `;
             });
         }
 
-        // Función para reiniciar el examen
         function restartExam() {
             currentQuestion = 0;
             score = 0;
