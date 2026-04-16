@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>⚡ GENESYS PUNK EXAM ⚡</title>
+    <link rel="manifest" href="manifest.json">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Orbitron:wght@400;700;900&family=Black+Ops+One&display=swap');
         
@@ -19,7 +20,7 @@
             background: #0a0a0a;
             background-image: 
                 repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 2px, transparent 2px, transparent 8px),
-                radial-gradient(circle at 20% 80%, rgba(255, 0, 100, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(128, 0, 255, 0.15) 0%, transparent 50%);
             min-height: 100vh;
             padding: 20px;
             color: #d0d0d0;
@@ -32,10 +33,10 @@
         
         /* Estilo punk - bordes rotos y ángulos */
         .header, .quiz-container, .resource-link, .review-item {
-            border: 2px solid #ff0066;
+            border: 2px solid #9b4dff;
             border-radius: 0;
             position: relative;
-            box-shadow: 8px 8px 0 rgba(255, 0, 102, 0.3);
+            box-shadow: 8px 8px 0 rgba(155, 77, 255, 0.3);
         }
         
         .header::before, .quiz-container::before {
@@ -44,8 +45,8 @@
             top: -15px;
             left: -15px;
             font-size: 30px;
-            color: #ffcc00;
-            text-shadow: 0 0 5px #ff0066;
+            color: #9b4dff;
+            text-shadow: 0 0 5px #9b4dff;
         }
         
         .header::after, .quiz-container::after {
@@ -54,8 +55,8 @@
             bottom: -15px;
             right: -15px;
             font-size: 30px;
-            color: #ffcc00;
-            text-shadow: 0 0 5px #ff0066;
+            color: #9b4dff;
+            text-shadow: 0 0 5px #9b4dff;
             transform: rotate(15deg);
         }
         
@@ -68,17 +69,17 @@
         
         h1 {
             font-family: 'Black Ops One', 'Orbitron', monospace;
-            color: #ff0066;
+            color: #9b4dff;
             margin-bottom: 10px;
             font-size: 2.5em;
-            text-shadow: 3px 3px 0 #ffcc00, 0 0 10px #ff0066;
+            text-shadow: 3px 3px 0 #4a0096, 0 0 10px #9b4dff;
             letter-spacing: 3px;
             word-break: break-word;
         }
         
         .subtitle {
             font-family: 'Orbitron', monospace;
-            color: #ffcc00;
+            color: #9b4dff;
             font-size: 0.9em;
             margin-bottom: 20px;
             letter-spacing: 2px;
@@ -90,7 +91,7 @@
             padding: 30px;
             margin-bottom: 20px;
             position: relative;
-            border-color: #ff0066;
+            border-color: #9b4dff;
         }
         
         .progress-container {
@@ -99,41 +100,41 @@
             background-color: #1a1a1a;
             margin-bottom: 30px;
             overflow: hidden;
-            border: 1px solid #ff0066;
+            border: 1px solid #9b4dff;
         }
         
         .progress-bar {
             height: 100%;
-            background: repeating-linear-gradient(90deg, #ff0066, #ff0066 10px, #ffcc00 10px, #ffcc00 20px);
+            background: repeating-linear-gradient(90deg, #9b4dff, #9b4dff 10px, #4a0096 10px, #4a0096 20px);
             width: 0%;
             transition: width 0.5s ease;
-            box-shadow: 0 0 10px #ff0066;
+            box-shadow: 0 0 10px #9b4dff;
         }
         
         .question-counter {
             position: absolute;
             top: 30px;
             right: 30px;
-            background-color: #ff0066;
+            background-color: #9b4dff;
             color: #0a0a0a;
             padding: 8px 18px;
             font-family: 'Orbitron', monospace;
             font-weight: bold;
             font-size: 0.9em;
-            border: 1px solid #ffcc00;
+            border: 1px solid #4a0096;
             letter-spacing: 1px;
-            box-shadow: 3px 3px 0 #ffcc00;
+            box-shadow: 3px 3px 0 #4a0096;
         }
         
         .question h2 {
             font-family: 'Orbitron', monospace;
-            color: #ffcc00;
+            color: #9b4dff;
             margin-bottom: 25px;
             font-size: 1.3em;
             line-height: 1.5;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border-left: 5px solid #ff0066;
+            border-left: 5px solid #9b4dff;
             padding-left: 15px;
         }
         
@@ -156,16 +157,16 @@
         }
         
         .option:hover {
-            border-color: #ffcc00;
+            border-color: #9b4dff;
             background-color: #1a1a2e;
             transform: translateX(5px);
-            box-shadow: -3px 3px 0 #ff0066;
+            box-shadow: -3px 3px 0 #9b4dff;
         }
         
         .option input {
             margin-right: 15px;
             transform: scale(1.3);
-            accent-color: #ff0066;
+            accent-color: #9b4dff;
         }
         
         .option label {
@@ -199,31 +200,31 @@
         }
         
         .btn-primary {
-            background: #ff0066;
+            background: #9b4dff;
             color: #0a0a0a;
-            border: 1px solid #ffcc00;
-            box-shadow: 3px 3px 0 #ffcc00;
+            border: 1px solid #4a0096;
+            box-shadow: 3px 3px 0 #4a0096;
         }
         
         .btn-primary:hover {
-            background: #ffcc00;
-            color: #0a0a0a;
+            background: #4a0096;
+            color: #9b4dff;
             transform: translate(-2px, -2px);
-            box-shadow: 5px 5px 0 #ff0066;
+            box-shadow: 5px 5px 0 #9b4dff;
         }
         
         .btn-secondary {
             background-color: #1a1a1a;
-            color: #ffcc00;
-            border: 1px solid #ff0066;
-            box-shadow: 3px 3px 0 #ff0066;
+            color: #9b4dff;
+            border: 1px solid #9b4dff;
+            box-shadow: 3px 3px 0 #9b4dff;
         }
         
         .btn-secondary:hover {
             background-color: #2a2a2a;
-            color: #ff0066;
+            color: #4a0096;
             transform: translate(-2px, -2px);
-            box-shadow: 5px 5px 0 #ffcc00;
+            box-shadow: 5px 5px 0 #4a0096;
         }
         
         .btn:disabled {
@@ -246,12 +247,12 @@
             font-size: 5em;
             font-weight: bold;
             font-family: 'Black Ops One', monospace;
-            background: linear-gradient(135deg, #ff0066, #ffcc00);
+            background: linear-gradient(135deg, #9b4dff, #4a0096);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin: 20px 0;
-            text-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
+            text-shadow: 0 0 20px rgba(155, 77, 255, 0.5);
         }
         
         .score-message {
@@ -259,7 +260,7 @@
             font-family: 'Orbitron', monospace;
             margin-bottom: 30px;
             padding: 15px;
-            border: 1px solid #ff0066;
+            border: 1px solid #9b4dff;
             background: #111;
         }
         
@@ -284,7 +285,7 @@
         }
         
         .incorrect-review {
-            border-left-color: #ff0066;
+            border-left-color: #9b4dff;
             border-left-style: solid;
         }
         
@@ -292,7 +293,7 @@
             font-family: 'Orbitron', monospace;
             font-weight: bold;
             margin-bottom: 10px;
-            color: #ffcc00;
+            color: #9b4dff;
             font-size: 0.95em;
         }
         
@@ -308,7 +309,7 @@
         }
         
         .highlight-incorrect {
-            color: #ff0066;
+            color: #9b4dff;
             font-weight: bold;
         }
 
@@ -317,19 +318,19 @@
             padding: 12px;
             background: #0a0a0a;
             font-size: 0.85em;
-            border: 1px solid #ffcc00;
+            border: 1px solid #9b4dff;
             text-align: center;
         }
 
         .resource-link a {
-            color: #ffcc00;
+            color: #9b4dff;
             text-decoration: none;
             font-weight: bold;
             font-family: 'Orbitron', monospace;
         }
 
         .resource-link a:hover {
-            color: #ff0066;
+            color: #4a0096;
             text-decoration: underline;
         }
 
@@ -347,16 +348,16 @@
         
         .answer-review::-webkit-scrollbar-track {
             background: #1a1a1a;
-            border: 1px solid #ff0066;
+            border: 1px solid #9b4dff;
         }
         
         .answer-review::-webkit-scrollbar-thumb {
-            background: #ff0066;
+            background: #9b4dff;
             border-radius: 0;
         }
         
         .answer-review::-webkit-scrollbar-thumb:hover {
-            background: #ffcc00;
+            background: #4a0096;
         }
         
         /* Listas en instrucciones */
@@ -375,7 +376,7 @@
             content: "⚡";
             position: absolute;
             left: 0;
-            color: #ff0066;
+            color: #9b4dff;
         }
         
         @media (max-width: 768px) {
@@ -415,8 +416,8 @@
                 Todas las preguntas han sido validadas contra la documentación oficial.
             </p>
             
-            <div style="background: #0a0a0a; padding: 20px; border: 1px solid #ff0066; margin: 25px 0;">
-                <h3 style="color: #ffcc00; margin-bottom: 15px; font-family: 'Orbitron', monospace;">📋 REGLAS DEL CAOS:</h3>
+            <div style="background: #0a0a0a; padding: 20px; border: 1px solid #9b4dff; margin: 25px 0;">
+                <h3 style="color: #9b4dff; margin-bottom: 15px; font-family: 'Orbitron', monospace;">📋 REGLAS DEL CAOS:</h3>
                 <ul style="color: #aaa; line-height: 1.8;">
                     <li>Preguntas de opción múltiple</li>
                     <li>Puntuación mínima para aprobar: 80%</li>
@@ -453,7 +454,7 @@
         
         <div id="results-screen" class="quiz-container hidden">
             <div class="results-screen">
-                <h2 style="color: #ffcc00; font-family: 'Black Ops One', monospace;">🎸 RESULTADOS 🎸</h2>
+                <h2 style="color: #9b4dff; font-family: 'Black Ops One', monospace;">🎸 RESULTADOS 🎸</h2>
                 <div class="score-display" id="score-display">0%</div>
                 <div class="score-message" id="score-message"></div>
                 
@@ -467,7 +468,7 @@
     </div>
 
     <script>
-        // Datos del examen - TODAS LAS RESPUESTAS CON ENLACE A DOCUMENTACIÓN OFICIAL
+        // Datos del examen - TODAS LAS RESPUESTAS CON ENLACE CORREGIDO A DOCUMENTACIÓN OFICIAL
         const questions = [
             {
                 question: "Which of the following entities is used to ensure that people within your organization have the rights and permissions that they need within Genesys Cloud CX?",
@@ -480,7 +481,7 @@
                 question: "Genesys Cloud CX supports embedded clients for Salesforce and Zendesk.",
                 options: ["True", "False"],
                 correct: 0,
-                resourceLink: "https://help.mypurecloud.com/articles/embedded-client/",
+                resourceLink: "https://help.mypurecloud.com/articles/about-the-genesys-cloud-browser-extensions/",
                 explanation: "Genesys Cloud CX provides embedded clients for Salesforce, Zendesk, and other CRM systems."
             },
             {
@@ -488,7 +489,7 @@
                 options: ["All skills matching", "Best available skills", "Bullseye matching", "Disregard skills", "Agent availability"],
                 correct: [0, 1, 3],
                 type: "multiple",
-                resourceLink: "https://help.mypurecloud.com/articles/about-acd-skills/",
+                resourceLink: "https://help.mypurecloud.com/articles/skill-matching/",
                 explanation: "AND evaluation methods include: All skills matching, Best available skills, and Disregard skills."
             },
             {
@@ -510,7 +511,7 @@
                 question: "Which feature enables a voice interaction to interrupt an email interaction?",
                 options: ["Utilization", "ACD Skills", "Emergency Routing", "Scripts"],
                 correct: 0,
-                resourceLink: "https://help.mypurecloud.com/articles/about-utilization/",
+                resourceLink: "https://help.mypurecloud.com/articles/last-agent-routing-overview/",
                 explanation: "Utilization settings control how different media types can interrupt each other."
             },
             {
@@ -569,7 +570,7 @@
                 question: "Which of the following Genesys Cloud CX features helps ensure that enough agents are in the right place at the right time?",
                 options: ["Routing", "Queue Management", "Workforce Management", "Reporting and Analytics"],
                 correct: 2,
-                resourceLink: "https://help.mypurecloud.com/articles/about-wfm/",
+                resourceLink: "https://help.mypurecloud.com/articles/about-workforce-management/",
                 explanation: "Workforce Management handles forecasting, scheduling, and adherence."
             },
             {
@@ -641,14 +642,14 @@
                 question: "Which feature requires at least one single sign-on (SSO) integration to be configured before allowing a user to login to Genesys Cloud CX?",
                 options: ["Disable Location Detection", "Password Expiration", "Disable Genesys Cloud CX Login", "Open Admission"],
                 correct: 2,
-                resourceLink: "https://help.mypurecloud.com/articles/sso-requirements/",
+                resourceLink: "https://help.mypurecloud.com/sso-integration-capacity-in-genesys-cloud/",
                 explanation: "'Disable Genesys Cloud CX Login' requires SSO."
             },
             {
                 question: "What is the best way to resend an invitation to John Camper?",
                 options: ["Resend the invite.", "Add John to Genesys Cloud CX again so that a new invitation will be generated.", "Submit a ticket to Genesys Cloud CX support.", "Tell John to be patient and wait for the email to arrive."],
                 correct: 0,
-                resourceLink: "https://help.mypurecloud.com/articles/resend-invitations/",
+                resourceLink: "https://help.mypurecloud.com/articles/add-people/",
                 explanation: "Simply resend the invitation from Admin > People."
             },
             {
@@ -692,7 +693,7 @@
                 options: ["The default protocol", "TCP", "TLS", "SIP", "UDP"],
                 correct: [1, 2, 4],
                 type: "multiple",
-                resourceLink: "https://help.mypurecloud.com/articles/trunk-protocols/",
+                resourceLink: "https://help.mypurecloud.com/articles/about-external-trunks/",
                 explanation: "External trunks support TCP, TLS, and UDP protocols."
             },
             {
@@ -988,7 +989,7 @@
                 question: "Which feature replaces spreadsheet schedules?",
                 options: ["Genesys Cloud CX Workforce Management", "Genesys Cloud CX API", "Genesys Cloud CX Architect", "Genesys Cloud CX Reporting and Analytics"],
                 correct: 0,
-                resourceLink: "https://help.mypurecloud.com/articles/wfm-scheduling/",
+                resourceLink: "https://help.mypurecloud.com/articles/about-workforce-management/",
                 explanation: "WFM replaces manual scheduling."
             },
             {
@@ -1185,7 +1186,7 @@
                 options: [".doc", ".xls", ".txt", ".docx", ".xlsx", ".pdf"],
                 correct: [1, 4, 5],
                 type: "multiple",
-                resourceLink: "https://help.mypurecloud.com/articles/report-export/",
+                resourceLink: "https://help.mypurecloud.com/articles/export-data-from-views/",
                 explanation: "Export formats: .xls, .xlsx, .pdf, and CSV."
             },
             {
@@ -1207,7 +1208,7 @@
                 question: "Which dialing mode reduces the risk of an abandon?",
                 options: ["Power.", "Progressive.", "Agentless."],
                 correct: 1,
-                resourceLink: "https://help.mypurecloud.com/articles/dialing-modes/",
+                resourceLink: "https://help.mypurecloud.com/articles/about-outbound-dialing-modes/",
                 explanation: "Progressive dialing reduces abandon risk."
             }
         ];
@@ -1361,9 +1362,9 @@
                 ? `💀 APROBASTE 💀 - ${score} de ${questions.length} respuestas correctas`
                 : `💥 REPROBASTE 💥 - ${score} de ${questions.length} (${percentage}%) - Necesitas al menos 80%`;
             
-            scoreMessage.style.color = passed ? '#00ff88' : '#ff0066';
+            scoreMessage.style.color = passed ? '#00ff88' : '#9b4dff';
             
-            detailedResults.innerHTML = '<h3 style="margin-bottom: 20px; color: #ffcc00; font-family: \'Orbitron\', monospace;">📊 REVISIÓN DE RESPUESTAS:</h3>';
+            detailedResults.innerHTML = '<h3 style="margin-bottom: 20px; color: #9b4dff; font-family: \'Orbitron\', monospace;">📊 REVISIÓN DE RESPUESTAS:</h3>';
             
             questions.forEach((q, index) => {
                 const userAnswer = userAnswers[index];
@@ -1395,7 +1396,7 @@
                         </div>
                         <div class="review-answer" style="margin-top: 8px;">
                             <strong>📖 DOCUMENTACIÓN:</strong> 
-                            <a href="${q.resourceLink}" target="_blank" style="color: #ffcc00;">${q.resourceLink}</a>
+                            <a href="${q.resourceLink}" target="_blank" style="color: #9b4dff;">${q.resourceLink}</a>
                         </div>
                         <div class="review-answer" style="margin-top: 8px; color: #888;">
                             <strong>EXPLICACIÓN:</strong> ${q.explanation}
