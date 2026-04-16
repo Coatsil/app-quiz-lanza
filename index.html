@@ -3,21 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
-  <title>Quiz App - Menú Principal</title>
+  <title>⚡ PUNK STUDY MENU ⚡</title>
   <link rel="manifest" href="manifest.json" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Orbitron:wght@400;700;900&family=Black+Ops+One&display=swap');
+    
     :root {
-      --primary-color: #800080; /* purple */
-      --secondary-color: #ffc0cb; /* pink */
-      --background-start: #f0f8ff; /* aliceblue */
-      --background-end: #add8e6; /* lightblue */
-      --text-light: #f0f8ff; /* aliceblue */
-      --font-main: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      --primary-color: #9b4dff; /* purple neón */
+      --secondary-color: #ff0066; /* rosa punk */
+      --background-start: #0a0a0a;
+      --background-end: #1a0033;
+      --text-light: #d0d0d0;
+      --font-main: 'Special Elite', 'Courier New', monospace;
+      --font-heading: 'Black Ops One', 'Orbitron', monospace;
       
       /* Tamaños base responsivos - Optimizados para Samsung S52 */
       --base-font-size: clamp(18px, 5.5vw, 24px);
-      --heading1-size: clamp(1.6rem, 7vw, 2.2rem);
-      --heading2-size: clamp(1.3rem, 6vw, 1.8rem);
+      --heading1-size: clamp(1.8rem, 8vw, 2.5rem);
+      --heading2-size: clamp(1.4rem, 6.5vw, 2rem);
       --button-font-size: clamp(1rem, 4.8vw, 1.4rem);
       --element-spacing: clamp(0.4rem, 2vw, 1rem);
       --section-spacing: clamp(0.8rem, 3.5vw, 1.5rem);
@@ -33,7 +36,10 @@
       min-height: 100vh;
       min-height: 100dvh;
       background: linear-gradient(135deg, var(--background-start), var(--background-end));
-      color: var(--primary-color);
+      background-image: 
+        repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 2px, transparent 2px, transparent 8px),
+        radial-gradient(circle at 20% 80%, rgba(155, 77, 255, 0.15) 0%, transparent 50%);
+      color: var(--text-light);
       font-family: var(--font-main);
       font-size: var(--base-font-size);
       display: flex;
@@ -46,23 +52,53 @@
       text-align: center;
       margin-bottom: calc(var(--section-spacing) * 0.8);
       padding-top: 15px;
+      position: relative;
+    }
+    
+    /* Borde estilo punk en header */
+    header::before {
+      content: "⚡⚡⚡";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      color: var(--secondary-color);
+      letter-spacing: 5px;
+    }
+    
+    header::after {
+      content: "⚡⚡⚡";
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      color: var(--secondary-color);
+      letter-spacing: 5px;
     }
     
     h1, h2 {
-      color: var(--primary-color);
       margin-bottom: 8px;
       line-height: 1.2;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
     
     h1 {
+      font-family: var(--font-heading);
       font-size: var(--heading1-size);
       font-weight: bold;
+      color: var(--secondary-color);
+      text-shadow: 3px 3px 0 var(--primary-color), 0 0 10px var(--secondary-color);
     }
     
     h2 {
+      font-family: 'Orbitron', monospace;
       font-size: var(--heading2-size);
       font-weight: 600;
+      color: var(--primary-color);
+      text-shadow: 2px 2px 0 #4a0096;
     }
     
     main {
@@ -82,10 +118,34 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 25px;
+      background: rgba(10, 10, 10, 0.85);
+      border: 2px solid var(--primary-color);
       padding: 20px 15px;
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(4px);
+      box-shadow: 8px 8px 0 rgba(155, 77, 255, 0.3);
+      position: relative;
+    }
+    
+    /* Esquinas rotas estilo punk */
+    .menu-container::before {
+      content: "⚡";
+      position: absolute;
+      top: -12px;
+      left: -12px;
+      font-size: 25px;
+      color: var(--secondary-color);
+      text-shadow: 0 0 5px var(--secondary-color);
+    }
+    
+    .menu-container::after {
+      content: "⚡";
+      position: absolute;
+      bottom: -12px;
+      right: -12px;
+      font-size: 25px;
+      color: var(--secondary-color);
+      text-shadow: 0 0 5px var(--secondary-color);
+      transform: rotate(15deg);
     }
     
     ul {
@@ -93,40 +153,47 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 18px;
       width: 100%;
       padding: 10px 5px;
       margin: 8px 0;
     }
     
     .boton {
-      border: 3px solid var(--primary-color);
-      border-radius: 50px;
+      border: 2px solid var(--secondary-color);
+      border-radius: 0;
       padding: 14px 20px;
       font-size: var(--button-font-size);
-      background: linear-gradient(135deg, var(--secondary-color), #ffe4e8);
-      color: var(--primary-color);
+      background: linear-gradient(135deg, #1a0033, #0a0a0a);
+      color: var(--secondary-color);
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       width: 100%;
       max-width: min(85vw, 300px);
       text-align: center;
       font-weight: bold;
       margin: 0;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-      letter-spacing: 1px;
+      box-shadow: 4px 4px 0 var(--primary-color);
+      letter-spacing: 2px;
+      font-family: 'Orbitron', monospace;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
     }
     
+    /* Efecto de "distorsión" al hover */
     .boton:hover, .boton:focus {
-      transform: scale(1.02);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      background: linear-gradient(135deg, #ffd0d8, #ffc0cb);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--secondary-color);
+      background: linear-gradient(135deg, #2a0055, #1a0033);
+      color: var(--primary-color);
+      border-color: var(--primary-color);
       outline: none;
-      border-width: 3px;
     }
     
     .boton:active {
-      transform: scale(0.98);
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--primary-color);
     }
     
     a {
@@ -140,11 +207,34 @@
       margin-top: 20px;
       text-align: center;
       padding: 15px 10px 20px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 30px 30px 15px 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border-top: 2px solid var(--primary-color);
+      border-bottom: 2px solid var(--secondary-color);
+      position: relative;
     }
     
-    /* IMAGEN MÁS GRANDE - Optimizada para Samsung S52 */
+    /* Rayos decorativos en footer */
+    footer::before {
+      content: "⚡";
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: var(--secondary-color);
+    }
+    
+    footer::after {
+      content: "⚡";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: var(--secondary-color);
+    }
+    
+    /* IMAGEN MÁS GRANDE - Estilo punk */
     footer img {
       max-width: min(75vw, 280px);
       width: auto;
@@ -153,21 +243,26 @@
       min-width: 180px;
       display: block;
       margin: 0 auto;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
+      border-radius: 0;
+      box-shadow: 0 0 20px rgba(155, 77, 255, 0.5);
+      transition: all 0.3s ease;
+      filter: grayscale(20%) contrast(120%);
+      border: 2px solid var(--secondary-color);
     }
     
     footer img:hover {
-      transform: scale(1.03);
+      transform: scale(1.03) rotate(-1deg);
+      box-shadow: 0 0 30px var(--secondary-color);
+      filter: grayscale(0%) contrast(130%);
+      border-color: var(--primary-color);
     }
     
     /* Media Query específica para Samsung S52 y dispositivos similares (360px - 412px) */
     @media (min-width: 350px) and (max-width: 420px) {
       :root {
         --base-font-size: 19px;
-        --heading1-size: 1.9rem;
-        --heading2-size: 1.6rem;
+        --heading1-size: 2rem;
+        --heading2-size: 1.7rem;
         --button-font-size: 1.2rem;
       }
       
@@ -200,8 +295,8 @@
     @media (max-width: 360px) {
       :root {
         --base-font-size: 17px;
-        --heading1-size: 1.7rem;
-        --heading2-size: 1.4rem;
+        --heading1-size: 1.8rem;
+        --heading2-size: 1.5rem;
         --button-font-size: 1.05rem;
       }
       
@@ -223,7 +318,7 @@
       }
       
       ul {
-        gap: 12px;
+        gap: 14px;
       }
       
       footer img {
@@ -233,7 +328,7 @@
       }
       
       .menu-container {
-        padding: 15px 12px;
+        padding: 18px 12px;
       }
     }
     
@@ -242,13 +337,12 @@
       :root {
         --base-font-size: 15px;
         --heading1-size: 1.5rem;
-        --heading2-size: 1.2rem;
+        --heading2-size: 1.3rem;
         --button-font-size: 0.95rem;
       }
       
       .boton {
         padding: 10px 15px;
-        border-radius: 40px;
       }
       
       footer img {
@@ -331,7 +425,7 @@
       }
       
       .boton:active {
-        transform: scale(0.97);
+        transform: translate(2px, 2px);
         transition: transform 0.05s;
       }
     }
@@ -340,23 +434,23 @@
   
 <body>
   <header>
-    <h1>📚 Prepárate para los problemas.</h1>
-    <h2>🎓 ¡Y más vale que temas!</h2>
+    <h1>⚡ PREPÁRATE PARA EL CAOS ⚡</h1>
+    <h2>🎸 ¡Y MÁS VALE QUE TEMAS! 🎸</h2>
   </header>
   
   <main>
     <div class="menu-container">
-      <h2>📖 Guías de Estudio</h2>
+      <h2>📖 GUÍAS DE ESTUDIO</h2>
       <ul>
-        <li><button type="button" class="boton"><a href="menu-oct.html">🎯 Octavo Cuatri.</a></button></li>
-        <li><button type="button" class="boton"><a href="menu-nov.html">⚡ Noveno Cuatri.</a></button></li>
-        <li><button type="button" class="boton"><a href="cloud.html">☁️ Certificaciones Genesys</a></button></li>
+        <li><button type="button" class="boton"><a href="menu-oct.html">🎯 OCTAVO CUATRI.</a></button></li>
+        <li><button type="button" class="boton"><a href="menu-nov.html">⚡ NOVENO CUATRI.</a></button></li>
+        <li><button type="button" class="boton"><a href="cloud.html">☠️ CERTIFICACIONES GENESYS</a></button></li>
       </ul>
     </div>
   </main>
 
   <footer>
-    <img src="Estudiante.png" alt="Alégrate - Estudiante" loading="lazy">  
+    <img src="Estudiante.png" alt="Alégrate - Estudiante Punk" loading="lazy">  
   </footer>
 </body>
 </html>
