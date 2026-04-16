@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz App - Underground Noveno</title>
+  <title>⚡ NOVENO_PUNK_HUB ⚡</title>
   <link rel="manifest" href="manifest.json" />
   <style>
-    /* IMPORTACIÓN DE FUENTES PUNK AGRESIVAS */
-    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Stardos+Stencil:wght@400;700&family=Anton&display=swap');
+    /* IMPORTACIÓN DE FUENTES PUNK & TECH */
+    /* Black Ops One: Para títulos militares/tech */
+    /* Permanent Marker: Para subtítulos "rayados" */
+    /* Special Elite: Para texto de máquina de escribir */
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&family=Black+Ops+One&display=swap');
 
     * {
       box-sizing: border-box;
@@ -17,10 +20,13 @@
 
     body {
       font-family: 'Special Elite', monospace;
-      background-color: #0a0a0a;
-      /* Textura de ruido/papel fotocopiado */
-      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW1mZmZlZWVkZGRjY2NiYmJhYWJgYGBfX19eX19dX19cX19bX19aX19ZYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWHrY8jjAAAAD0RSTlMAAQIDBAUGBwgJCgsMDQ4S9f49AAAAnklEQVD42u3T6wqAIBCFYXN393O7/vXW5mIFZfSjX4Y4Lw4zAsv65FfW57bMvAbeZ9UjW/bKzmsWp6C9L7B8Xp+K9m0W56C9T7B8X5+K9ncW66C9T7B8f5+K9m8W66C9X7B8P5+K9ncW66C9f7B8v5+K9ncW66C9D7B835+K9m8W66C9T7B8X5+K9ncW66C9T7B8f5+K9n8W66C9H8u5f9n4L6g5AAAAAElFTkSuQmCC');
-      color: #d0d0d0;
+      background-color: #000;
+      /* Fondo con textura de cuero negro y rejilla tech */
+      background-image: 
+        radial-gradient(#1a0033 1px, transparent 1px), /* Púrpura muy oscuro */
+        url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAElBMVEUAAAD8/PzMzMzMzMzMzMzMzMzLzMvMAAAAAnklEQVD42u3T6wqAIBCFYXN393O7/vXW5mIFZfSjX4Y4Lw4zAsv65FfW57bMvAbeZ9UjW/bKzmsWp6C9L7B8Xp+K9ncW66C9T7B8f5+K9m8W66C9X7B8P5+K9ncW66C9f7B8v5+K9ncW66C9D7B835+K9m8W66C9T7B8X5+K9ncW66C9T7B8f5+K9n8W66C9H8u5f9n4L6g5AAAAAElFTkSuQmCC');
+      background-size: 30px 30px, auto;
+      color: #e0e0e0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -29,53 +35,71 @@
       overflow-x: hidden;
     }
 
-    /* HEADER: ESTILO FANZINE RECORTADO */
+    /* HEADER ESTILO CHALECO DE CUERO CON ESTOPEROLES */
     header {
       width: 100%;
-      max-width: 600px;
-      background: #fff; /* Blanco crudo */
-      color: #000;
-      padding: 30px;
+      max-width: 650px;
+      background: linear-gradient(135deg, #111 0%, #000 100%);
+      padding: 40px 20px;
       margin-bottom: 50px;
       transform: rotate(-1.5deg);
-      border: 6px solid #000;
-      box-shadow: 12px 12px 0 #bc0000; /* Rojo Óxido */
-      /* clip-path para bordes irregulares de tijera */
-      clip-path: polygon(1% 2%, 98% 4%, 100% 96%, 2% 99%);
+      border: 4px solid #fff;
+      /* Sombra Púrpura Neón Profundo */
+      box-shadow: 0 0 20px #9d00ff, 10px 10px 0 #fff; 
       text-align: center;
+      position: relative;
     }
 
+    /* DETALLES DE ESTOPEROLES (METAL STUDS) */
+    header::before, header::after {
+      content: "••••••••••••••••••••••••••••••";
+      font-size: 1.2rem;
+      letter-spacing: 5px;
+      color: #aaa; /* Metal */
+      position: absolute;
+      width: 100%;
+      left: 0;
+      text-shadow: 1px 1px 0 #000, -1px -1px 0 #fff; /* Efecto 3D metal */
+    }
+
+    header::before { top: 5px; }
+    header::after { bottom: 5px; }
+
     h1 {
-      font-family: 'Anton', sans-serif;
-      font-size: clamp(1.8rem, 6vw, 2.5rem);
+      font-family: 'Black Ops One', cursive;
+      color: #fff;
+      font-size: clamp(1.8rem, 7vw, 3rem);
       text-transform: uppercase;
       line-height: 0.9;
-      letter-spacing: -1px;
+      letter-spacing: -2px;
+      text-shadow: 2px 2px 0 #9d00ff, 0 0 10px #9d00ff; /* Glow Púrpura */
     }
 
     h2 {
-      font-family: 'Stardos Stencil', cursive;
-      font-size: 1.2rem;
-      margin-top: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      font-family: 'Permanent Marker', cursive;
+      color: #ff00ff; /* Fucsia Neón */
+      font-size: 1.6rem;
+      margin-top: 15px;
+      transform: rotate(1deg);
+      text-shadow: 2px 2px 0 #000;
     }
 
-    /* CONTENIDO PRINCIPAL */
+    /* MAIN: CONTENIDO CON CADENAS */
     main {
       width: 100%;
       max-width: 500px;
       text-align: center;
+      position: relative;
     }
 
     main h2 {
-      color: #bc0000;
+      font-family: 'Black Ops One', cursive;
+      color: #9d00ff; /* Púrpura Neón */
       margin-bottom: 40px;
-      text-shadow: none;
-      border-bottom: 3px solid #bc0000;
+      text-transform: uppercase;
+      border-bottom: 4px dashed #9d00ff;
       display: inline-block;
-      padding: 5px 15px;
-      transform: rotate(1deg);
+      padding: 0 15px;
     }
 
     ul {
@@ -84,79 +108,116 @@
     }
 
     li {
-      margin-bottom: 25px;
-    }
-
-    /* BOTONES INDUSTRIALES / BRUTALISTAS */
-    .boton {
-      background: #000;
-      border: 3px solid #bc0000;
-      padding: 0;
-      cursor: pointer;
-      transition: 0.1s;
-      transform: rotate(-0.5deg);
-      width: 100%;
+      margin-bottom: 30px;
       position: relative;
     }
 
+    /* BOTONES ESTILO "GOTH PUNK" CON ICONOS */
+    .boton {
+      background-color: #000;
+      border: 3px solid #fff;
+      padding: 0;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      /* Sombra de metal y neón */
+      box-shadow: 5px 5px 0 #9d00ff, inset 0 0 10px rgba(157, 0, 255, 0.5);
+    }
+
     .boton:hover {
-      background: #bc0000;
-      transform: translateX(8px) rotate(0.5deg);
-      border-color: #fff;
+      background-color: #9d00ff;
+      transform: scale(1.03) rotate(1deg);
+      box-shadow: 2px 2px 0 #fff, 0 0 20px #ff00ff;
+      border-color: #ff00ff;
     }
 
     .boton a {
-      display: block;
-      padding: 18px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px; /* Espacio para icono */
+      padding: 20px;
       text-decoration: none;
       color: #fff;
-      font-family: 'Stardos Stencil', sans-serif;
+      font-family: 'Permanent Marker', sans-serif;
       font-size: 1.3rem;
       text-transform: uppercase;
       font-weight: bold;
+      text-shadow: 2px 2px 0 #000;
     }
 
     .boton:hover a {
       color: #000;
+      text-shadow: none;
     }
 
-    /* CLASE HIDDEN */
+    /* ICONOS (Usando Unicode para no depender de librerías externas) */
+    .icon {
+      font-size: 1.6rem;
+      color: #9d00ff;
+      transition: 0.2s;
+    }
+
+    .boton:hover .icon {
+      color: #000;
+      transform: rotate(-15deg) scale(1.2);
+    }
+
+    /* CLASE HIDDEN SOLICITADA */
     .hidden {
       display: none !important;
     }
 
-    /* FOOTER CON IMAGEN ESTILO "GRITTY" */
+    /* FOOTER CON CADENAS Y FOTOCOPIA GRITTY */
     footer {
       margin-top: auto;
       padding: 40px 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
     }
 
-    .img-container {
-      background: #1a1a1a;
+    /* Cadenas laterales Unicode */
+    .chain {
+      font-size: 2rem;
+      color: #666; /* Metal oscuro */
+      text-shadow: 1px 1px 0 #000, -1px -1px 0 #9d00ff;
+      font-family: initial; /* Para que el unicode no use Special Elite */
+    }
+
+    .img-frame {
+      display: inline-block;
       padding: 10px;
-      border: 2px solid #333;
-      transform: rotate(2deg);
-      box-shadow: 10px 10px 0 #bc0000;
-      clip-path: polygon(2% 0%, 100% 5%, 95% 100%, 0% 90%);
+      background-color: #111;
+      border: 3px solid #bc0000; /* Borde rojo sangre para contraste */
+      transform: rotate(3deg);
+      box-shadow: 10px 10px 0 #000, 0 0 15px #bc0000;
+      /* clip-path para bordes rotos */
+      clip-path: polygon(5% 0, 100% 3%, 97% 100%, 0 95%);
     }
 
     footer img {
       display: block;
       max-width: 250px;
       height: auto;
-      /* Filtro para que el GIF parezca una fotocopia vieja */
-      filter: grayscale(100%) contrast(160%) brightness(90%);
+      /* Filtro para que el GIF parezca una fotocopia de bajísima calidad */
+      filter: grayscale(100%) contrast(180%) brightness(70%);
+      mix-blend-mode: screen; /* Integración cruda */
     }
 
-    /* --- RESPONSIVIDAD --- */
+    /* --- RESPONSIVIDAD (@MEDIA) --- */
     @media (max-width: 768px) {
-      header {
-        padding: 20px;
-        transform: rotate(-1deg);
-      }
-      h1 { font-size: 1.5rem; }
-      .boton a { font-size: 1rem; }
-      footer img { width: 180px; }
+      body { padding: 10px; }
+      header { padding: 25px 10px; transform: rotate(-1deg); margin-bottom: 30px; }
+      h1 { font-size: 1.6rem; letter-spacing: -1px;}
+      .boton a { font-size: 1rem; padding: 15px; }
+      .icon { font-size: 1.3rem; }
+      footer img { max-width: 170px; }
+      .chain { display: none; } /* Ocultar cadenas en móvil */
     }
   </style>
 </head>
@@ -172,21 +233,24 @@
     <ul>
       <li>
         <button type="button" class="boton">
-          <a href="pro.html">⚡ PROFESSIONAL_AUTH ⚡</a>
-        </button>
-      </li>
-      <li>
-        <button type="button" class="boton" style="border-color: #666;">
-          <a href="index.html" style="color: #666;">⬅ RETURN_TO_HOME</a>
-        </button>
-      </li>
+          <a href="pro.html">
+            <span class="icon">☠</span> <span>PROFESSIONAL_AUTH</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="boton" style="border-color: #666; box-shadow: 5px 5px 0 #333;">
+            <a href="index.html" style="color: #666;">
+              <span class="icon" style="color: #666;">⬅</span> <span>RETURN_TO_HOME</span>
+            </a>
+          </button>
+        </li>
     </ul>
   </main>
 
   <footer>
-    <div class="img-container">
-      <img src="anipoke-pokemon.gif" alt="Maximo Esfuerzo">
+    <span class="chain">⛓<br>⛓<br>⛓</span> <div class="img-frame">
+      <img src="anipoke-pokemon.gif" alt="System Artifact">
     </div>
-  </footer>
+    <span class="chain">⛓<br>⛓<br>⛓</span> </footer>
 </body>
 </html>
