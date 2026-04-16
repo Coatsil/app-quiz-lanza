@@ -6,7 +6,7 @@
     <title>⚡ GENESYS PUNK EXAM ⚡</title>
     <link rel="manifest" href="manifest.json">
     <style>
-       /* IMPORTACIÓN DE FUENTES */
+        /* IMPORTACIÓN DE FUENTES */
         @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&family=Rubik+Mono+One&display=swap');
         
         * {
@@ -231,22 +231,33 @@
             color: #fff200;
             text-shadow: 8px 8px 0 #ff00ff;
             margin: 20px 0;
+        }        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
-
-        /* --- RESPONSIVIDAD (@MEDIA) --- */
+        
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            .header { padding: 20px 10px; transform: rotate(-1deg); margin-bottom: 25px; }
-            h1 { font-size: 1.6rem; }
-            .quiz-container, .screen { padding: 20px 15px; box-shadow: 6px 6px 0 #00ffff; }
-            .question h2 { font-size: 1.2rem; }
-            .option { padding: 12px; font-size: 0.9rem; }
-            .controls { flex-direction: row; gap: 8px; }
-            .btn { padding: 12px 10px; font-size: 0.75rem; flex: 1; }
-            .score-display { font-size: 3rem; }
-            .question-counter { font-size: 0.8rem; top: -15px; right: 10px; }
-        }
-    </style>
+            .container {
+                padding: 10px;
+            }
+            
+            .header, .quiz-container {
+                padding: 20px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+            }
+        }    </style>
 </head>
 <body>
     <div class="container">
