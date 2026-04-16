@@ -2,28 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>⚡ PUNK STUDY MENU ⚡</title>
-  <link rel="manifest" href="manifest.json" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Orbitron:wght@400;700;900&family=Black+Ops+One&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Orbitron:wght@700;900&family=Black+Ops+One&display=swap');
     
     :root {
-      --primary-color: #9b4dff; /* purple neón */
-      --secondary-color: #ff0066; /* rosa punk */
-      --background-start: #0a0a0a;
-      --background-end: #1a0033;
-      --text-light: #d0d0d0;
-      --font-main: 'Special Elite', 'Courier New', monospace;
-      --font-heading: 'Black Ops One', 'Orbitron', monospace;
-      
-      /* Tamaños base responsivos - Optimizados para Samsung S52 */
-      --base-font-size: clamp(18px, 5.5vw, 24px);
-      --heading1-size: clamp(1.8rem, 8vw, 2.5rem);
-      --heading2-size: clamp(1.4rem, 6.5vw, 2rem);
-      --button-font-size: clamp(1rem, 4.8vw, 1.4rem);
-      --element-spacing: clamp(0.4rem, 2vw, 1rem);
-      --section-spacing: clamp(0.8rem, 3.5vw, 1.5rem);
+      --primary-color: #9b4dff; 
+      --secondary-color: #ff0066; 
+      --accent-color: #00f2ff; /* Cian eléctrico */
+      --warning-color: #ffff00; /* Amarillo ácido */
+      --background-dark: #050505;
+      --font-main: 'Special Elite', monospace;
+      --font-heading: 'Black Ops One', cursive;
     }
     
     * {
@@ -34,423 +25,183 @@
     
     body {
       min-height: 100vh;
-      min-height: 100dvh;
-      background: linear-gradient(135deg, var(--background-start), var(--background-end));
+      background-color: var(--background-dark);
+      /* Fondo con textura de papel viejo y ruido */
       background-image: 
-        repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 2px, transparent 2px, transparent 8px),
-        radial-gradient(circle at 20% 80%, rgba(155, 77, 255, 0.15) 0%, transparent 50%);
-      color: var(--text-light);
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url('https://www.transparenttextures.com/patterns/carbon-fibre.png'),
+        radial-gradient(circle at 50% 50%, #1a0033 0%, #050505 100%);
+      color: #fff;
       font-family: var(--font-main);
-      font-size: var(--base-font-size);
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
-      padding: 8px 12px;
-      line-height: 1.3;
+      padding: 20px;
     }
-    
+
+    /* Animación de parpadeo punk */
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px var(--secondary-color); }
+      25% { text-shadow: -2px -2px var(--accent-color); }
+      50% { text-shadow: 2px -2px var(--warning-color); }
+      100% { text-shadow: 2px 2px var(--secondary-color); }
+    }
+
     header {
       text-align: center;
-      margin-bottom: calc(var(--section-spacing) * 0.8);
-      padding-top: 15px;
-      position: relative;
+      margin-bottom: 30px;
+      transform: rotate(-1deg);
     }
-    
-    /* Borde estilo punk en header */
-    header::before {
-      content: "⚡⚡⚡";
-      position: absolute;
-      top: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 20px;
-      color: var(--secondary-color);
-      letter-spacing: 5px;
-    }
-    
-    header::after {
-      content: "⚡⚡⚡";
-      position: absolute;
-      bottom: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 20px;
-      color: var(--secondary-color);
-      letter-spacing: 5px;
-    }
-    
-    h1, h2 {
-      margin-bottom: 8px;
-      line-height: 1.2;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    
+
     h1 {
       font-family: var(--font-heading);
-      font-size: var(--heading1-size);
-      font-weight: bold;
-      color: var(--secondary-color);
-      text-shadow: 3px 3px 0 var(--primary-color), 0 0 10px var(--secondary-color);
+      font-size: clamp(1.8rem, 8vw, 3rem);
+      color: var(--warning-color);
+      background: var(--secondary-color);
+      display: inline-block;
+      padding: 5px 15px;
+      margin-bottom: 10px;
+      animation: glitch 0.3s infinite;
+      text-transform: uppercase;
     }
-    
-    h2 {
-      font-family: 'Orbitron', monospace;
-      font-size: var(--heading2-size);
-      font-weight: 600;
-      color: var(--primary-color);
-      text-shadow: 2px 2px 0 #4a0096;
+
+    h2.subtitle {
+      font-family: 'Orbitron';
+      font-size: clamp(1rem, 5vw, 1.5rem);
+      color: var(--accent-color);
+      background: #000;
+      display: block;
+      width: fit-content;
+      margin: 0 auto;
+      border: 1px dashed var(--accent-color);
     }
-    
+
     main {
       flex: 1;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      justify-content: flex-start;
-      gap: 12px;
-      width: 100%;
-      padding: 5px 8px;
     }
-    
+
     .menu-container {
       width: 100%;
-      max-width: min(95vw, 480px);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: rgba(10, 10, 10, 0.85);
-      border: 2px solid var(--primary-color);
-      padding: 20px 15px;
-      backdrop-filter: blur(4px);
-      box-shadow: 8px 8px 0 rgba(155, 77, 255, 0.3);
-      position: relative;
+      max-width: 450px;
+      background: #111;
+      padding: 30px 15px;
+      border: 4px solid #fff;
+      /* Borde "mordido" */
+      clip-path: polygon(2% 0%, 100% 2%, 98% 95%, 0% 100%);
+      box-shadow: 15px 15px 0 var(--primary-color);
     }
-    
-    /* Esquinas rotas estilo punk */
-    .menu-container::before {
-      content: "⚡";
-      position: absolute;
-      top: -12px;
-      left: -12px;
-      font-size: 25px;
-      color: var(--secondary-color);
-      text-shadow: 0 0 5px var(--secondary-color);
+
+    .menu-title {
+      background: var(--warning-color);
+      color: #000;
+      font-weight: 900;
+      padding: 5px;
+      margin-bottom: 25px;
+      transform: rotate(2deg);
+      text-align: center;
     }
-    
-    .menu-container::after {
-      content: "⚡";
-      position: absolute;
-      bottom: -12px;
-      right: -12px;
-      font-size: 25px;
-      color: var(--secondary-color);
-      text-shadow: 0 0 5px var(--secondary-color);
-      transform: rotate(15deg);
-    }
-    
+
     ul {
-      list-style-type: none;
+      list-style: none;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      width: 100%;
-      padding: 10px 5px;
-      margin: 8px 0;
+      gap: 20px;
     }
-    
+
+    .boton-li {
+      width: 100%;
+    }
+
+    /* Estilo de botón tipo "Parche de ropa" */
     .boton {
-      border: 2px solid var(--secondary-color);
-      border-radius: 0;
-      padding: 14px 20px;
-      font-size: var(--button-font-size);
-      background: linear-gradient(135deg, #1a0033, #0a0a0a);
-      color: var(--secondary-color);
-      cursor: pointer;
-      transition: all 0.2s ease;
       width: 100%;
-      max-width: min(85vw, 300px);
-      text-align: center;
-      font-weight: bold;
-      margin: 0;
-      box-shadow: 4px 4px 0 var(--primary-color);
-      letter-spacing: 2px;
-      font-family: 'Orbitron', monospace;
+      background: #000;
+      border: 2px solid var(--accent-color);
+      padding: 15px;
+      color: #fff;
+      font-family: 'Orbitron';
+      font-size: 1.1rem;
       text-transform: uppercase;
+      cursor: pointer;
       position: relative;
-      overflow: hidden;
-    }
-    
-    /* Efecto de "distorsión" al hover */
-    .boton:hover, .boton:focus {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--secondary-color);
-      background: linear-gradient(135deg, #2a0055, #1a0033);
-      color: var(--primary-color);
-      border-color: var(--primary-color);
-      outline: none;
-    }
-    
-    .boton:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 var(--primary-color);
-    }
-    
-    a {
+      transition: 0.1s;
       text-decoration: none;
-      color: inherit;
       display: block;
-      width: 100%;
-    }
-    
-    footer {
-      margin-top: 20px;
       text-align: center;
-      padding: 15px 10px 20px;
-      background: rgba(0, 0, 0, 0.5);
-      border-top: 2px solid var(--primary-color);
-      border-bottom: 2px solid var(--secondary-color);
-      position: relative;
     }
-    
-    /* Rayos decorativos en footer */
-    footer::before {
-      content: "⚡";
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 20px;
-      color: var(--secondary-color);
+
+    .boton:nth-child(even) { transform: rotate(1.5deg); }
+    .boton:nth-child(odd) { transform: rotate(-1.5deg); }
+
+    .boton:hover {
+      background: var(--accent-color);
+      color: #000;
+      box-shadow: 0 0 20px var(--accent-color);
+      transform: scale(1.05) rotate(0deg);
+      z-index: 10;
     }
-    
-    footer::after {
-      content: "⚡";
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 20px;
-      color: var(--secondary-color);
+
+    .boton:active {
+      transform: scale(0.95);
+      background: var(--secondary-color);
     }
-    
-    /* IMAGEN MÁS GRANDE - Estilo punk */
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+    }
+
     footer img {
-      max-width: min(75vw, 280px);
-      width: auto;
-      height: auto;
-      max-height: 180px;
-      min-width: 180px;
-      display: block;
-      margin: 0 auto;
-      border-radius: 0;
-      box-shadow: 0 0 20px rgba(155, 77, 255, 0.5);
-      transition: all 0.3s ease;
-      filter: grayscale(20%) contrast(120%);
-      border: 2px solid var(--secondary-color);
+      width: 220px;
+      filter: contrast(150%) grayscale(100%) invert(0);
+      border: 10px solid #fff;
+      outline: 5px solid var(--secondary-color);
+      transition: 0.3s;
     }
-    
+
     footer img:hover {
-      transform: scale(1.03) rotate(-1deg);
-      box-shadow: 0 0 30px var(--secondary-color);
-      filter: grayscale(0%) contrast(130%);
-      border-color: var(--primary-color);
+      filter: contrast(110%) grayscale(0%);
+      transform: scale(1.1) rotate(5deg);
     }
-    
-    /* Media Query específica para Samsung S52 y dispositivos similares (360px - 412px) */
-    @media (min-width: 350px) and (max-width: 420px) {
-      :root {
-        --base-font-size: 19px;
-        --heading1-size: 2rem;
-        --heading2-size: 1.7rem;
-        --button-font-size: 1.2rem;
-      }
-      
-      body {
-        padding: 10px 14px;
-      }
-      
-      header {
-        padding-top: 12px;
-        margin-bottom: 10px;
-      }
-      
-      .boton {
-        padding: 15px 22px;
-        max-width: 90vw;
-      }
-      
-      footer img {
-        max-width: 70vw;
-        max-height: 170px;
-        min-width: 200px;
-      }
-      
-      .menu-container {
-        padding: 25px 15px;
-      }
-    }
-    
-    /* Para móviles muy pequeños (hasta 360px) */
-    @media (max-width: 360px) {
-      :root {
-        --base-font-size: 17px;
-        --heading1-size: 1.8rem;
-        --heading2-size: 1.5rem;
-        --button-font-size: 1.05rem;
-      }
-      
-      body {
-        padding: 8px 10px;
-      }
-      
-      header {
-        margin-bottom: 8px;
-      }
-      
-      h1, h2 {
-        margin-bottom: 5px;
-      }
-      
-      .boton {
-        padding: 12px 18px;
-        max-width: 92vw;
-      }
-      
-      ul {
-        gap: 14px;
-      }
-      
-      footer img {
-        max-width: 80vw;
-        max-height: 150px;
-        min-width: 160px;
-      }
-      
-      .menu-container {
-        padding: 18px 12px;
-      }
-    }
-    
-    /* Para pantallas extremadamente pequeñas (menos de 300px) */
-    @media (max-width: 300px) {
-      :root {
-        --base-font-size: 15px;
-        --heading1-size: 1.5rem;
-        --heading2-size: 1.3rem;
-        --button-font-size: 0.95rem;
-      }
-      
-      .boton {
-        padding: 10px 15px;
-      }
-      
-      footer img {
-        max-width: 85vw;
-        max-height: 130px;
-        min-width: 140px;
-      }
-    }
-    
-    /* Ajustes para orientación horizontal en móviles */
-    @media (orientation: landscape) and (max-height: 550px) {
-      body {
-        padding: 5px 10px;
-      }
-      
-      header {
-        padding-top: 5px;
-        margin-bottom: 5px;
-      }
-      
-      header h1, header h2 {
-        margin-bottom: 3px;
-      }
-      
-      main {
-        gap: 8px;
-      }
-      
-      ul {
-        gap: 8px;
-        padding: 5px;
-      }
-      
-      .boton {
-        padding: 8px 15px;
-      }
-      
-      footer {
-        margin-top: 10px;
-        padding: 8px;
-      }
-      
-      footer img {
-        max-height: 100px;
-        max-width: 200px;
-      }
-      
-      .menu-container {
-        padding: 12px 10px;
-      }
-    }
-    
-    /* Ajustes para pantallas más grandes (tablets) */
-    @media (min-width: 768px) {
-      body {
-        padding: 20px;
-      }
-      
-      .boton {
-        max-width: 350px;
-        padding: 16px 25px;
-        font-size: 1.3rem;
-      }
-      
-      footer img {
-        max-width: 300px;
-        max-height: 220px;
-      }
-      
-      .menu-container {
-        max-width: 550px;
-      }
-    }
-    
-    /* Mejora de accesibilidad táctil */
-    @media (pointer: coarse) {
-      .boton {
-        touch-action: manipulation;
-        cursor: pointer;
-      }
-      
-      .boton:active {
-        transform: translate(2px, 2px);
-        transition: transform 0.05s;
-      }
+
+    /* Scanlines effect para pantalla vieja */
+    body::before {
+      content: " ";
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), 
+                  linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 4px, 3px 100%;
+      pointer-events: none;
+      z-index: 100;
     }
   </style>
 </head>
-  
 <body>
+
   <header>
-    <h1>⚡ PREPÁRATE PARA EL CAOS ⚡</h1>
-    <h2>🎸 ¡Y MÁS VALE QUE TEMAS! 🎸</h2>
+    <h1>⚡ CAOS & ESTUDIO ⚡</h1>
+    <h2 class="subtitle">🎸 NO HAY FUTURO SI NO APRUEBAS 🎸</h2>
   </header>
   
   <main>
     <div class="menu-container">
-      <h2>📖 GUÍAS DE ESTUDIO</h2>
+      <h2 class="menu-title">-- EXPEDIENTES PROHIBIDOS --</h2>
       <ul>
-        <li><button type="button" class="boton"><a href="menu-oct.html">🎯 OCTAVO CUATRI.</a></button></li>
-        <li><button type="button" class="boton"><a href="menu-nov.html">⚡ NOVENO CUATRI.</a></button></li>
-        <li><button type="button" class="boton"><a href="cloud.html">☠️ CERTIFICACIONES GENESYS</a></button></li>
+        <li class="boton-li"><a href="menu-oct.html" class="boton">🎯 OCTAVO CUATRI.</a></li>
+        <li class="boton-li"><a href="menu-nov.html" class="boton">⚡ NOVENO CUATRI.</a></li>
+        <li class="boton-li"><a href="cloud.html" class="boton">☠️ GENESYS CLOUD</a></li>
       </ul>
     </div>
   </main>
 
   <footer>
-    <img src="Estudiante.png" alt="Alégrate - Estudiante Punk" loading="lazy">  
+    <img src="Estudiante.png" alt="Punk Student">
+    <p style="margin-top:10px; font-size: 0.8rem; color: var(--secondary-color)">STAY REBEL. STUDY HARD.</p>
   </footer>
+
 </body>
 </html>
