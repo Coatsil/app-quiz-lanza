@@ -6,7 +6,6 @@
     <title>⚡ GENESYS PUNK EXAM ⚡</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        /* IMPORTACIÓN DE FUENTES */
         @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&family=Rubik+Mono+One&display=swap');
         
         * {
@@ -29,6 +28,11 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
+        }
+        
+        /* CLASE HIDDEN - CORREGIDA */
+        .hidden {
+            display: none !important;
         }
         
         /* CABECERA ESTILO FANZINE */
@@ -61,7 +65,7 @@
         }
         
         /* CONTENEDORES PRINCIPALES */
-        .quiz-container, .screen {
+        .quiz-container {
             background: #111;
             border: 4px solid #fff;
             padding: 30px;
@@ -69,18 +73,31 @@
             box-shadow: 10px 10px 0 #00ffff;
             margin-bottom: 50px;
         }
-
+        
         #start-screen {
             display: block;
             text-align: center;
             border-color: #ff00ff;
             box-shadow: 10px 10px 0 #fff200;
         }
-
-        #quiz-container, #results-screen {
+        
+        #quiz-screen {
             display: none;
         }
-
+        
+        #results-screen {
+            display: none;
+        }
+        
+        /* Mostrar cuando se activa */
+        #quiz-screen:not(.hidden) {
+            display: block;
+        }
+        
+        #results-screen:not(.hidden) {
+            display: block;
+        }
+        
         /* BARRA DE PROGRESO NEÓN */
         .progress-container {
             width: 100%;
@@ -124,7 +141,7 @@
             flex-direction: column;
             gap: 12px;
         }
-
+        
         .option {
             padding: 15px;
             border: 3px solid #fff;
@@ -142,7 +159,7 @@
             transform: scale(1.01) rotate(0.5deg);
             border-color: #000;
         }
-
+        
         .option input {
             width: 22px;
             height: 22px;
@@ -150,14 +167,21 @@
             accent-color: #ff00ff;
         }
         
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
         /* BOTONES */
-        .controls {
+        .navigation {
             display: flex;
             justify-content: space-between;
             margin-top: 30px;
             gap: 10px;
         }
-
+        
         .btn {
             font-family: 'Rubik Mono One', sans-serif;
             padding: 15px 25px;
@@ -184,7 +208,12 @@
             color: #fff;
             box-shadow: 6px 6px 0 #00ffff;
         }
-
+        
+        .btn-secondary:hover:not(:disabled) {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #00ffff;
+        }
+        
         .btn:disabled {
             background: #444;
             color: #888;
@@ -192,7 +221,7 @@
             cursor: not-allowed;
             border-color: #222;
         }
-
+        
         /* RECURSOS Y BADGES */
         .resource-link {
             margin-top: 25px;
@@ -203,13 +232,13 @@
             font-size: 0.85rem;
             word-break: break-all;
         }
-
+        
         .resource-link a {
             color: #ff00ff;
             text-decoration: underline;
             font-weight: bold;
         }
-
+        
         .validation-badge {
             position: fixed;
             bottom: 0;
@@ -223,15 +252,93 @@
             z-index: 1000;
             border-top: 3px solid #000;
         }
-
+        
         /* RESULTADOS */
+        .results-screen {
+            text-align: center;
+            padding: 20px;
+        }
+        
         .score-display {
             font-size: 5rem;
             font-family: 'Rubik Mono One', sans-serif;
             color: #fff200;
             text-shadow: 8px 8px 0 #ff00ff;
             margin: 20px 0;
-        }        
+        }
+        
+        .score-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #222;
+            border: 2px solid #fff200;
+        }
+        
+        .answer-review {
+            text-align: left;
+            margin-top: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .review-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #1a1a1a;
+            border-left: 8px solid;
+        }
+        
+        .correct-review {
+            border-left-color: #00ff00;
+        }
+        
+        .incorrect-review {
+            border-left-color: #ff00ff;
+        }
+        
+        .review-question {
+            font-family: 'Permanent Marker', cursive;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff200;
+        }
+        
+        .review-answer {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .highlight-correct {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .highlight-incorrect {
+            color: #ff00ff;
+            font-weight: bold;
+        }
+        
+        /* LISTAS */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        ul li::before {
+            content: "⚡";
+            position: absolute;
+            left: 0;
+            color: #ff00ff;
+        }
+        
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
@@ -257,6 +364,7 @@
             h1 {
                 font-size: 1.6em;
             }
+        }
         }    </style>
 </head>
 <body>
