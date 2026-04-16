@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz App - Noveno Punk</title>
+  <title>Quiz App - Underground Noveno</title>
   <link rel="manifest" href="manifest.json" />
   <style>
-    /* IMPORTACIÓN DE FUENTES PUNK */
-    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&family=Rubik+Mono+One&display=swap');
+    /* IMPORTACIÓN DE FUENTES PUNK AGRESIVAS */
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Stardos+Stencil:wght@400;700&family=Anton&display=swap');
 
     * {
       box-sizing: border-box;
@@ -17,11 +17,10 @@
 
     body {
       font-family: 'Special Elite', monospace;
-      /* Fondo negro con textura de puntos */
-      background: #000;
-      background-image: radial-gradient(#333 1px, transparent 1px);
-      background-size: 20px 20px;
-      color: #fff;
+      background-color: #0a0a0a;
+      /* Textura de ruido/papel fotocopiado */
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW1mZmZlZWVkZGRjY2NiYmJhYWJgYGBfX19eX19dX19cX19bX19aX19ZYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWHrY8jjAAAAD0RSTlMAAQIDBAUGBwgJCgsMDQ4S9f49AAAAnklEQVD42u3T6wqAIBCFYXN393O7/vXW5mIFZfSjX4Y4Lw4zAsv65FfW57bMvAbeZ9UjW/bKzmsWp6C9L7B8Xp+K9m0W56C9T7B8X5+K9ncW66C9T7B8f5+K9m8W66C9X7B8P5+K9ncW66C9f7B8v5+K9ncW66C9D7B835+K9m8W66C9T7B8X5+K9ncW66C9T7B8f5+K9n8W66C9H8u5f9n4L6g5AAAAAElFTkSuQmCC');
+      color: #d0d0d0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -30,31 +29,36 @@
       overflow-x: hidden;
     }
 
-    /* HEADER ESTILO FANZINE */
+    /* HEADER: ESTILO FANZINE RECORTADO */
     header {
       width: 100%;
       max-width: 600px;
-      background: #fff200; /* Amarillo eléctrico */
+      background: #fff; /* Blanco crudo */
+      color: #000;
       padding: 30px;
-      margin-bottom: 40px;
-      transform: rotate(-2deg);
-      border: 5px solid #000;
-      box-shadow: 15px 15px 0 #ff00ff; /* Sombra Rosa Neón */
+      margin-bottom: 50px;
+      transform: rotate(-1.5deg);
+      border: 6px solid #000;
+      box-shadow: 12px 12px 0 #bc0000; /* Rojo Óxido */
+      /* clip-path para bordes irregulares de tijera */
+      clip-path: polygon(1% 2%, 98% 4%, 100% 96%, 2% 99%);
+      text-align: center;
     }
 
     h1 {
-      font-family: 'Rubik Mono One', sans-serif;
-      color: #000;
-      font-size: 1.8rem;
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(1.8rem, 6vw, 2.5rem);
       text-transform: uppercase;
-      line-height: 1;
+      line-height: 0.9;
+      letter-spacing: -1px;
     }
 
     h2 {
-      font-family: 'Permanent Marker', cursive;
-      color: #000;
-      font-size: 1.5rem;
+      font-family: 'Stardos Stencil', cursive;
+      font-size: 1.2rem;
       margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     /* CONTENIDO PRINCIPAL */
@@ -65,9 +69,12 @@
     }
 
     main h2 {
-      color: #00ffff; /* Cyan */
-      margin-bottom: 30px;
-      text-shadow: 3px 3px 0 #000;
+      color: #bc0000;
+      margin-bottom: 40px;
+      text-shadow: none;
+      border-bottom: 3px solid #bc0000;
+      display: inline-block;
+      padding: 5px 15px;
       transform: rotate(1deg);
     }
 
@@ -80,69 +87,76 @@
       margin-bottom: 25px;
     }
 
-    /* BOTONES ESTILO "CUT-OUT" */
+    /* BOTONES INDUSTRIALES / BRUTALISTAS */
     .boton {
-      background: #ff00ff; /* Rosa Neón */
-      border: 4px solid #fff;
-      padding: 0; /* Quitamos padding para que el <a> ocupe todo el espacio */
+      background: #000;
+      border: 3px solid #bc0000;
+      padding: 0;
       cursor: pointer;
-      transition: 0.2s;
-      transform: rotate(-1deg);
-      box-shadow: 8px 8px 0 #00ffff;
+      transition: 0.1s;
+      transform: rotate(-0.5deg);
       width: 100%;
+      position: relative;
     }
 
     .boton:hover {
-      background: #fff200;
-      transform: scale(1.05) rotate(1deg);
-      box-shadow: 4px 4px 0 #fff;
+      background: #bc0000;
+      transform: translateX(8px) rotate(0.5deg);
+      border-color: #fff;
     }
 
     .boton a {
       display: block;
-      padding: 15px 25px;
+      padding: 18px 25px;
       text-decoration: none;
-      color: #000;
-      font-family: 'Rubik Mono One', sans-serif;
-      font-size: 1.1rem;
+      color: #fff;
+      font-family: 'Stardos Stencil', sans-serif;
+      font-size: 1.3rem;
       text-transform: uppercase;
+      font-weight: bold;
     }
 
-    /* CLASE HIDDEN SOLICITADA */
+    .boton:hover a {
+      color: #000;
+    }
+
+    /* CLASE HIDDEN */
     .hidden {
       display: none !important;
     }
 
-    /* FOOTER */
+    /* FOOTER CON IMAGEN ESTILO "GRITTY" */
     footer {
       margin-top: auto;
       padding: 40px 0;
     }
 
-    footer img {
-      border: 5px solid #fff;
-      box-shadow: 10px 10px 0 #ff00ff;
-      max-width: 250px;
-      height: auto;
+    .img-container {
+      background: #1a1a1a;
+      padding: 10px;
+      border: 2px solid #333;
+      transform: rotate(2deg);
+      box-shadow: 10px 10px 0 #bc0000;
+      clip-path: polygon(2% 0%, 100% 5%, 95% 100%, 0% 90%);
     }
 
-    /* --- RESPONSIVIDAD (@MEDIA) --- */
+    footer img {
+      display: block;
+      max-width: 250px;
+      height: auto;
+      /* Filtro para que el GIF parezca una fotocopia vieja */
+      filter: grayscale(100%) contrast(160%) brightness(90%);
+    }
+
+    /* --- RESPONSIVIDAD --- */
     @media (max-width: 768px) {
       header {
         padding: 20px;
         transform: rotate(-1deg);
       }
-
-      h1 { font-size: 1.4rem; }
-      
-      .boton a {
-        font-size: 0.9rem;
-        padding: 12px;
-      }
-      
-      footer img {
-        width: 180px;
-      }
+      h1 { font-size: 1.5rem; }
+      .boton a { font-size: 1rem; }
+      footer img { width: 180px; }
     }
   </style>
 </head>
@@ -150,27 +164,29 @@
 <body>
   <header>
     <h1>Esto es el comienzo jajaja.</h1>
-    <h2>¡Máximo Esfuerzo!</h2>
+    <h2>¡MÁXIMO ESFUERZO!</h2>
   </header>
 
   <main>
-    <h2>Guías de Certificaciones Cloud</h2>
+    <h2>GUÍAS CLOUD_ACCESS</h2>
     <ul>
       <li>
         <button type="button" class="boton">
-          <a href="pro.html">⚡ Professional ⚡</a>
+          <a href="pro.html">⚡ PROFESSIONAL_AUTH ⚡</a>
         </button>
       </li>
       <li>
-        <button type="button" class="boton" style="background: #00ffff; box-shadow: 8px 8px 0 #ff00ff;">
-          <a href="index.html">⬅ Regresar</a>
+        <button type="button" class="boton" style="border-color: #666;">
+          <a href="index.html" style="color: #666;">⬅ RETURN_TO_HOME</a>
         </button>
       </li>
     </ul>
   </main>
 
   <footer>
-    <img src="anipoke-pokemon.gif" alt="Maximo Esfuerzo">
+    <div class="img-container">
+      <img src="anipoke-pokemon.gif" alt="Maximo Esfuerzo">
+    </div>
   </footer>
 </body>
 </html>
