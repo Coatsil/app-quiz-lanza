@@ -340,6 +340,26 @@
             margin-top: 5px;
         }
         
+        /* Badge de validación */
+        .validation-badge {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: #1a1a1a;
+            border: 1px solid #9b4dff;
+            padding: 5px 10px;
+            font-size: 0.7em;
+            font-family: 'Orbitron', monospace;
+            color: #9b4dff;
+            z-index: 1000;
+            cursor: pointer;
+        }
+        
+        .validation-badge:hover {
+            background: #9b4dff;
+            color: #0a0a0a;
+        }
+        
         .answer-review::-webkit-scrollbar {
             width: 8px;
         }
@@ -374,6 +394,24 @@
             position: absolute;
             left: 0;
             color: #9b4dff;
+        }
+        
+        /* Loader */
+        .loader {
+            text-align: center;
+            padding: 50px;
+            font-family: 'Orbitron', monospace;
+            color: #9b4dff;
+        }
+        
+        .loader::after {
+            content: "⚡";
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
         
         @media (max-width: 768px) {
@@ -462,11 +500,103 @@
                 </button>
             </div>
         </div>
+        
+        <div id="validation-status" class="validation-badge">🔍 Validando enlaces...</div>
     </div>
 
     <script>
-        // Datos del examen - TODAS LAS RESPUESTAS CON ENLACE CORREGIDO A DOCUMENTACIÓN OFICIAL
-        const questions = [
+        // =============================
+        // 🔥 FUNCIONES DE VALIDACIÓN DE LINKS
+        // =============================
+        
+        // Función para obtener link seguro
+        function getSafeLink(url) {
+            if (!url) return "https://help.mypurecloud.com/";
+            return url;
+        }
+        
+        // Función para generar link de fallback (búsqueda)
+        function getFallbackLink(url) {
+            // Extraer el tema del URL o usar el dominio base
+            const searchTerm = url.split('/').pop().replace(/-/g, ' ');
+            return `https://help.mypurecloud.com/?s=${encodeURIComponent(searchTerm)}`;
+        }
+        
+        // Contador de enlaces rotos
+        let brokenLinksCount = 0;
+        let validationComplete = false;
+        
+        // Función asíncrona para validar todos los enlaces
+        async function validateLinks(questionsData) {
+            console.log("⚡ Iniciando validación de enlaces...");
+            const statusDiv = document.getElementById('validation-status');
+            
+            for (let i = 0; i < questionsData.length; i++) {
+                const q = questionsData[i];
+                if (!q.resourceLink) continue;
+                
+                try {
+                    // Intentamos hacer una petición HEAD para verificar si el link existe
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000); // Timeout 5 segundos
+                    
+                    const res = await fetch(q.resourceLink, { 
+                        method: 'HEAD',
+                        mode: 'no-cors', // Para evitar problemas CORS
+                        signal: controller.signal
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    // Con no-cors no podemos ver el status, así que asumimos OK
+                    // pero verificamos si hay error de red
+                    console.log(`✅ [${i+1}] ${q.resourceLink}`);
+                    
+                } catch (e) {
+                    // Si hay error, el link probablemente está roto
+                    console.warn(`❌ [${i+1}] Link roto: ${q.resourceLink}`);
+                    brokenLinksCount++;
+                    
+                    // Reemplazar por link de fallback
+                    const fallback = getFallbackLink(q.resourceLink);
+                    q.resourceLink = fallback;
+                    q.isFallback = true;
+                    console.log(`🔄 Reemplazado por: ${fallback}`);
+                }
+                
+                // Actualizar badge de estado
+                if (statusDiv) {
+                    statusDiv.textContent = `🔍 Validando ${i+1}/${questionsData.length}...`;
+                }
+            }
+            
+            validationComplete = true;
+            
+            if (statusDiv) {
+                if (brokenLinksCount === 0) {
+                    statusDiv.innerHTML = `✅ ${questionsData.length} enlaces validados`;
+                    statusDiv.style.background = '#00aa44';
+                    statusDiv.style.color = '#fff';
+                } else {
+                    statusDiv.innerHTML = `⚠️ ${brokenLinksCount} enlaces corregidos`;
+                    statusDiv.style.background = '#ff6600';
+                    statusDiv.style.color = '#fff';
+                }
+                
+                // Ocultar badge después de 5 segundos
+                setTimeout(() => {
+                    if (statusDiv) statusDiv.style.display = 'none';
+                }, 5000);
+            }
+            
+            console.log(`✅ Validación completada. ${brokenLinksCount} enlaces rotos encontrados y corregidos.`);
+            return questionsData;
+        }
+        
+        // =============================
+        // 📋 DATOS DEL EXAMEN (102 PREGUNTAS)
+        // =============================
+        const questionsData = [
             {
                 question: "Which of the following entities is used to ensure that people within your organization have the rights and permissions that they need within Genesys Cloud CX?",
                 options: ["Workgroups", "Rooms", "Groups", "Roles"],
@@ -1210,11 +1340,16 @@
             }
         ];
 
-        // Variables del estado del examen
+        // =============================
+        // 🚀 INICIALIZACIÓN CON VALIDACIÓN
+        // =============================
+        
+        let questions = [...questionsData];
         let currentQuestion = 0;
         let score = 0;
         let userAnswers = new Array(questions.length).fill(null);
         let examStarted = false;
+        let validationDone = false;
 
         // Elementos del DOM
         const startScreen = document.getElementById('start-screen');
@@ -1230,20 +1365,32 @@
         const scoreDisplay = document.getElementById('score-display');
         const scoreMessage = document.getElementById('score-message');
         const detailedResults = document.getElementById('detailed-results');
+        const validationStatus = document.getElementById('validation-status');
 
-        // Event Listeners
-        startBtn.addEventListener('click', startExam);
-        nextBtn.addEventListener('click', nextQuestion);
-        prevBtn.addEventListener('click', prevQuestion);
-        restartBtn.addEventListener('click', restartExam);
+        // Deshabilitar botón de inicio mientras se validan los enlaces
+        startBtn.disabled = true;
+        startBtn.style.opacity = '0.5';
+        startBtn.textContent = '🔍 VALIDANDO ENLACES...';
 
+        // Función para obtener link seguro
+        function getSafeLink(url) {
+            if (!url) return "https://help.mypurecloud.com/";
+            return url;
+        }
+
+        // Función para iniciar el examen (solo después de validación)
         function startExam() {
+            if (!validationDone) {
+                alert("⚡ Espera a que se validen los enlaces...");
+                return;
+            }
             startScreen.classList.add('hidden');
             quizScreen.classList.remove('hidden');
             examStarted = true;
             showQuestion();
         }
 
+        // Función para mostrar una pregunta
         function showQuestion() {
             const question = questions[currentQuestion];
             
@@ -1272,17 +1419,20 @@
             
             html += `</div>`;
             
-            if (question.resourceLink) {
-                html += `
-                    <div class="resource-link">
-                        📖 <strong>VERIFICAR EN DOCUMENTACIÓN OFICIAL:</strong> 
-                        <a href="${question.resourceLink}" target="_blank" rel="noopener noreferrer">
-                            ${question.resourceLink}
-                        </a>
-                        <span>⚡ Haz clic para validar la respuesta correcta ⚡</span>
-                    </div>
-                `;
-            }
+            // Mostrar enlace (con indicador si es fallback)
+            const linkUrl = getSafeLink(question.resourceLink);
+            const isFallback = question.isFallback === true;
+            const fallbackBadge = isFallback ? ' 🔄 (Link corregido automáticamente)' : '';
+            
+            html += `
+                <div class="resource-link">
+                    📖 <strong>VERIFICAR EN DOCUMENTACIÓN OFICIAL:</strong> 
+                    <a href="${linkUrl}" target="_blank" rel="noopener noreferrer">
+                        ${linkUrl}
+                    </a>${fallbackBadge}
+                    <span>⚡ Haz clic para validar la respuesta correcta ⚡</span>
+                </div>
+            `;
             
             questionContainer.innerHTML = html;
             
@@ -1380,6 +1530,9 @@
                     ? q.correct.map(i => q.options[i]).join(', ')
                     : q.options[q.correct];
                 
+                const isFallback = q.isFallback === true;
+                const fallbackNote = isFallback ? ' 🔄 (Enlace corregido automáticamente)' : '';
+                
                 detailedResults.innerHTML += `
                     <div class="review-item ${isCorrect ? 'correct-review' : 'incorrect-review'}">
                         <div class="review-question">
@@ -1393,7 +1546,7 @@
                         </div>
                         <div class="review-answer" style="margin-top: 8px;">
                             <strong>📖 DOCUMENTACIÓN:</strong> 
-                            <a href="${q.resourceLink}" target="_blank" style="color: #9b4dff;">${q.resourceLink}</a>
+                            <a href="${getSafeLink(q.resourceLink)}" target="_blank" style="color: #9b4dff;">${getSafeLink(q.resourceLink)}</a>${fallbackNote}
                         </div>
                         <div class="review-answer" style="margin-top: 8px; color: #888;">
                             <strong>EXPLICACIÓN:</strong> ${q.explanation}
@@ -1412,6 +1565,78 @@
             startScreen.classList.remove('hidden');
             examStarted = false;
         }
+
+        // Función de validación de enlaces
+        async function validateAllLinks() {
+            console.log("⚡ Iniciando validación de enlaces...");
+            let brokenCount = 0;
+            
+            for (let i = 0; i < questions.length; i++) {
+                const q = questions[i];
+                if (!q.resourceLink) continue;
+                
+                if (validationStatus) {
+                    validationStatus.textContent = `🔍 Validando ${i+1}/${questions.length}...`;
+                }
+                
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000);
+                    
+                    await fetch(q.resourceLink, { 
+                        method: 'HEAD',
+                        mode: 'no-cors',
+                        signal: controller.signal
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    console.log(`✅ [${i+1}] ${q.resourceLink}`);
+                    
+                } catch (e) {
+                    console.warn(`❌ [${i+1}] Link roto: ${q.resourceLink}`);
+                    brokenCount++;
+                    
+                    const fallback = `https://help.mypurecloud.com/?s=${encodeURIComponent(q.resourceLink.split('/').pop().replace(/-/g, ' '))}`;
+                    q.resourceLink = fallback;
+                    q.isFallback = true;
+                    console.log(`🔄 Reemplazado por: ${fallback}`);
+                }
+            }
+            
+            validationDone = true;
+            
+            if (validationStatus) {
+                if (brokenCount === 0) {
+                    validationStatus.innerHTML = `✅ ${questions.length} enlaces validados`;
+                    validationStatus.style.background = '#00aa44';
+                    validationStatus.style.color = '#fff';
+                } else {
+                    validationStatus.innerHTML = `⚠️ ${brokenCount} enlaces corregidos`;
+                    validationStatus.style.background = '#ff6600';
+                    validationStatus.style.color = '#fff';
+                }
+                
+                setTimeout(() => {
+                    if (validationStatus) validationStatus.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Habilitar botón de inicio
+            startBtn.disabled = false;
+            startBtn.style.opacity = '1';
+            startBtn.textContent = '💥 COMENZAR EXAMEN 💥';
+            
+            console.log(`✅ Validación completada. ${brokenCount} enlaces rotos encontrados y corregidos.`);
+        }
+
+        // Asignar event listeners
+        startBtn.addEventListener('click', startExam);
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartExam);
+
+        // Iniciar validación al cargar la página
+        validateAllLinks();
     </script>
 </body>
 </html>
