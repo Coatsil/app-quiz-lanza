@@ -3,73 +3,174 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz App - Noveno</title>
+  <title>Quiz App - Noveno Punk</title>
   <link rel="manifest" href="manifest.json" />
-</head> 
-<style>
-  
-  body{
-    background: linear-gradient(aliceblue, lightblue);
-    color: purple;
-    font-size: 25px;
-  }
+  <style>
+    /* IMPORTACIÓN DE FUENTES PUNK */
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Permanent+Marker&family=Rubik+Mono+One&display=swap');
 
-  h1{
-    color: purple;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  h2{
-    color: purple;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  }
+    body {
+      font-family: 'Special Elite', monospace;
+      /* Fondo negro con textura de puntos */
+      background: #000;
+      background-image: radial-gradient(#333 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
 
-  ul{
-    list-style-type: none;
-    text-decoration: none;
-    color: aliceblue;
-  }
+    /* HEADER ESTILO FANZINE */
+    header {
+      width: 100%;
+      max-width: 600px;
+      background: #fff200; /* Amarillo eléctrico */
+      padding: 30px;
+      margin-bottom: 40px;
+      transform: rotate(-2deg);
+      border: 5px solid #000;
+      box-shadow: 15px 15px 0 #ff00ff; /* Sombra Rosa Neón */
+    }
 
-  .boton{
-    border-color: purple;
-    border-radius: 15px;
-    padding: 10px;
-    font-size: 20px;
-    background: pink;
-    margin-top: 10px;
-    margin-right: 25px;
-  }
+    h1 {
+      font-family: 'Rubik Mono One', sans-serif;
+      color: #000;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      line-height: 1;
+    }
 
-  a{
-    text-decoration: none;
-    color: purple;
-  }
+    h2 {
+      font-family: 'Permanent Marker', cursive;
+      color: #000;
+      font-size: 1.5rem;
+      margin-top: 10px;
+    }
 
-  footer{
-    margin-top: 35px;
-  }
+    /* CONTENIDO PRINCIPAL */
+    main {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
 
-</style>
+    main h2 {
+      color: #00ffff; /* Cyan */
+      margin-bottom: 30px;
+      text-shadow: 3px 3px 0 #000;
+      transform: rotate(1deg);
+    }
 
-  <header>
-    <center>  
-      <h1>Esto es el comienzo jajaja.</h1>
-      <h2>¡Máximo Esfuerzo!</h2>
-    </center>
-  </header>
-  
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 25px;
+    }
+
+    /* BOTONES ESTILO "CUT-OUT" */
+    .boton {
+      background: #ff00ff; /* Rosa Neón */
+      border: 4px solid #fff;
+      padding: 0; /* Quitamos padding para que el <a> ocupe todo el espacio */
+      cursor: pointer;
+      transition: 0.2s;
+      transform: rotate(-1deg);
+      box-shadow: 8px 8px 0 #00ffff;
+      width: 100%;
+    }
+
+    .boton:hover {
+      background: #fff200;
+      transform: scale(1.05) rotate(1deg);
+      box-shadow: 4px 4px 0 #fff;
+    }
+
+    .boton a {
+      display: block;
+      padding: 15px 25px;
+      text-decoration: none;
+      color: #000;
+      font-family: 'Rubik Mono One', sans-serif;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+    }
+
+    /* CLASE HIDDEN SOLICITADA */
+    .hidden {
+      display: none !important;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: auto;
+      padding: 40px 0;
+    }
+
+    footer img {
+      border: 5px solid #fff;
+      box-shadow: 10px 10px 0 #ff00ff;
+      max-width: 250px;
+      height: auto;
+    }
+
+    /* --- RESPONSIVIDAD (@MEDIA) --- */
+    @media (max-width: 768px) {
+      header {
+        padding: 20px;
+        transform: rotate(-1deg);
+      }
+
+      h1 { font-size: 1.4rem; }
+      
+      .boton a {
+        font-size: 0.9rem;
+        padding: 12px;
+      }
+      
+      footer img {
+        width: 180px;
+      }
+    }
+  </style>
+</head>
+
 <body>
-  <center>
-    <h2>Guias de Certificaciones Cloud.</h2>
+  <header>
+    <h1>Esto es el comienzo jajaja.</h1>
+    <h2>¡Máximo Esfuerzo!</h2>
+  </header>
+
+  <main>
+    <h2>Guías de Certificaciones Cloud</h2>
     <ul>
-      <li><button type="button" class="boton"><a href="pro.html">Professional</a></button></li> <br>
-      <li><button type="button" class="boton"><a href="index.html">Regresa a la página principal.</a></button></li>
+      <li>
+        <button type="button" class="boton">
+          <a href="pro.html">⚡ Professional ⚡</a>
+        </button>
+      </li>
+      <li>
+        <button type="button" class="boton" style="background: #00ffff; box-shadow: 8px 8px 0 #ff00ff;">
+          <a href="index.html">⬅ Regresar</a>
+        </button>
+      </li>
     </ul>
-  </center>
-</body>
+  </main>
 
   <footer>
-    <center><img src="anipoke-pokemon.gif" alt="Maximo Esfuerzo" width="250" height="250"></center>    
+    <img src="anipoke-pokemon.gif" alt="Maximo Esfuerzo">
   </footer>
-  
+</body>
 </html>
