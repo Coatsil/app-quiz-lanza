@@ -1,16 +1,72 @@
-
 {
-  "name": "Quiz Interactivo",
-  "short_name": "Guíame",
+  "name": "⚡ Quiz PUNK ⚡",
+  "short_name": "PUNK Exam",
+  "description": "Examen de certificación estilo punk - Genesys Cloud CX",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#007bff",
+  "orientation": "portrait",
+  "background_color": "#0a0a0a",
+  "theme_color": "#ff0066",
   "icons": [
     {
       "src": "icono.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["education", "entertainment"],
+  "lang": "es-MX",
+  "dir": "ltr",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Comenzar Examen",
+      "short_name": "Examen",
+      "description": "Inicia el examen de certificación",
+      "url": "index.html",
+      "icons": [
+        {
+          "src": "icono.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Resultados",
+      "short_name": "Resultados",
+      "description": "Ver resultados anteriores",
+      "url": "index.html?view=results"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Pantalla de inicio del examen punk"
+    },
+    {
+      "src": "screenshot2.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Preguntas con estilo punk"
+    }
+  ],
+  "scope": "/",
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
 }
