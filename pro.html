@@ -6,170 +6,192 @@
     <title>⚡ GENESYS PUNK EXAM ⚡</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Special+Elite&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;800&display=swap');
 
-        :root {
-            --neon-purple: #9b4dff;
-            --dark-bg: #0a0a0a;
-            --panel-bg: #0f0f0f;
-            --shadow: #4a0096;
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            background: var(--dark-bg);
-            color: #d0d0d0;
-            font-family: 'Special Elite', monospace;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 900px;
-            border: 3px solid var(--neon-purple);
-            background: var(--panel-bg);
-            padding: 30px;
-            position: relative;
-            box-shadow: 12px 12px 0 var(--shadow);
-        }
-        
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--neon-purple);
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px var(--neon-purple);
-            border-bottom: 2px solid var(--neon-purple);
-            padding-bottom: 15px;
-        }
-        
-        .progress-container {
-            background: #1a1a1a;
-            height: 12px;
-            border: 1px solid var(--neon-purple);
-            margin-bottom: 20px;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: var(--neon-purple);
-            box-shadow: 0 0 15px var(--neon-purple);
-            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .question h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            color: var(--neon-purple);
-            margin-bottom: 25px;
-            line-height: 1.4;
-            border-left: 4px solid var(--neon-purple);
-            padding-left: 15px;
-        }
-        
-        .options-grid {
-            display: grid;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .option {
-            background: #161616;
-            border: 2px solid #333;
-            padding: 15px 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-        }
-        
-        .option:hover {
-            border-color: var(--neon-purple);
-            background: #1e102e;
-            transform: translateX(8px);
-        }
-        
-        .option.selected {
-            border-color: var(--neon-purple);
-            background: #25103d;
-            box-shadow: inset 0 0 10px rgba(155, 77, 255, 0.4);
-        }
-        
-        .nav-btns {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-        }
-        
-        button {
-            flex: 1;
-            background: var(--neon-purple);
-            color: #000;
-            border: none;
-            padding: 15px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 4px 4px 0 var(--shadow);
-            transition: 0.1s;
-        }
-        
-        button:active {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0 var(--shadow);
-        }
-        
-        button:disabled {
-            background: #444;
-            box-shadow: none;
-            cursor: not-allowed;
-            color: #888;
-        }
-        
-        /* Estilos para el scroll de resultados (importante para las 102 preguntas) */
-        #details {
-            margin-top: 20px;
-            max-height: 50vh;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-        
-        #details::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        #details::-webkit-scrollbar-track {
-            background: #111;
-        }
-        
-        #details::-webkit-scrollbar-thumb {
-            background: var(--neon-purple);
-        }
-        
-        .review-item {
-            border-left: 4px solid #ff4d4d;
-            background: #1a0a0a;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .review-item.correct {
-            border-left-color: #00ff88;
-            background: #0a1a13;
-        }
-        
-        .hidden { display: none !important; }
+:root {
+    --primary: #9b4dff;
+    --primary-glow: rgba(155, 77, 255, 0.4);
+    --bg-dark: #050505;
+    --glass: rgba(20, 20, 20, 0.85);
+    --text-dim: #a0a0a0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        linear-gradient(rgba(155, 77, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(155, 77, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: #e0e0e0;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Efecto de escaneo de pantalla */
+body::before {
+    content: " ";
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.container {
+    width: 95%;
+    max-width: 1000px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(155, 77, 255, 0.3);
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1), 0 0 20px var(--primary-glow);
+}
+
+/* Esquinas decorativas pro */
+.container::after {
+    content: "";
+    position: absolute;
+    top: -2px; right: -2px;
+    width: 40px; height: 40px;
+    border-top: 3px solid var(--primary);
+    border-right: 3px solid var(--primary);
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    margin-bottom: 30px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+h1::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.progress-container {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 40px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+    transition: width 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.question h2 {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    color: #fff;
+    font-weight: 400;
+}
+
+.options-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.option {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 18px 25px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.option::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; height: 100%; width: 0;
+    background: var(--primary);
+    opacity: 0.1;
+    transition: width 0.3s ease;
+}
+
+.option:hover, .option.selected {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(155, 77, 255, 0.05);
+    padding-left: 35px;
+}
+
+.option.selected::before {
+    width: 100%;
+}
+
+.nav-btns {
+    margin-top: 40px;
+    display: flex;
+    gap: 1px; /* Espacio mínimo para look minimalista */
+}
+
+button {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 15px 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex: 1;
+}
+
+button:hover:not(:disabled) {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 20px var(--primary-glow);
+}
+
+button:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    border-color: var(--text-dim);
+    color: var(--text-dim);
+}
+
+/* Scrollbar personalizada para la lista de 102 preguntas */
+#details::-webkit-scrollbar { width: 4px; }
+#details::-webkit-scrollbar-thumb { background: var(--primary); }
+
+.review-item {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 20px;
+    margin-bottom: 10px;
+    border-left: 2px solid #333;
+}
+
+.review-item.correct { border-left-color: #00ff88; }
     </style>
 </head>
 <body>
