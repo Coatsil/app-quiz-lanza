@@ -528,6 +528,226 @@
         // =============================
         const questionsData = [
             {
+                question: "As a contact center supervisor, which of the following views can be used to quickly assess the performance of a specific queue in real-time?",
+                options: ["Queues Performance Detail view", "Campaigns view", "Queues Agents view", "Queues Interactions Detail view"],
+                correct: 0,
+                resourceLink: "https://help.mypurecloud.com/articles/queues-activity/",
+                explanation: "Queues Performance Detail view provides real-time queue performance metrics."
+            },
+            {
+                question: "Agents can activate/deactivate themselves from specific queues by setting the status to On Queue or Off Queue.",
+                options: ["True", "False"],
+                correct: 0,
+                resourceLink: "https://help.mypurecloud.com/articles/queue-configuration/",
+                explanation: "Agents can manage their queue membership by setting On Queue/Off Queue status."
+            },
+            {
+                question: "A contact center administrator notices long wait times and incorrect routing of interactions, leading to inefficiencies and customer frustration. Which Genesys Cloud feature should be used to optimize routing and improve response times?",
+                options: ["Automatic Call Distribution (ACD), to intelligently route interactions based on agent skills, availability, and priority.", "Workforce Management, to adjust agent schedules and forecast interaction volume.", "Predictive Routing, to analyze historical data and optimize customer-agent matching.", "Scripts, to provide agents with predefined responses and guided workflows for handling interactions."],
+                correct: 0,
+                resourceLink: "https://help.mypurecloud.com/articles/acd-routing/",
+                explanation: "ACD intelligently routes interactions based on agent skills, availability, and priority."
+            },
+            {
+                question: "Genesys Cloud supports embedded clients for and (Choose 2 answers)",
+                options: ["Oracle", "Salesforce", "Zendesk", "Zoho"],
+                correct: [1, 2],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/about-the-genesys-cloud-browser-extensions/",
+                explanation: "Genesys Cloud supports embedded clients for Salesforce and Zendesk."
+            },
+            {
+                question: "A contact center supervisor notices that customers are experiencing long wait times because interactions are not reaching the right agents quickly. To improve efficiency, the supervisor wants to ensure that customer inquiries are matched with agents who have the appropriate training and knowledge to handle them effectively. Which Genesys Cloud feature should be used to achieve this?",
+                options: ["Automatic Call Distribution (ACD), to assign interactions to the next available agent without considering specific expertise.", "Workforce Management, to optimize scheduling and staffing levels based on forecasted call volume.", "Skill-based Routing, to prioritize and route interactions to agents based on their knowledge and qualifications.", "IVR, to allow customers to self-serve before speaking to an agent."],
+                correct: 2,
+                resourceLink: "https://help.mypurecloud.com/articles/skill-matching/",
+                explanation: "Skill-based Routing routes interactions to agents based on their knowledge and qualifications."
+            },
+            {
+                question: "A contact center manager is setting up Genesys Cloud and wants to leverage its key features to enhance customer interactions and agent performance. Which of the features listed are part of Genesys Cloud's contact center capabilities? (Choose 3 answers)",
+                options: ["Workforce Management, to forecast interaction volumes, schedule agents, and monitor adherence.", "Quality Management, to evaluate agent performance and assess customer interactions.", "CRM Integration, to enable customer data synchronization across platforms.", "Enterprise Resource Planning (ERP), to manage financial operations and supply chain logistics.", "Recruitment and Onboarding, to handle the hiring and training process for new employees."],
+                correct: [0, 1, 2],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/contact-center-features/",
+                explanation: "WFM, Quality Management, and CRM Integration are core contact center capabilities."
+            },
+            {
+                question: "A contact center supervisor notices that customer interactions are being routed to agents who do not have the necessary expertise to resolve issues efficiently. This is leading to longer handling times and lower customer satisfaction. Which Genesys Cloud routing attribute should be used to ensure interactions are assigned to the most qualified agents?",
+                options: ["Languages", "Routing Methods", "Skills"],
+                correct: 2,
+                resourceLink: "https://help.mypurecloud.com/articles/about-acd-skills/",
+                explanation: "Skills ensure interactions are assigned to the most qualified agents."
+            },
+            {
+                question: "A contact center supervisor is configuring Utilization settings in Genesys Cloud to improve how interactions are assigned across multiple media types. The supervisor wants to define agent capacity limits and ensure high-priority interactions are not delayed by lower-priority ones. Which settings can be configured using the Utilization feature? (Choose 2 answers)",
+                options: ["The maximum capacity that an agent may handle simultaneously for each supported media type.", "The after-call work time for each media type to control agent availability.", "The time that an agent may spend on each media type before being reassigned.", "Media types that can interrupt current interactions that an agent is handling to prioritize urgent requests.", "The routing priority for interactions to ensure high-value customers are always connected first."],
+                correct: [0, 3],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/about-utilization/",
+                explanation: "Utilization configures agent capacity limits and interruption priorities."
+            },
+            {
+                question: "A contact center is setting up a VIP support queue where it is critical that the most skilled agents handle interactions, even if it results in slightly longer wait times. To support this approach, the team implements Bullseye Routing in Genesys Cloud. How does Bullseye Routing handle skill requirements across routing rings?",
+                options: ["Bullseye Routing automatically assigns interactions to the agent with the longest idle time, regardless of skill requirements.", "Bullseye Routing expands the pool of eligible agents by gradually removing skill requirements as interactions move through each ring.", "Bullseye Routing ensures that interactions remain with the originally assigned skill group until an agent becomes available.", "Bullseye Routing reroutes interactions to a different queue if no agent with the required skills is available within the first ring."],
+                correct: 1,
+                resourceLink: "https://help.mypurecloud.com/articles/bullseye-routing/",
+                explanation: "Bullseye Routing gradually removes skill requirements across rings."
+            },
+            {
+                question: "A contact center administrator is setting up a new queue in Genesys Cloud to improve call routing, interaction handling capacity, and reporting. The administrator needs to ensure that key settings are properly configured to optimize queue performance. Which of the following options can be configured when setting up a queue? (Choose 2 answers)",
+                options: ["Wrap-up Codes, to categorize the outcome of interactions before an agent becomes available for the next one.", "ACD Skills, to route interactions to agents based on their expertise and qualifications.", "Utilization, to control the number and type of interactions an agent can handle simultaneously.", "Alerting Timeout, to determine how long an interaction rings before being routed to another agent.", "Inbound Flows, to customize IVR behavior and direct interactions before they reach a queue."],
+                correct: [0, 1],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/queue-configuration/",
+                explanation: "Wrap-up Codes and ACD Skills are configurable when setting up a queue."
+            },
+            {
+                question: "A contact center administrator wants to ensure that agents receive relevant caller information as soon as they answer an interaction, allowing them to collect or update details efficiently during the conversation. The administrator needs to implement a Genesys Cloud feature that dynamically presents caller data and assists agents in collecting or updating details during interactions. Which feature should be used?",
+                options: ["Dialog Boxes", "Scripts", "Toast Pop-ups", "IVR Prompts"],
+                correct: 1,
+                resourceLink: "https://help.mypurecloud.com/articles/about-scripts/",
+                explanation: "Scripts dynamically present caller data and assist agents during interactions."
+            },
+            {
+                question: "A contact center administrator is configuring an outbound dialing campaign in Genesys Cloud to reduce agent idle time and increase call volume while maintaining a steady flow of interactions. The goal is to have the system automatically dial multiple contacts as soon as an agent becomes available, optimizing dialing speed. Which dialing mode should the administrator select to achieve this?",
+                options: ["Power", "Predictive", "Progressive", "Agentless"],
+                correct: 0,
+                resourceLink: "https://help.mypurecloud.com/articles/about-outbound-dialing-modes/",
+                explanation: "Power dialing automatically dials multiple contacts as soon as an agent becomes available."
+            },
+            {
+                question: "A contact center supervisor is designing a new evaluation form in Genesys Cloud to assess agent performance during customer interactions. The supervisor wants to include a mix of question types to measure agent adherence to scripts, issue resolution skills, and overall service quality. Which question types are available when creating an evaluation form in Genesys Cloud? (Choose 3 answers)",
+                options: ["Multiple Choice, to allow evaluators to select a single answer from predefined options.", "Yes/No, to provide binary response options for straightforward evaluations.", "Fill in the Blank, to require evaluators to type custom responses for qualitative feedback.", "Range, to let evaluators score agent performance within a predefined scale.", "Multiple Response, to enable evaluators to select multiple correct answers from a list."],
+                correct: [0, 1, 3],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/evaluation-question-types/",
+                explanation: "Evaluation forms support Multiple Choice, Yes/No, and Range question types."
+            },
+            {
+                question: "A Quality Assurance (QA) manager in a contact center wants to reduce manual work by automating repetitive quality management tasks in Genesys Cloud. The manager needs to create policies that will automatically manage evaluations and recordings based on predefined criteria. Which of the following actions can be automated using policies in Genesys Cloud? (Choose 2 answers)",
+                options: ["Update the Do Not Call list with records that have the appropriate wrap-up code.", "Automatically assign an evaluation for all calls over 5 minutes.", "Determine how long to retain recordings and whether to archive or delete them.", "Set up a schedule to run a daily report.", "Specify time sets as a matching criteria."],
+                correct: [1, 2],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/policy-examples/",
+                explanation: "Policies can automate evaluations and recording retention."
+            },
+            {
+                question: "Which Genesys Cloud feature helps forecast demand, schedule agents, and track adherence to ensure adequate staffing?",
+                options: ["Routing", "Queue Management", "Workforce Management", "Reporting and Analytics"],
+                correct: 2,
+                resourceLink: "https://help.mypurecloud.com/articles/about-workforce-management/",
+                explanation: "Workforce Management handles forecasting, scheduling, and adherence tracking."
+            },
+            {
+                question: "A Workforce Administrator is configuring Management Units in Genesys Cloud to group agents based on their work assignments and scheduling needs. The administrator needs to ensure that agents are properly grouped for scheduling, adherence tracking, and performance management. Which of the following statements accurately describes Management Units in Genesys Cloud?",
+                options: ["Agents that handle the same set of interactions should belong to the same management unit to optimize scheduling.", "Management Units partition agents and interactions into logical groups, making workforce management more efficient.", "A single Management Unit can support additional agents, allowing flexibility in workforce organization.", "They help you create, manage, and view schedules for a group, ensuring efficient workforce planning."],
+                correct: 1,
+                resourceLink: "https://help.mypurecloud.com/articles/management-units/",
+                explanation: "Management Units partition agents into logical groups for efficient workforce management."
+            },
+            {
+                question: "Which of the following operating systems are supported by Genesys Cloud mobile applications? (Choose 2 answers)",
+                options: ["Harmony OS", "iOS", "Windows 10 Mobile", "Android"],
+                correct: [1, 3],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/mobile-apps/",
+                explanation: "Genesys Cloud mobile apps support iOS and Android."
+            },
+            {
+                question: "Which Genesys Cloud feature allows supervisors to monitor both real-time and historical metrics for agents and queues?",
+                options: ["Evaluations", "Speech and Text Analytics", "Dynamic Views", "Architect"],
+                correct: 2,
+                resourceLink: "https://help.mypurecloud.com/articles/dynamic-views/",
+                explanation: "Dynamic Views allow monitoring of real-time and historical metrics."
+            },
+            {
+                question: "A system administrator is evaluating the infrastructure behind Genesys Cloud to ensure that it meets the organization's scalability, security, and reliability requirements. Understanding the cloud platform that Genesys Cloud is built on will help the administrator assess how the system handles global deployments, redundancy, and failover protection. Which cloud platform serves as the foundation for Genesys Cloud?",
+                options: ["Microsoft Azure", "Amazon Web Services", "IBM Cloud", "Google Cloud"],
+                correct: 1,
+                resourceLink: "https://help.mypurecloud.com/articles/architecture-overview/",
+                explanation: "Genesys Cloud is built on Amazon Web Services (AWS)."
+            },
+            {
+                question: "A contact center supervisor needs to quickly find employees within the organization and ensure that agents can access external customer and vendor contacts within Genesys Cloud. The goal is to streamline communication by allowing agents to easily search for and connect with internal and external contacts from a centralized location. Where should the supervisor navigate to search for people in the organization and add external contacts?",
+                options: ["Documents", "Activity", "Directory", "Workspaces"],
+                correct: 2,
+                resourceLink: "https://help.mypurecloud.com/articles/directory-overview/",
+                explanation: "The Directory allows searching for people and adding external contacts."
+            },
+            {
+                question: "You have just added a new policy document to Genesys Cloud and want to ensure that it is easily accessible and searchable by everyone in the organization. Which two actions should you take to help users find the document more easily? (Choose 2 answers)",
+                options: ["Add meaningful tags to the document to improve searchability and categorization.", "Add a priority of 'High' to the document to increase its visibility in the list.", "Use a clear, descriptive document name with relevant keywords.", "Number the document in the file name so that it appears at the top of the list.", "Restrict access to the document to key departments so only the most relevant users can find it quickly."],
+                correct: [0, 2],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/document-tags/",
+                explanation: "Tags and descriptive names improve document searchability."
+            },
+            {
+                question: "Amelia is moving to a new department and now reports to a different manager. Since Genesys Cloud is not synced with the HR system, her reporting structure must be updated manually by the administrator. What is the correct step to reflect this change in Genesys Cloud?",
+                options: ["Wait for the system to auto-update after detecting department changes.", "Manually update Amelia's manager field in her user profile.", "Add Amelia's new department to her profile to change her reporting structure.", "Update her manager and all peer relationships to maintain the org chart."],
+                correct: 1,
+                resourceLink: "https://help.mypurecloud.com/articles/update-hierarchy/",
+                explanation: "Manually update the manager field in the user profile to reflect reporting changes."
+            },
+            {
+                question: "A system administrator has just added 75 new employees to Genesys Cloud, but one of them reports that they did not receive the invitation email needed to activate their account. The administrator needs to ensure that the employee gains access as soon as possible. What is the best action to take to resolve this issue?",
+                options: ["Resend the invite to the employee to generate a new activation email.", "Add them to Genesys Cloud again to trigger a new invitation.", "Submit a support ticket to Genesys Cloud to investigate the issue before taking action.", "Advise the employee to wait longer, as invitation emails can take time to arrive."],
+                correct: 0,
+                resourceLink: "https://help.mypurecloud.com/articles/add-people/",
+                explanation: "Resending the invite generates a new activation email."
+            },
+            {
+                question: "A system administrator is deploying a Genesys Cloud Edge appliance to manage the contact center's telephony infrastructure. Which of the following statements are true regarding the Genesys Cloud Edge appliance? (Choose 3 answers)",
+                options: ["It manages connections between your phones, SIP trunks, telephony gateways, Genesys Cloud, and third-party systems.", "It provides core telephony services.", "It provides for the integration of Active Directory, SharePoint, and other third-party data.", "It manages the Genesys Cloud platform services, including user authentication and permissions.", "It operates as a provisioning server, media server, SIP proxy, and SIP gateway."],
+                correct: [0, 1, 4],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/about-edge/",
+                explanation: "Edge manages connections, provides telephony services, and operates as multiple server types."
+            },
+            {
+                question: "Which statement best describes how phone redundancy and call survivability work in Genesys Cloud?",
+                options: ["When an Edge device loses connectivity, active calls remain connected, but new calls cannot be placed or received until the connection is restored.", "If the Edge device goes offline, all active calls are immediately dropped to prevent routing conflicts.", "Phone redundancy only applies to internal calls within the contact center and does not prevent disconnection from external calls.", "Once an Edge device loses connectivity, all registered phones automatically failover to a secondary Edge device, preventing call disruptions."],
+                correct: 3,
+                resourceLink: "https://help.mypurecloud.com/articles/phone-redundancy/",
+                explanation: "Phones automatically failover to a secondary Edge device, preventing call disruptions."
+            },
+            {
+                question: "Which of the following protocols can be selected when creating an external trunk in Genesys Cloud? (Choose 3 answers)",
+                options: ["TCP", "TLS", "SIP", "UDP", "HTTP"],
+                correct: [0, 1, 3],
+                type: "multiple",
+                resourceLink: "https://help.mypurecloud.com/articles/about-trunks/",
+                explanation: "External trunks support TCP, TLS, and UDP protocols."
+            },
+            {
+                question: "You are configuring Genesys Cloud to prevent agents from making unauthorized calls to U.S. premium-rate numbers, which could result in excessive charges. You want to implement an automated solution that ensures compliance without relying on manual intervention. Which is the best method to restrict calls to U.S. premium-rate numbers in Genesys Cloud?",
+                options: ["Specify the premium-rate numbers to block during the initial Genesys Cloud subscription setup.", "Create a number plan to automatically identify and restrict calls to premium-rate numbers.", "Manually train agents to recognize and avoid dialing premium-rate numbers.", "Configure trunks to detect premium-rate numbers and block them from being dialed."],
+                correct: 1,
+                resourceLink: "https://help.mypurecloud.com/articles/number-plans/",
+                explanation: "Number plans automatically identify and restrict calls to premium-rate numbers."
+            },
+            {
+                question: "A contact center manager wants to evaluate queue performance in Genesys Cloud to ensure that customers are not waiting too long before speaking with an agent. The manager needs to identify the metric that measures the average time an interaction waits in the queue before an agent answers it. Which report metric should the manager use?",
+                options: ["Average Handle Time", "Average Speed of Answer", "After Call Work", "Average Talk Time"],
+                correct: 1,
+                resourceLink: "https://help.mypurecloud.com/articles/queue-metrics/",
+                explanation: "Average Speed of Answer measures the average wait time in queue before an agent answers."
+            },
+            {
+                question: "A contact center agent wants to monitor real-time metrics for the queues they are assigned to, including active interactions, wait times, and agent availability. The agent needs a Genesys Cloud view that provides up-to-date queue performance details specifically for the queues they are a member of. Which view should the agent use to see current metrics and information for their assigned queues?",
+                options: ["Queues Activity", "Queues Performance", "My Queues Activity", "Queues"],
+                correct: 2,
+                resourceLink: "https://help.mypurecloud.com/articles/my-queues-activity/",
+                explanation: "My Queues Activity shows real-time metrics for queues the agent is a member of."
+            },
+            {
+                question: "Which Dynamic Reporting View should a supervisor use to see the amount of time an agent spent in each status?",
+                options: ["Agent Interaction", "Agent Queue", "Agent Status", "Agent Performance"],
+                correct: 2,
+                resourceLink: "https://help.mypurecloud.com/articles/user-status-detail/",
+                explanation: "Agent Status view shows the amount of time an agent spent in each status."
+            },
+            {
                 question: "Which of the following entities is used to ensure that people within your organization have the rights and permissions that they need within Genesys Cloud CX?",
                 options: ["Workgroups", "Rooms", "Groups", "Roles"],
                 correct: 3,
