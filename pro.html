@@ -214,6 +214,18 @@
             box-shadow: 2px 2px 0 #26caca;
         }
         
+        .btn-danger {
+            background: #ff4444;
+            color: #000;
+            box-shadow: 6px 6px 0 #660666;
+        }
+        
+        .btn-danger:hover:not(:disabled) {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #660666;
+            background: #ff6666;
+        }
+        
         .btn:disabled {
             background: #444;
             color: #888;
@@ -339,6 +351,36 @@
             color: #660666;
         }
         
+        /* MODAL DE CONFIRMACIÓN */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background-color: #111;
+            margin: 15% auto;
+            padding: 30px;
+            border: 4px solid #a79e02;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 10px 10px 0 #660666;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
@@ -389,6 +431,7 @@
                     <li>Enlace a la documentación oficial en cada pregunta</li>
                     <li>Revisión completa al finalizar</li>
                     <li>Navegación libre entre preguntas</li>
+                    <li>Puedes finalizar el examen en cualquier momento</li>
                 </ul>
             </div>
             
@@ -412,6 +455,7 @@
                 
                 <div class="navigation">
                     <button id="prev-btn" class="btn btn-secondary">⬅️ ANTERIOR</button>
+                    <button id="finish-btn" class="btn btn-danger">🏁 FINALIZAR</button>
                     <button id="next-btn" class="btn btn-primary">SIGUIENTE ➡️</button>
                 </div>
             </div>
@@ -432,6 +476,19 @@
         </div>
         
         <div id="validation-status" class="validation-badge">🔍 Validando enlaces...</div>
+    </div>
+    
+    <!-- Modal de confirmación -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <h3 style="color: #a79e02; margin-bottom: 20px;">⚠️ ¿FINALIZAR EXAMEN? ⚠️</h3>
+            <p style="margin-bottom: 20px;">¿Estás seguro de que quieres finalizar el examen?</p>
+            <p style="margin-bottom: 20px; color: #ff4444;">Preguntas respondidas: <span id="answered-count">0</span>/<span id="total-questions">0</span></p>
+            <div class="modal-buttons">
+                <button id="confirm-finish" class="btn btn-danger">SÍ, FINALIZAR</button>
+                <button id="cancel-finish" class="btn btn-secondary">CANCELAR</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1511,21 +1568,39 @@
         const startBtn = document.getElementById('start-btn');
         const nextBtn = document.getElementById('next-btn');
         const prevBtn = document.getElementById('prev-btn');
+        const finishBtn = document.getElementById('finish-btn');
         const restartBtn = document.getElementById('restart-btn');
         const scoreDisplay = document.getElementById('score-display');
         const scoreMessage = document.getElementById('score-message');
         const detailedResults = document.getElementById('detailed-results');
         const validationStatus = document.getElementById('validation-status');
+        const modal = document.getElementById('confirm-modal');
+        const confirmFinishBtn = document.getElementById('confirm-finish');
+        const cancelFinishBtn = document.getElementById('cancel-finish');
+        const answeredCountSpan = document.getElementById('answered-count');
+        const totalQuestionsSpan = document.getElementById('total-questions');
 
         // Deshabilitar botón de inicio mientras se validan los enlaces
         startBtn.disabled = true;
         startBtn.style.opacity = '0.5';
         startBtn.textContent = '🔍 VALIDANDO ENLACES...';
 
-        // Función para obtener link seguro
-        function getSafeLink(url) {
-            if (!url) return "https://help.mypurecloud.com/";
-            return url;
+        // Función para contar respuestas respondidas
+        function countAnsweredQuestions() {
+            return userAnswers.filter(answer => answer !== null).length;
+        }
+
+        // Función para mostrar modal de confirmación
+        function showFinishConfirmation() {
+            const answered = countAnsweredQuestions();
+            answeredCountSpan.textContent = answered;
+            totalQuestionsSpan.textContent = questions.length;
+            modal.style.display = 'block';
+        }
+
+        // Función para cerrar modal
+        function closeModal() {
+            modal.style.display = 'none';
         }
 
         // Función para iniciar el examen (solo después de validación)
@@ -1629,7 +1704,7 @@
                 currentQuestion++;
                 showQuestion();
             } else {
-                finishExam();
+                showFinishConfirmation();
             }
         }
 
@@ -1641,6 +1716,7 @@
         }
 
         function finishExam() {
+            closeModal();
             quizScreen.classList.add('hidden');
             resultsScreen.classList.remove('hidden');
             
@@ -1783,7 +1859,17 @@
         startBtn.addEventListener('click', startExam);
         nextBtn.addEventListener('click', nextQuestion);
         prevBtn.addEventListener('click', prevQuestion);
+        finishBtn.addEventListener('click', showFinishConfirmation);
         restartBtn.addEventListener('click', restartExam);
+        confirmFinishBtn.addEventListener('click', finishExam);
+        cancelFinishBtn.addEventListener('click', closeModal);
+        
+        // Cerrar modal si se hace clic fuera de él
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
 
         // Iniciar validación al cargar la página
         validateAllLinks();
